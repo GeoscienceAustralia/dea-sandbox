@@ -1,0 +1,77 @@
+name: sandbox
+
+on:
+  pull_request:
+    branches:
+      - sandbox
+    paths:
+      - 'sandbox/**'
+      - '.github/workflows/docker-sandbox.yml'
+
+  push:
+    branches:
+      - sandbox
+    paths:
+      - 'sandbox/**'
+      - '.github/workflows/docker-sandbox.yml'
+
+env:
+  ORG: opendatacube
+  IMAGE: sandbox
+  BUILDER_TAG: _build_cache
+  DOCKER_USER: gadockersvc
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Pull Cache
+      run: |
+        docker pull ${ORG}/${IMAGE}:latest         || true
+        docker pull ${ORG}/${IMAGE}:${BUILDER_TAG} || true
+
+    - name: Build Sandbox Docker (stage1)
+      run: |
+        # build and cache first stage (env_builder)
+        docker build \
+          --target env_builder \
+          --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
+          --tag        ${ORG}/${IMAGE}:${BUILDER_TAG} \
+          ./sandbox/
+
+    - name: Build Sandbox Docker (stage2)
+      run: |
+        # now build second stage making sure first stage is from cache
+        docker build \
+          --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
+          --cache-from ${ORG}/${IMAGE}:latest \
+          --tag        ${ORG}/${IMAGE}:latest \
+          ./sandbox/
+
+    - name: Build Sandbox Docker (sudo)
+      run: |
+        # build SUDO version
+        docker build \
+          --build-arg WITH_SUDO=yes \
+          --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
+          --cache-from ${ORG}/${IMAGE}:latest \
+          --tag        ${ORG}/${IMAGE}:sudo \
+          ./sandbox/
+
+    - name: DockerHub Push
+      if: |
+        github.event_name == 'push' && (
+        github.ref == 'refs/heads/master'
+        || github.ref == 'refs/heads/sandbox'
+        )
+
+      run: |
+        echo "Login to DockerHub as ${DOCKER_USER}"
+        echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
+        docker push ${ORG}/${IMAGE}:${BUILDER_TAG}
+        docker push ${ORG}/${IMAGE}:latest
+        docker push ${ORG}/${IMAGE}:sudo

@@ -1,0 +1,4 @@
+Cython --no-binary=Cython
+numpy
+wheel
+setuptools

@@ -1,0 +1,26 @@
+# ODC/DEA
+--extra-index-url="https://packages.dea.ga.gov.au"
+--no-binary=fc,hdstats
+datacube[performance]
+odc_algo
+odc_ui
+odc_index
+odc_aws
+odc_geom
+odc_io
+odc_aio
+odc_ppt
+odc_dscache
+odc_dtools
+otps
+fc
+hdstats>=0.1.3
+eodatasets3
+odc-apps-dc-tools
+odc-apps-cloud
+datacube-stats
+hdmedians --no-binary=hdmedians
+
+# rsgislib is conda only, but was manually packaged as a binary wheel compatible
+# with geobase docker images
+rsgislib

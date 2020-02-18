@@ -1,0 +1,9 @@
+#!/bin/bash
+
+[ -n "$GDAL_DATA" ] || {
+    export GDAL_DATA=$(gdal-config --datadir)
+}
+
+[ $# -eq 0 ] || {
+  exec "$@"
+}
