@@ -71,6 +71,11 @@ RUN apt-get update -y \
   libboost-system1.65.1 \
   libboost-filesystem1.65.1 \
   libboost-date-time1.65.1 \
+# for cython to work need compilers
+  build-essential \
+# for pyRAT install or something
+  libfftw3-dev \
+  liblapack-dev \
 && rm -rf /var/lib/apt/lists/*
 
 #Install ffmpeg static binary
