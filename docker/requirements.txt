@@ -93,6 +93,7 @@ cartopy
 seaborn
 ipyfilechooser
 pydotplus
+plotly
 
 --no-binary=aiohttp\
 ,cffi\
