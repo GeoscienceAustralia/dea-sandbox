@@ -2,17 +2,13 @@ name: sandbox
 
 on:
   pull_request:
-    branches:
-      - sandbox
     paths:
-      - 'sandbox/**'
+      - 'docker/**'
       - '.github/workflows/docker-sandbox.yml'
 
   push:
-    branches:
-      - sandbox
     paths:
-      - 'sandbox/**'
+      - 'docker/**'
       - '.github/workflows/docker-sandbox.yml'
 
 env:
@@ -41,7 +37,7 @@ jobs:
           --target env_builder \
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
           --tag        ${ORG}/${IMAGE}:${BUILDER_TAG} \
-          ./sandbox/
+          ./docker/
 
     - name: Build Sandbox Docker (stage2)
       run: |
@@ -50,7 +46,7 @@ jobs:
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
           --cache-from ${ORG}/${IMAGE}:latest \
           --tag        ${ORG}/${IMAGE}:latest \
-          ./sandbox/
+          ./docker/
 
     - name: Build Sandbox Docker (sudo)
       run: |
@@ -60,13 +56,12 @@ jobs:
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
           --cache-from ${ORG}/${IMAGE}:latest \
           --tag        ${ORG}/${IMAGE}:sudo \
-          ./sandbox/
+          ./docker/
 
     - name: DockerHub Push
       if: |
         github.event_name == 'push' && (
         github.ref == 'refs/heads/master'
-        || github.ref == 'refs/heads/sandbox'
         )
 
       run: |
