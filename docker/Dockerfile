@@ -103,7 +103,8 @@ ENV SHELL=bash
 ENV PATH=${py_env_path}/bin:$PATH
 
 # TODO: remove this once we have working NFS with tidal data in it
-RUN otps_fetch_data
+RUN mkdir -p /var/share/TPX08_atlas_compact/ \
+    && (cd /var/share/TPX08_atlas_compact/ && otps_fetch_data .)
 
 COPY with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
