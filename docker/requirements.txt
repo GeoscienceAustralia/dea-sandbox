@@ -62,6 +62,7 @@ jupyterlab-code-formatter==0.5.0
 sidecar==0.3.0
 ipyevents==0.7.0
 ipycanvas==0.3.4
+jupyter-bokeh==1.1.1
 jupyterlab-git
 jupyter-nbextensions-configurator
 jupyter-contrib-nbextensions
