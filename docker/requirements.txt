@@ -53,7 +53,7 @@ urbanaccess
 # jupyter things
 jupyter==1.0.0
 jupyterlab==1.0.9
-jupyterhub==1.0.0
+jupyterhub==0.9.6
 ipyleaflet==0.11.1
 jupyter-server-proxy==1.1.0
 dask-labextension==1.0.3
