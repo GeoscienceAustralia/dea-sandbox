@@ -97,6 +97,9 @@ ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
 ENV PATH=${py_env_path}/bin:$PATH
 
+# TODO: remove this once we have working NFS with tidal data in it
+RUN otps_fetch_data
+
 COPY with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
 

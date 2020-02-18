@@ -12,7 +12,7 @@ odc_aio
 odc_ppt
 odc_dscache
 odc_dtools
-otps
+otps>=0.3.1
 fc
 hdstats>=0.1.3
 eodatasets3
