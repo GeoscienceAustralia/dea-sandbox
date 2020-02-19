@@ -106,6 +106,9 @@ ENV PATH=${py_env_path}/bin:$PATH
 RUN mkdir -p /var/share/TPX08_atlas_compact/ \
     && (cd /var/share/TPX08_atlas_compact/ && otps_fetch_data .)
 
+# Patch env when needed here
+# RUN pip install extra-packages
+
 COPY with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
 
