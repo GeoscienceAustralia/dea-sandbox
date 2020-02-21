@@ -64,6 +64,7 @@ RUN apt-get update -y \
   iputils-ping \
   net-tools \
   simpleproxy \
+  rsync \
 # rgsislib dependencies
   libcgal13 \
   libmuparser2v5 \
