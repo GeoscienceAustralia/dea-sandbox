@@ -25,9 +25,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Pull Cache
+    - name: Pull Cache (stage1)
       run: |
-        docker pull ${ORG}/${IMAGE}:latest         || true
         docker pull ${ORG}/${IMAGE}:${BUILDER_TAG} || true
 
     - name: Build Sandbox Docker (stage1)
@@ -38,6 +37,12 @@ jobs:
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
           --tag        ${ORG}/${IMAGE}:${BUILDER_TAG} \
           ./docker/
+
+    - name: Pull Cache (stage2)
+      run: |
+        # Remove old layers first to help with disk usage
+        docker system prune --force
+        docker pull ${ORG}/${IMAGE}:latest         || true
 
     - name: Build Sandbox Docker (stage2)
       run: |
