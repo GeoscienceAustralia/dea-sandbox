@@ -109,7 +109,7 @@ RUN mkdir -p /var/share/TPX08_atlas_compact/ \
 
 # Patch env when needed here
 RUN pip install nbresuse \
-  && jupyter serverextension enable --py nbresuse
+  && jupyter serverextension enable --py --system nbresuse
 
 COPY with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
