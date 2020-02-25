@@ -64,6 +64,7 @@ sidecar==0.3.0
 ipyevents==0.7.0
 ipycanvas==0.3.4
 jupyter-bokeh==1.1.1
+jupyterlab_iframe==0.2.1
 jupyterlab-git
 jupyter-nbextensions-configurator
 jupyter-contrib-nbextensions
@@ -78,6 +79,7 @@ mypy
 line_profiler
 nbformat
 nbval
+nbresuse
 
 # jupyter + matplotlib
 matplotlib
