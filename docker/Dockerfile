@@ -18,6 +18,9 @@ RUN echo "Building python environment: stage 2" \
 
 ENV PATH=${py_env_path}/bin:$PATH
 
+# Install extra libs for labextensions without a full rebuild
+RUN pip install --no-cache-dir jupyterlab_iframe==0.2.1
+
 RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
   && jupyter labextension install --no-build @jupyterlab/geojson-extension@v1.0.0 \
@@ -31,8 +34,10 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-sidecar@v0.4.0 \
   && jupyter labextension install --no-build ipyevents@v1.7.0 \
   && jupyter labextension install --no-build ipycanvas@v0.3.4 \
+  && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
   && jupyter serverextension enable --py jupyterlab_code_formatter \
+  && jupyter serverextension enable --py --system jupyterlab_iframe \
   && jupyter labextension list \
   && echo "...done"
 
