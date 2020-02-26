@@ -1,11 +1,6 @@
 name: sandbox
 
 on:
-  pull_request:
-    paths:
-      - 'docker/**'
-      - '.github/workflows/docker-sandbox.yml'
-
   push:
     paths:
       - 'docker/**'
@@ -14,7 +9,6 @@ on:
 env:
   ORG: opendatacube
   IMAGE: sandbox
-  BUILDER_TAG: _build_cache
   DOCKER_USER: gadockersvc
 
 
@@ -25,12 +19,53 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Setup env
+      run: |
+        branch="${GITHUB_REF/refs\/heads\//}"
+        MAIN_TAG="${branch/master/latest}"
+        BUILDER_TAG="_build_cache_${branch}"
+        BUILDER_TAG="${BUILDER_TAG/_master//}"
+
+        cat > .env <<EOF
+        BUILDER_TAG0=_build_cache
+        BUILDER_TAG=${BUILDER_TAG}
+        MAIN_TAG=${MAIN_TAG}
+        SUDO_TAG=${MAIN_TAG}-sudo
+        EOF
+
+        cat >> .env <<'EOF'
+
+        pull_docker_cache () {
+          local image=${1}
+          local fallback=${2}
+
+          if docker pull $image ; then
+             echo "Pulled ${image}"
+          else
+             echo "Pulling fallback ${fallback}"
+             if docker pull $fallback ; then
+                echo "Using fallback: ${fallback}"
+                docker tag $fallback $image
+             fi
+          fi
+        }
+        EOF
+
+    - name: DockerHub Login
+      if: github.event_name == 'push'
+      run: |
+        source .env
+        echo "Login to DockerHub as ${DOCKER_USER}"
+        echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
+
     - name: Pull Cache (stage1)
       run: |
-        docker pull ${ORG}/${IMAGE}:${BUILDER_TAG} || true
+        source .env
+        pull_docker_cache ${ORG}/${IMAGE}:${BUILDER_TAG} ${ORG}/${IMAGE}:${BUILDER_TAG0}
 
     - name: Build Sandbox Docker (stage1)
       run: |
+        source .env
         # build and cache first stage (env_builder)
         docker build \
           --target env_builder \
@@ -38,40 +73,48 @@ jobs:
           --tag        ${ORG}/${IMAGE}:${BUILDER_TAG} \
           ./docker/
 
+    - name: DockerHub Push (stage1)
+      if: github.event_name == 'push'
+      run: |
+        source .env
+        docker push ${ORG}/${IMAGE}:${BUILDER_TAG}
+
     - name: Pull Cache (stage2)
       run: |
+        source .env
         # Remove old layers first to help with disk usage
         docker system prune --force
-        docker pull ${ORG}/${IMAGE}:latest         || true
+        pull_docker_cache ${ORG}/${IMAGE}:${MAIN_TAG} ${ORG}/${IMAGE}:latest
 
     - name: Build Sandbox Docker (stage2)
       run: |
+        source .env
         # now build second stage making sure first stage is from cache
         docker build \
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
-          --cache-from ${ORG}/${IMAGE}:latest \
-          --tag        ${ORG}/${IMAGE}:latest \
+          --cache-from ${ORG}/${IMAGE}:${MAIN_TAG} \
+          --tag        ${ORG}/${IMAGE}:${MAIN_TAG} \
           ./docker/
+
+    - name: DockerHub Push (stage2)
+      if: github.event_name == 'push'
+      run: |
+        source .env
+        docker push ${ORG}/${IMAGE}:${MAIN_TAG}
 
     - name: Build Sandbox Docker (sudo)
       run: |
+        source .env
         # build SUDO version
         docker build \
           --build-arg WITH_SUDO=yes \
           --cache-from ${ORG}/${IMAGE}:${BUILDER_TAG} \
-          --cache-from ${ORG}/${IMAGE}:latest \
-          --tag        ${ORG}/${IMAGE}:sudo \
+          --cache-from ${ORG}/${IMAGE}:${MAIN_TAG} \
+          --tag        ${ORG}/${IMAGE}:${SUDO_TAG} \
           ./docker/
 
-    - name: DockerHub Push
-      if: |
-        github.event_name == 'push' && (
-        github.ref == 'refs/heads/master'
-        )
-
+    - name: DockerHub Push (sudo)
+      if: github.event_name == 'push'
       run: |
-        echo "Login to DockerHub as ${DOCKER_USER}"
-        echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
-        docker push ${ORG}/${IMAGE}:${BUILDER_TAG}
-        docker push ${ORG}/${IMAGE}:latest
-        docker push ${ORG}/${IMAGE}:sudo
+        source .env
+        docker push ${ORG}/${IMAGE}:${SUDO_TAG}
