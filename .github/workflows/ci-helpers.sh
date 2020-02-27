@@ -5,7 +5,7 @@
 BUILDER_TAG0=_build_cache
 branch="${GITHUB_REF/refs\/heads\//}"
 
-if [ branch = "master" ]; then
+if [ "${branch}" = "master" ]; then
     MAIN_TAG="latest"
     BUILDER_TAG="${BUILDER_TAG0}"
 else
