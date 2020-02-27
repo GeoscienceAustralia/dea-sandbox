@@ -5,6 +5,7 @@ on:
     paths:
       - 'docker/**'
       - '.github/workflows/docker-sandbox.yml'
+      - '.github/workflows/*sh'
 
 env:
   ORG: opendatacube
