@@ -119,7 +119,7 @@ RUN pip install --no-cache-dir nbresuse \
   --extra-index-url="https://packages.dea.ga.gov.au" \
   --no-deps --upgrade odc-algo odc-ui 'datacube[performance]' \ 
   && mkdir -m664 /etc/jupyter
-COPY jupyter_notebook_config.py "/etc/jupyter/"
+COPY jupyter_notebook_config.py /etc/jupyter/
 
 
 COPY with_bootstrap /usr/local/bin/
