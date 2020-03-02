@@ -19,18 +19,18 @@ RUN echo "Building python environment: stage 2" \
 ENV PATH=${py_env_path}/bin:$PATH
 
 RUN echo "Adding jupyter lab extensions" \
-  && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
-  && jupyter labextension install --no-build @jupyterlab/geojson-extension@v1.0.0 \
-  && jupyter labextension install --no-build @jupyterlab/hub-extension@v1.1.0 \
-  && jupyter labextension install --no-build jupyter-leaflet@v0.11.1 \
-  && jupyter labextension install --no-build dask-labextension@v1.0.1 \
-  && jupyter labextension install --no-build jupyter-matplotlib@v0.4.2 \
+  && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.1.0 \
+  && jupyter labextension install --no-build @jupyterlab/geojson-extension@v2.0.0 \
+  && jupyter labextension install --no-build @jupyterlab/hub-extension@v2.0.0 \
+  && jupyter labextension install --no-build jupyter-leaflet@v0.12.2 \
+  && jupyter labextension install --no-build dask-labextension@v1.1.0 \
+  && jupyter labextension install --no-build jupyter-matplotlib@v0.7.1 \
   && jupyter labextension install --no-build @bokeh/jupyter_bokeh@1.1.1 \
   && jupyter labextension install --no-build nbdime-jupyterlab@v1.0.0 \
-  && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v0.5.0 \
+  && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v1.1.0 \
   && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-sidecar@v0.4.0 \
   && jupyter labextension install --no-build ipyevents@v1.7.0 \
-  && jupyter labextension install --no-build ipycanvas@v0.3.4 \
+  && jupyter labextension install --no-build ipycanvas@v0.4.3 \
   && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
   && jupyter lab clean \

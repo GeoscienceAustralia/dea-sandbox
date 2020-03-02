@@ -55,14 +55,14 @@ urbanaccess
 jupyter==1.0.0
 jupyterlab==2.0.0
 jupyterhub==1.1.0
-ipyleaflet==0.11.1
+ipyleaflet==0.12.2
 jupyter-server-proxy==1.2.0
-dask-labextension==1.0.3
+dask-labextension==1.1.0
 nbdime==1.1.0
 jupyterlab-code-formatter==1.1.0
 sidecar==0.3.0
 ipyevents==0.7.0
-ipycanvas==0.3.4
+ipycanvas==0.4.3
 jupyter-bokeh==1.1.1
 jupyterlab_iframe==0.2.1
 jupyterlab-git
