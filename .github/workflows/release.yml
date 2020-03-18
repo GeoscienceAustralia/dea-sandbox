@@ -1,38 +1,18 @@
-name: Sandbox build and push
+name: Sandbox build and push a release
 
 on:
-  pull_request:
-    paths:
-      - 'docker/**'
-      - '.github/workflows/docker-sandbox.yml'
+  release:
+    types:
+      - created
 
-  push:
-    paths:
-      - 'docker/**'
-      - '.github/workflows/docker-sandbox.yml'
 
 env:
   IMAGE_NAME: geoscienceaustralia/sandbox
   DOCKER_USER: gadockersvc
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-
-    - name: Build on every push to test the build
-      uses: whoan/docker-build-with-cache-action@v4
-      with:
-        image_name: ${{ env.IMAGE_NAME }}
-        username: ${{ env.DOCKER_USER }}
-        password: "${{ secrets.DockerPassword }}"
-        push_image_and_stages: false
-        context: ./docker
 
   push:
-    # Pushing only happens on the Master branch
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/master'
@@ -45,7 +25,7 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      run: echo ::set-output name=VERSION::${$GITHUB_REF | cut -d / -f 3}
 
     - name: Build and Push latest Docker image
       uses: whoan/docker-build-with-cache-action@v4
@@ -53,8 +33,7 @@ jobs:
         image_name: ${{ env.IMAGE_NAME }}
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
-        image_tag: latest
-        # push_git_tag: true
+        image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
 
     - name: Build and Push latest Docker image with Sudo
@@ -64,5 +43,5 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         build_extra_args: "--build-arg=WITH_SUDO=yes"
-        image_tag: sudo-latest
+        image_tag: sudo-latest,sudo-${{ steps.get_version.outputs.VERSION }}
         context: ./docker
