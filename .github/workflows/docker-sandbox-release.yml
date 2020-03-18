@@ -24,7 +24,7 @@ jobs:
       id: get_version
       run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
-    - name: Build and Push latest Docker image
+    - name: Build and Push latest and tagged Docker image
       uses: whoan/docker-build-with-cache-action@v4
       with:
         image_name: ${{ env.IMAGE_NAME }}
@@ -33,7 +33,7 @@ jobs:
         image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
 
-    - name: Build and Push latest Docker image with Sudo
+    - name: Build and Push latest and tagged sudo Docker image
       uses: whoan/docker-build-with-cache-action@v4
       with:
         image_name: ${{ env.IMAGE_NAME }}

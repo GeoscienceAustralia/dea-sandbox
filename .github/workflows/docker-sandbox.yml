@@ -53,7 +53,7 @@ jobs:
         # push_git_tag: true
         context: ./docker
 
-    - name: Build and Push latest Docker image with Sudo
+    - name: Build and Push latest sudo Docker image
       uses: whoan/docker-build-with-cache-action@v4
       with:
         image_name: ${{ env.IMAGE_NAME }}
