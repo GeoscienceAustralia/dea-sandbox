@@ -43,10 +43,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Get the version
-      id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-
     - name: Build and Push latest Docker image
       uses: whoan/docker-build-with-cache-action@v4
       with:
