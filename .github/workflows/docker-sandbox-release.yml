@@ -1,4 +1,4 @@
-name: Sandbox build and push a release
+name: Sandbox build and push release
 
 on:
   release:

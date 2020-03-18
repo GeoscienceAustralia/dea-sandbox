@@ -1,4 +1,4 @@
-name: Sandbox build and push
+name: Sandbox build and push latest
 
 on:
   pull_request:
