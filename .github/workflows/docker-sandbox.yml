@@ -22,15 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Get the Git tag
-      id: get_version
-      run: |
-        git fetch --prune --unshallow
-        echo ::set-output name=VERSION::$(git describe --tags)
-
-    - name: Echo the tag
-      run: echo ${{ steps.get_version.outputs.VERSION }}
-
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
       with:
@@ -55,9 +46,6 @@ jobs:
       run: |
         git fetch --prune --unshallow
         echo ::set-output name=VERSION::$(git describe --tags)
-
-    - name: Echo the tag
-      run: echo ${{ steps.get_version.outputs.VERSION }}
 
     - name: Build and Push latest Docker image
       uses: whoan/docker-build-with-cache-action@v4
