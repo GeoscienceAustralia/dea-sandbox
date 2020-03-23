@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+  
+REPO=$1
+
+# Don't sync if there's a .no_sync file
+[ -e .no_sync  ] || {
+    # Sync notebook repo
+    WORKDIR=$(mktemp -d git-XXXXXX)
+    git clone --depth 1 "$REPO" "$WORKDIR"
+    rm -rf "${WORKDIR}"/{.git,.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
+    rsync -avuo "${WORKDIR}/" ~/
+    rm -rf "${WORKDIR}"
+}
