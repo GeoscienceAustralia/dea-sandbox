@@ -39,9 +39,9 @@ jobs:
 
     steps:
     - name: Checkout git
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+    - uses: actions/checkout@v2
+    - run: |
+        git fetch --prune --unshallow
 
     - name: Get the Git tag
       id: get_version
