@@ -20,7 +20,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+
+    - name: Get the Git tag
+      id: get_version
+      run: |
+        git fetch --prune --unshallow
+        echo ::set-output name=VERSION::$(git describe --tags)
+
+    - name: Echo the tag
+      run: echo ${{ steps.get_version.outputs.VERSION }}
 
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
