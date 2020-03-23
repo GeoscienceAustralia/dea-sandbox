@@ -13,6 +13,6 @@ BRANCH="${2:-master}"
       sleep $(( NEXT_WAIT_TIME++ ))
     done
     rm -rf "${WORKDIR}"/{.git,.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
-    rsync -avuo "${WORKDIR}/" ~/
+    rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
 }
