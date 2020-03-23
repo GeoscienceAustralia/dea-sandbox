@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPO=$1
-BRANCH=$2
+BRANCH="${2:-master}"
 
 # Don't sync if there's a .no_sync file
 [ -e .no_sync  ] || {
