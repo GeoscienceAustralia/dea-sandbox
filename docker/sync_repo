@@ -1,12 +1,19 @@
-#!/bin/bash
-  
+#!/usr/bin/env bash
+
+set -e
+
 REPO=$1
+BRANCH=$2
 
 # Don't sync if there's a .no_sync file
 [ -e .no_sync  ] || {
     # Sync notebook repo
     WORKDIR=$(mktemp -d git-XXXXXX)
-    git clone --depth 1 "$REPO" "$WORKDIR"
+    # git clone with backoff to give network whitelist time to start
+    NEXT_WAIT_TIME=0
+    until $(git clone --depth 1 --branch "$BRANCH" "$REPO" "$WORKDIR") ||  [ $NEXT_WAIT_TIME -eq 4 ]; do
+      sleep $(( NEXT_WAIT_TIME++ ))
+    done
     rm -rf "${WORKDIR}"/{.git,.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
     rsync -avuo "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
