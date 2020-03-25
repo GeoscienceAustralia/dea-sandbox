@@ -29,24 +29,25 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         push_image_and_stages: false
-        context: ./docker
-
-    - name: Clean up Docker environment
-      if: failure()
-      run: >
-        docker system prune --force --all --volumes 
-        --filter reference="geoscienceaustralia/*"
-
-    - name: Build without a cache
-      if: failure()
-      uses: whoan/docker-build-with-cache-action@v4
-      with:
-        image_name: ${{ env.IMAGE_NAME }}
-        username: ${{ env.DOCKER_USER }}
-        password: "${{ secrets.DockerPassword }}"
-        push_image_and_stages: false
         pull_image_and_stages: false
         context: ./docker
+
+    # - name: Clean up Docker environment
+    #   if: failure()
+    #   run: >
+    #     docker system prune --force --all --volumes 
+    #     --filter reference="geoscienceaustralia/*"
+
+    # - name: Build without a cache
+    #   if: failure()
+    #   uses: whoan/docker-build-with-cache-action@v4
+    #   with:
+    #     image_name: ${{ env.IMAGE_NAME }}
+    #     username: ${{ env.DOCKER_USER }}
+    #     password: "${{ secrets.DockerPassword }}"
+    #     push_image_and_stages: false
+    #     pull_image_and_stages: false
+    #     context: ./docker
 
   push:
     # Pushing only happens on the Master branch
@@ -72,21 +73,22 @@ jobs:
         password: "${{ secrets.DockerPassword }}"
         image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
-
-    - name: Clean up Docker environment
-      if: failure()
-      run: docker system prune --force
-
-    - name: Build and Push latest Docker image without a cache
-      if: failure()
-      uses: whoan/docker-build-with-cache-action@v4
-      with:
-        image_name: ${{ env.IMAGE_NAME }}
-        username: ${{ env.DOCKER_USER }}
-        password: "${{ secrets.DockerPassword }}"
-        image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         pull_image_and_stages: false
-        context: ./docker
+
+    # - name: Clean up Docker environment
+    #   if: failure()
+    #   run: docker system prune --force
+
+    # - name: Build and Push latest Docker image without a cache
+    #   if: failure()
+    #   uses: whoan/docker-build-with-cache-action@v4
+    #   with:
+    #     image_name: ${{ env.IMAGE_NAME }}
+    #     username: ${{ env.DOCKER_USER }}
+    #     password: "${{ secrets.DockerPassword }}"
+    #     image_tag: latest,${{ steps.get_version.outputs.VERSION }}
+    #     pull_image_and_stages: false
+    #     context: ./docker
 
     - name: Build and Push latest sudo Docker image
       uses: whoan/docker-build-with-cache-action@v4
