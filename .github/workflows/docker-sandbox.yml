@@ -31,6 +31,7 @@ jobs:
         push_image_and_stages: false
         context: ./docker
 
+    # If the above step fails, clean up the environment and build without a cache
     - name: Clean up Docker environment
       if: failure()
       run: |
@@ -72,22 +73,24 @@ jobs:
         password: "${{ secrets.DockerPassword }}"
         image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
+
+    # If the above step fails, clean up the environment and build without a cache
+    - name: Clean up Docker environment
+      if: failure()
+      run: |
+        docker system prune --force --volumes
+        docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'geoscienceaustralia')
+
+    - name: Build and Push latest Docker image without a cache
+      if: failure()
+      uses: whoan/docker-build-with-cache-action@v4
+      with:
+        image_name: ${{ env.IMAGE_NAME }}
+        username: ${{ env.DOCKER_USER }}
+        password: "${{ secrets.DockerPassword }}"
+        image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         pull_image_and_stages: false
-
-    # - name: Clean up Docker environment
-    #   if: failure()
-    #   run: docker system prune --force
-
-    # - name: Build and Push latest Docker image without a cache
-    #   if: failure()
-    #   uses: whoan/docker-build-with-cache-action@v4
-    #   with:
-    #     image_name: ${{ env.IMAGE_NAME }}
-    #     username: ${{ env.DOCKER_USER }}
-    #     password: "${{ secrets.DockerPassword }}"
-    #     image_tag: latest,${{ steps.get_version.outputs.VERSION }}
-    #     pull_image_and_stages: false
-    #     context: ./docker
+        context: ./docker
 
     - name: Build and Push latest sudo Docker image
       uses: whoan/docker-build-with-cache-action@v4
