@@ -54,12 +54,12 @@ urbanaccess
 # jupyter things
 jupyter==1.0.0
 jupyterlab==1.2.3
-jupyterhub==0.9.6
+jupyterhub==1.1.0
 ipyleaflet==0.11.1
 jupyter-server-proxy==1.1.0
 dask-labextension==1.0.3
 nbdime==1.1.0
-jupyterlab_code_formatter==0.5.0
+jupyterlab-code-formatter==0.5.0
 sidecar==0.3.0
 ipyevents==0.7.0
 ipycanvas==0.3.4
