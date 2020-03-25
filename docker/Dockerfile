@@ -36,9 +36,6 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build ipycanvas@v0.3.4 \
   && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
-  && jupyter serverextension enable --py jupyterlab_code_formatter --sys-prefix \
-  && jupyter serverextension enable --py --system jupyterlab_iframe \
-  && jupyter labextension list \
   && echo "...done"
 
 COPY requirements-odc.txt /conf/
@@ -103,7 +100,7 @@ RUN useradd -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 # Copy python env
 ARG py_env_path
 COPY --chown=1000:100 --from=env_builder $py_env_path $py_env_path
-
+  
 ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
 ENV PATH=${py_env_path}/bin:$PATH
@@ -115,6 +112,8 @@ RUN mkdir -p /var/share/TPX08_atlas_compact/ \
 # Patch env when needed here
 RUN pip install --no-cache-dir nbresuse \
   && jupyter serverextension enable --py --system nbresuse \
+  && jupyter serverextension enable --py jupyterlab_code_formatter \
+  && jupyter serverextension enable --py --system jupyterlab_iframe \
   && pip install --no-cache-dir \
   --extra-index-url="https://packages.dea.ga.gov.au" \
   --no-deps --upgrade odc-algo odc-ui 'datacube[performance]'
