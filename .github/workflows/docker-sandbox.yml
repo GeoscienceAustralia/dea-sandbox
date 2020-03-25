@@ -35,8 +35,7 @@ jobs:
       if: failure()
       run: >
         docker system prune --force --all --volumes 
-        --filter "label=geoscienceaustralia/sandbox-stages"
-        --filter "label=geoscienceaustralia/sandbox"
+        --filter reference="geoscienceaustralia/*"
 
     - name: Build without a cache
       if: failure()
