@@ -22,9 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Clean up Docker environment
-      run: docker system prune --force
-
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
       with:
@@ -36,7 +33,7 @@ jobs:
 
     - name: Clean up Docker environment
       if: failure()
-      run: docker system prune --force
+      run: docker system prune --force --all --volumes
 
     - name: Build without a cache
       if: failure()
