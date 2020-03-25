@@ -23,7 +23,6 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Clean up Docker environment
-      if: failure()
       run: docker system prune --force
 
     - name: Build on every push to test the build
