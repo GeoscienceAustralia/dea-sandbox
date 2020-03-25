@@ -29,6 +29,7 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         push_image_and_stages: false
+        pull_image_and_stages: false
         context: ./docker
 
   push:
