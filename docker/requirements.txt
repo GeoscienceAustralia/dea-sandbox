@@ -108,6 +108,7 @@ plotly
 ,regex\
 ,ruamel.yaml.clib\
 ,yarl\
+,msgpack\
 ,multidict\
 ,statsmodels\
 ,typed_ast\
