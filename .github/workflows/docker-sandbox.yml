@@ -29,25 +29,25 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         push_image_and_stages: false
-        pull_image_and_stages: false
         context: ./docker
 
-    # - name: Clean up Docker environment
-    #   if: failure()
-    #   run: >
-    #     docker system prune --force --all --volumes 
-    #     --filter reference="geoscienceaustralia/*"
+    - name: Clean up Docker environment
+      if: failure()
+      run: |
+        docker system prune --force --volumes
+        docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'geoscienceaustralia')
+        docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'my_awesome_image')
 
-    # - name: Build without a cache
-    #   if: failure()
-    #   uses: whoan/docker-build-with-cache-action@v4
-    #   with:
-    #     image_name: ${{ env.IMAGE_NAME }}
-    #     username: ${{ env.DOCKER_USER }}
-    #     password: "${{ secrets.DockerPassword }}"
-    #     push_image_and_stages: false
-    #     pull_image_and_stages: false
-    #     context: ./docker
+    - name: Build without a cache
+      if: failure()
+      uses: whoan/docker-build-with-cache-action@v4
+      with:
+        image_name: ${{ env.IMAGE_NAME }}
+        username: ${{ env.DOCKER_USER }}
+        password: "${{ secrets.DockerPassword }}"
+        push_image_and_stages: false
+        pull_image_and_stages: false
+        context: ./docker
 
   push:
     # Pushing only happens on the Master branch
