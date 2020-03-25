@@ -22,6 +22,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Clean up Docker environment
+      if: failure()
+      run: docker system prune --force
+
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
       with:
@@ -30,6 +34,10 @@ jobs:
         password: "${{ secrets.DockerPassword }}"
         push_image_and_stages: false
         context: ./docker
+
+    - name: Clean up Docker environment
+      if: failure()
+      run: docker system prune --force
 
     - name: Build without a cache
       if: failure()
@@ -66,6 +74,10 @@ jobs:
         password: "${{ secrets.DockerPassword }}"
         image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
+
+    - name: Clean up Docker environment
+      if: failure()
+      run: docker system prune --force
 
     - name: Build and Push latest Docker image without a cache
       if: failure()
