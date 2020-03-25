@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
@@ -29,7 +29,25 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         push_image_and_stages: false
+        pull_image_and_stages: false
         context: ./docker
+
+    # - name: Clean up Docker environment
+    #   if: failure()
+    #   run: >
+    #     docker system prune --force --all --volumes 
+    #     --filter reference="geoscienceaustralia/*"
+
+    # - name: Build without a cache
+    #   if: failure()
+    #   uses: whoan/docker-build-with-cache-action@v4
+    #   with:
+    #     image_name: ${{ env.IMAGE_NAME }}
+    #     username: ${{ env.DOCKER_USER }}
+    #     password: "${{ secrets.DockerPassword }}"
+    #     push_image_and_stages: false
+    #     pull_image_and_stages: false
+    #     context: ./docker
 
   push:
     # Pushing only happens on the Master branch
@@ -40,8 +58,12 @@ jobs:
     steps:
     - name: Checkout git
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+
+    - name: Get the Git tag
+      id: get_version
+      run: |
+        git fetch --prune --unshallow
+        echo ::set-output name=VERSION::$(git describe --tags)
 
     - name: Build and Push latest Docker image
       uses: whoan/docker-build-with-cache-action@v4
@@ -49,9 +71,24 @@ jobs:
         image_name: ${{ env.IMAGE_NAME }}
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
-        image_tag: latest
-        # push_git_tag: true
+        image_tag: latest,${{ steps.get_version.outputs.VERSION }}
         context: ./docker
+        pull_image_and_stages: false
+
+    # - name: Clean up Docker environment
+    #   if: failure()
+    #   run: docker system prune --force
+
+    # - name: Build and Push latest Docker image without a cache
+    #   if: failure()
+    #   uses: whoan/docker-build-with-cache-action@v4
+    #   with:
+    #     image_name: ${{ env.IMAGE_NAME }}
+    #     username: ${{ env.DOCKER_USER }}
+    #     password: "${{ secrets.DockerPassword }}"
+    #     image_tag: latest,${{ steps.get_version.outputs.VERSION }}
+    #     pull_image_and_stages: false
+    #     context: ./docker
 
     - name: Build and Push latest sudo Docker image
       uses: whoan/docker-build-with-cache-action@v4
@@ -60,5 +97,5 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: "${{ secrets.DockerPassword }}"
         build_extra_args: "--build-arg=WITH_SUDO=yes"
-        image_tag: sudo-latest
+        image_tag: sudo-latest,sudo-${{ steps.get_version.outputs.VERSION }}
         context: ./docker

@@ -121,8 +121,7 @@ RUN pip install --no-cache-dir nbresuse \
 
 COPY --chown=1000:100  jupyter_notebook_config.py /etc/jupyter/
 
-
-COPY with_bootstrap /usr/local/bin/
+COPY sync_repo with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
 
 VOLUME ["/home/$nb_user", "/run/postgresql"]
