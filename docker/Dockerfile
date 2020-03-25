@@ -36,7 +36,7 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build ipycanvas@v0.3.4 \
   && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
-  && jupyter serverextension enable --py jupyterlab_code_formatter \
+  && jupyter serverextension enable --py jupyterlab_code_formatter --sys-prefix \
   && jupyter serverextension enable --py --system jupyterlab_iframe \
   && jupyter labextension list \
   && echo "...done"
