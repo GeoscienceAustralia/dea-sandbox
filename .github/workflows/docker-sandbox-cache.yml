@@ -112,7 +112,7 @@ jobs:
 
     # If on a release, push release and sudo-release if it's a release
     - name: Get the release, if it's a release
-      if: contains(github.ref, "release")
+      if: contains(github.ref, 'release')
       id: get_release
       run: echo ::set-output name=RELEASE::$(echo $GITHUB_REF | cut -d / -f 3)
 
