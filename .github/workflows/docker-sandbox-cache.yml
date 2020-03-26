@@ -54,7 +54,7 @@ jobs:
         source .github/workflows/ci-helpers.sh
         # Remove old layers first to help with disk usage
         docker system prune --force
-        pull_docker_cache ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} ${ORG}/${IMAGE}:${MAIN_TAG}
+        pull_docker_cache ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} ${ORG}/${CACHE_IMAGE}:latest
 
     - name: Build Sandbox Docker (stage2)
       run: |
@@ -62,8 +62,7 @@ jobs:
         # now build second stage making sure first stage is from cache
         docker build \
           --cache-from ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
-          --cache-from ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} \
-          --cache-from  ${ORG}/${IMAGE}:${MAIN_TAG} \
+          --cache-from ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
           --tag        ${ORG}/${IMAGE}:latest \
           ./docker/
 
