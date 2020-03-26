@@ -13,8 +13,6 @@ else
     BUILDER_TAG="${BUILDER_TAG0}_${branch}"
 fi
 
-SUDO_TAG=${MAIN_TAG}-sudo
-
 pull_docker_cache () {
     local image=${1}
     local fallback=${2}
