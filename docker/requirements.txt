@@ -32,6 +32,8 @@ dask[complete]==2.8.1
 distributed==2.8.1
 xarray
 tensorflow
+# REMOVE ME AFTER TESTING
+requests
 
 # Geo stack
 geopy
