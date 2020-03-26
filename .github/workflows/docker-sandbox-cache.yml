@@ -1,0 +1,124 @@
+name: Sandbox build and push latest
+
+on:
+  push:
+    paths:
+      - 'docker/**'
+      - '.github/workflows/docker-sandbox-cache.yml'
+      - '.github/workflows/ci-helpers.sh'
+
+env:
+  ORG: geoscienceaustralia
+  IMAGE: sandbox
+  CACHE_IMAGE: sandbox-stages
+  DOCKER_USER: gadockersvc
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: DockerHub Login
+      run: |
+        source .github/workflows/ci-helpers.sh
+        echo "Login to DockerHub as ${DOCKER_USER}"
+        echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
+
+    - name: Pull Cache (stage1)
+      run: |
+        source .github/workflows/ci-helpers.sh
+        pull_docker_cache ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG0}
+
+    # Run through the first stage build
+    - name: Build Sandbox Docker (stage1)
+      run: |
+        source .github/workflows/ci-helpers.sh
+        # build and cache first stage (env_builder)
+        docker build \
+          --target env_builder \
+          --cache-from ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
+          --tag        ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
+          ./docker/
+
+    - name: DockerHub Push Cache (stage1)
+      if: github.event_name == 'push'
+      run: |
+        source .github/workflows/ci-helpers.sh
+        docker push ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG}
+
+    # Run through the second stage build
+    - name: Pull Cache (stage2)
+      run: |
+        source .github/workflows/ci-helpers.sh
+        # Remove old layers first to help with disk usage
+        docker system prune --force
+        pull_docker_cache ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} ${ORG}/${IMAGE}:${MAIN_TAG}
+
+    - name: Build Sandbox Docker (stage2)
+      run: |
+        source .github/workflows/ci-helpers.sh
+        # now build second stage making sure first stage is from cache
+        docker build \
+          --cache-from ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
+          --cache-from ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} \
+          --cache-from  ${ORG}/${IMAGE}:${MAIN_TAG} \
+          --tag        ${ORG}/${IMAGE}:latest \
+          ./docker/
+
+    - name: DockerHub Push Cache (stage2)
+      if: github.event_name == 'push'
+      run: |
+        source .github/workflows/ci-helpers.sh
+        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
+        docker push ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
+
+    - name: Build Sandbox Docker (sudo)
+      run: |
+        source .github/workflows/ci-helpers.sh
+        # build SUDO version
+        docker build \
+          --build-arg WITH_SUDO=yes \
+          --cache-from ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
+          --cache-from ${ORG}/${IMAGE}:latest \
+          --tag        ${ORG}/${IMAGE}:sudo-latest \
+          ./docker/
+
+    # If on master, push latest and tags including sudo versions
+    - name: Get the Git tag
+      if: github.ref == 'refs/heads/master'
+      id: get_version
+      run: |
+        git fetch --prune --unshallow
+        echo ::set-output name=VERSION::$(git describe --tags)
+
+    - name: DockerHub Push (latest and tag)
+      if: github.ref == 'refs/heads/master'
+      run: |
+        source .github/workflows/ci-helpers.sh
+        docker push ${ORG}/${IMAGE}:latest
+        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_version.outputs.VERSION }}
+        docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.VERSION }}
+
+    - name: DockerHub Push (sudo and sudo-tag)
+      if: github.ref == 'refs/heads/master'
+      run: |
+        source .github/workflows/ci-helpers.sh
+        docker push ${ORG}/${IMAGE}:sudo-latest
+        docker tag ${ORG}/${IMAGE}:sudo-latest ${ORG}/${IMAGE}:sudo-${{ steps.get_version.outputs.VERSION }}
+        docker push ${ORG}/${IMAGE}:sudo-${{ steps.get_version.outputs.VERSION }}
+
+    # If on a release, push release and sudo-release if it's a release
+    - name: Get the release, if it's a release
+      if: contains(github.ref, 'release')
+      id: get_release
+      run: echo ::set-output name=RELEASE::$(echo $GITHUB_REF | cut -d / -f 3)
+
+    - name: DockerHub Push Release
+      if: contains(github.ref, 'release')
+      run: |
+        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
+        docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
+        docker tag ${ORG}/${IMAGE}:sudo-latest ${ORG}/${IMAGE}:sudo-${{ steps.get_version.outputs.RELEASE }}
+        docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
