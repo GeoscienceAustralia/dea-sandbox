@@ -17,7 +17,7 @@ env:
   CACHE_IMAGE: sandbox-stages
   DOCKER_USER: gadockersvc
 
-  jobs:
+jobs:
   build:
     runs-on: ubuntu-latest
 
