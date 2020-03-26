@@ -117,7 +117,7 @@ jobs:
       run: echo ::set-output name=RELEASE::$(echo $GITHUB_REF | cut -d / -f 3)
 
     - name: DockerHub Push Release
-      if: contains(github.ref, "release")
+      if: contains(github.ref, 'release')
       run: |
         docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
         docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
