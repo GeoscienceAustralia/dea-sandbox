@@ -36,6 +36,7 @@ jobs:
         source .github/workflows/ci-helpers.sh
         pull_docker_cache ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG0}
 
+    # Run through the first stage build
     - name: Build Sandbox Docker (stage1)
       run: |
         source .github/workflows/ci-helpers.sh
@@ -52,6 +53,7 @@ jobs:
         source .github/workflows/ci-helpers.sh
         docker push ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG}
 
+    # Run through the second stage build
     - name: Pull Cache (stage2)
       run: |
         source .github/workflows/ci-helpers.sh
@@ -74,7 +76,7 @@ jobs:
       if: github.event_name == 'push'
       run: |
         source .github/workflows/ci-helpers.sh
-        docker tag ${ORG}/${IMAGE}:latets ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
+        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
         docker push ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
 
     - name: Build Sandbox Docker (sudo)
