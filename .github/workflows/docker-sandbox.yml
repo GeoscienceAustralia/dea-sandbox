@@ -24,6 +24,7 @@ jobs:
 
     - name: Build on every push to test the build
       uses: whoan/docker-build-with-cache-action@v4
+      continue-on-error: true
       with:
         image_name: ${{ env.IMAGE_NAME }}
         username: ${{ env.DOCKER_USER }}
@@ -67,6 +68,7 @@ jobs:
 
     - name: Build and Push latest Docker image
       uses: whoan/docker-build-with-cache-action@v4
+      continue-on-error: true
       with:
         image_name: ${{ env.IMAGE_NAME }}
         username: ${{ env.DOCKER_USER }}
