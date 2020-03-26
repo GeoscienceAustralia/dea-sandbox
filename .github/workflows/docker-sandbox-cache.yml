@@ -1,11 +1,6 @@
 name: Sandbox build and push latest
 
 on:
-  pull_request:
-    paths:
-      - 'docker/**'
-      - '.github/workflows/docker-sandbox-cache.yml'
-
   push:
     paths:
       - 'docker/**'
