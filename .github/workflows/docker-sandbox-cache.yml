@@ -62,7 +62,7 @@ jobs:
         # now build second stage making sure first stage is from cache
         docker build \
           --cache-from ${ORG}/${CACHE_IMAGE}:${BUILDER_TAG} \
-          --cache-from ${ORG}/${CACHE_IMAGE}:${MAIN_TAG}
+          --cache-from ${ORG}/${CACHE_IMAGE}:${MAIN_TAG} \
           --tag        ${ORG}/${IMAGE}:latest \
           ./docker/
 
