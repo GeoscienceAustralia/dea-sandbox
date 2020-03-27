@@ -24,7 +24,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Using cache, build and tag builder image
-      - docker pull $CACHE_REPO_NAME:latest
+      - docker pull $CACHE_REPO_NAME:_build_cache
       - |
         docker build \
           --target env_builder \
