@@ -9,7 +9,7 @@ release=$(echo $GITHUB_REF | cut -d / -f 3)
 if [ "${branch}" = "master" ]; then
     MAIN_TAG="latest"
     BUILDER_TAG="${BUILDER_TAG0}"
-elif [ "$GITHUB_REF" == *"release"* ]; then
+elif [ "$GITHUB_EVENT_NAME" = "release" ]; then
     MAIN_TAG="${release}"
     BUILDER_TAG="${BUILDER_TAG0}_${release}"
 else
