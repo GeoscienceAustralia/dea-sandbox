@@ -85,7 +85,7 @@ jobs:
           ./docker/
 
     # If on master, push latest and tags including sudo versions
-    - name: Get the Git tag
+    - name: Get the Git tag (master branch)
       if: github.ref == 'refs/heads/master'
       id: get_version
       run: |
