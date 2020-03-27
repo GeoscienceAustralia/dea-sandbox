@@ -35,7 +35,7 @@ phases:
       - docker pull $IMAGE_REPO_NAME:latest
       - |
         docker build \
-          --cache-from $CACHE_REPO_NAME:latest \
+          --cache-from $CACHE_REPO_NAME:_build_cache \
           --cache-from $IMAGE_REPO_NAME:latest \
           --tag        $IMAGE_REPO_NAME:latest \
           ./docker/
