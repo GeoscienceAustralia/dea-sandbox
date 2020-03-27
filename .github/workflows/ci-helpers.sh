@@ -13,12 +13,15 @@ echo "Branch is $branch"
 echo "Release is $release"
 
 if [ "${branch}" = "master" ]; then
+    echo "Tagging as latest"
     MAIN_TAG="latest"
     BUILDER_TAG="${BUILDER_TAG0}"
 elif [ "$GITHUB_EVENT_NAME" = "release" ]; then
+    echo "Tagging as release"
     MAIN_TAG="${release}"
     BUILDER_TAG="${BUILDER_TAG0}_${release}"
 else
+    echo "Tagging as branch"
     MAIN_TAG="${branch}"
     BUILDER_TAG="${BUILDER_TAG0}_${branch}"
 fi
