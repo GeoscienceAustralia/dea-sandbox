@@ -15,7 +15,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Build Sandbox Docker stage1
-      - docker pull $CACHE_REPO_NAME:$BUILDER_TAG
+      - pull_docker_cache $CACHE_REPO_NAME:$BUILDER_TAG $CACHE_REPO_NAME:$BUILDER_TAG0
       - |
         docker build \
           --target env_builder \
@@ -25,7 +25,7 @@ phases:
       - echo push stage1 to cache repo
       - docker push $CACHE_REPO_NAME:$BUILDER_TAG
       - echo Build Sandbox Docker stage2
-      - docker pull $CACHE_REPO_NAME:$MAIN_TAG
+      - pull_docker_cache $CACHE_REPO_NAME:$MAIN_TAG $CACHE_REPO_NAME:latest
       - |
         docker build \
           --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
