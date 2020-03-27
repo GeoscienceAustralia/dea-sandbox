@@ -4,16 +4,6 @@ env:
   variables:
      IMAGE_REPO_NAME: "geoscienceaustralia/sandbox"
      CACHE_REPO_NAME: "geoscienceaustralia/sandbox-stages"
-  #parameter-store:
-     # key: "value"
-     # key: "value"
-  #secrets-manager:
-     # key: secret-id:json-key:version-stage:version-id
-     # key: secret-id:json-key:version-stage:version-id
-  #exported-variables:
-     # - variable
-     # - variable
-  #git-credential-helper: yes
 
 phases:
   pre_build:
