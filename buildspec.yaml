@@ -23,6 +23,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
+      - docker pull $IMAGE_REPO_NAME:latest
       - docker build -t $IMAGE_REPO_NAME:latest --cache-from $IMAGE_REPO_NAME:latest ./docker 
   post_build:
     commands:
