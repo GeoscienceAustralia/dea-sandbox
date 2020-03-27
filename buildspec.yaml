@@ -1,0 +1,41 @@
+version: 0.2
+
+env:
+  variables:
+     IMAGE_REPO_NAME: "geoscienceaustralia/sandbox"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #secrets-manager:
+     # key: secret-id:json-key:version-stage:version-id
+     # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - echo "${{DOCKER_PWD}}" | docker login -u "${DOCKER_USER}" --password-stdin
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPO_NAME:latest --cache-from $IMAGE_REPO_NAME:latest ./docker 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - |
+        # If trigger is a push to master build latest
+        if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "branch/master" >/dev/null; then
+           docker push $IMAGE_REPO_NAME:latest
+        fi
+      - |
+        # If trigger is a tag, tag and push
+        if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "tag/" >/dev/null; then
+           IMAGE_TAG=$(echo ${CODEBUILD_WEBHOOK_TRIGGER} | cut -c5-)
+           docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_NAME:$IMAGE_TAG
+           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+        fi
