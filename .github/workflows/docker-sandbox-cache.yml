@@ -117,7 +117,7 @@ jobs:
     - name: DockerHub Push Release
       if: contains(github.ref, '/tags/')
       run: |
-        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
-        docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
-        docker tag ${ORG}/${IMAGE}:sudo-latest ${ORG}/${IMAGE}:sudo-${{ steps.get_version.outputs.RELEASE }}
-        docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
+        docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_release.outputs.RELEASE }}
+        docker push ${ORG}/${IMAGE}:${{ steps.get_release.outputs.RELEASE }}
+        docker tag ${ORG}/${IMAGE}:sudo-latest ${ORG}/${IMAGE}:sudo-${{ steps.get_release.outputs.RELEASE }}
+        docker push ${ORG}/${IMAGE}:${{ steps.get_release.outputs.RELEASE }}
