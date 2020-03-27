@@ -85,7 +85,7 @@ jobs:
           ./docker/
 
     # If on master, push latest and tags including sudo versions
-    - name: Get the Git tag
+    - name: Get the Git tag (master branch)
       if: github.ref == 'refs/heads/master'
       id: get_version
       run: |
@@ -110,12 +110,12 @@ jobs:
 
     # If on a release, push release and sudo-release if it's a release
     - name: Get the release, if it's a release
-      if: github.event_name == 'release'
+      if: contains(github.ref, '/tags/')
       id: get_release
       run: echo ::set-output name=RELEASE::$(echo $GITHUB_REF | cut -d / -f 3)
 
     - name: DockerHub Push Release
-      if: github.event_name == 'release'
+      if: contains(github.ref, '/tags/')
       run: |
         docker tag ${ORG}/${IMAGE}:latest ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
         docker push ${ORG}/${IMAGE}:${{ steps.get_version.outputs.RELEASE }}
