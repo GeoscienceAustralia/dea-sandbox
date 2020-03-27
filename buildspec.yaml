@@ -10,10 +10,10 @@ phases:
     commands:
       - echo Logging in to Docker Hub...
       - echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
-      - source ./.github/workflows/ci-helpers.sh
   build:
     commands:
       - echo Build started on `date`
+      - source ./.github/workflows/ci-helpers.sh
       - echo Build Sandbox Docker stage1
       - pull_docker_cache $CACHE_REPO_NAME:$BUILDER_TAG $CACHE_REPO_NAME:$BUILDER_TAG0
       - |
@@ -60,7 +60,6 @@ phases:
           docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_NAME:$IMAGE_TAG
           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
           # sudo
-
           docker tag $IMAGE_REPO_NAME:sudo-latest $IMAGE_REPO_NAME:sudo-$IMAGE_TAG
           docker push $IMAGE_REPO_NAME:sudo-$IMAGE_TAG
         fi
