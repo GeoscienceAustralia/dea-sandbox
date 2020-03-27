@@ -4,7 +4,13 @@
 
 BUILDER_TAG0=_build_cache
 branch="${GITHUB_REF/refs\/heads\//}"
-release=${GITHUB_REF/refs\/tags\//}
+release="${GITHUB_REF/refs\/tags\//}"
+
+echo "GITHUB_REF is $GITHUB_REF"
+echo "GITHUB_EVENT_NAME is $GITHUB_EVENT_NAME"
+
+echo "Branch is $branch"
+echo "Release is $release"
 
 if [ "${branch}" = "master" ]; then
     MAIN_TAG="latest"
