@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
      IMAGE_REPO_NAME: "geoscienceaustralia/sandbox"
+     CACHE_REPO_NAME: "geoscienceaustralia/sandbox-stages"
   #parameter-store:
      # key: "value"
      # key: "value"
@@ -22,21 +23,36 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...
+      - echo Using cache, build and tag builder image
+      - docker pull $CACHE_REPO_NAME:latest
+      - |
+        docker build \
+          --target env_builder \
+          --cache-from $CACHE_REPO_NAME:latest \
+          --tag        $CACHE_REPO_NAME:latest \
+          ./docker/
+      - echo Using cache, build and tag runner image
       - docker pull $IMAGE_REPO_NAME:latest
-      - docker build -t $IMAGE_REPO_NAME:latest --cache-from $IMAGE_REPO_NAME:latest ./docker 
+      - |
+        docker build \
+          --cache-from $CACHE_REPO_NAME:latest \
+          --cache-from $IMAGE_REPO_NAME:latest \
+          --tag        $IMAGE_REPO_NAME:latest \
+          ./docker/
   post_build:
     commands:
       - echo Build completed on `date`
       - |
-        # If trigger is a push to master build latest
+        # If trigger is push to master, update latest and cache
         if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "branch/master" >/dev/null; then
-           docker push $IMAGE_REPO_NAME:latest
+          docker push $IMAGE_REPO_NAME:latest
+          docker push $CACHE_REPO_NAME:latest
         fi
       - |
-        # If trigger is a tag, tag and push
+        # If trigger is a tag, update tag and cache
         if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "tag/" >/dev/null; then
-           IMAGE_TAG=$(echo ${CODEBUILD_WEBHOOK_TRIGGER} | cut -c5-)
-           docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_NAME:$IMAGE_TAG
-           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+          IMAGE_TAG=$(echo ${CODEBUILD_WEBHOOK_TRIGGER} | cut -c5-)
+          docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_NAME:$IMAGE_TAG
+          docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+          docker push $CACHE_REPO_NAME:latest
         fi
