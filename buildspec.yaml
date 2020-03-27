@@ -28,8 +28,8 @@ phases:
       - |
         docker build \
           --target env_builder \
-          --cache-from $CACHE_REPO_NAME:latest \
-          --tag        $CACHE_REPO_NAME:latest \
+          --cache-from $CACHE_REPO_NAME:_build_cache \
+          --tag        $CACHE_REPO_NAME:_build_cache \
           ./docker/
       - echo Using cache, build and tag runner image
       - docker pull $IMAGE_REPO_NAME:latest
