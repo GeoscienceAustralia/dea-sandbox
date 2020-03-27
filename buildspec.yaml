@@ -10,24 +10,38 @@ phases:
     commands:
       - echo Logging in to Docker Hub...
       - echo "${DOCKER_PWD}" | docker login -u "${DOCKER_USER}" --password-stdin
+      - source ./.github/workflows/ci-helpers.sh
   build:
     commands:
       - echo Build started on `date`
-      - echo Using cache, build and tag builder image
-      - docker pull $CACHE_REPO_NAME:_build_cache
+      - echo Build Sandbox Docker (stage1)
+      - docker pull $CACHE_REPO_NAME:$BUILDER_TAG
       - |
         docker build \
           --target env_builder \
-          --cache-from $CACHE_REPO_NAME:_build_cache \
-          --tag        $CACHE_REPO_NAME:_build_cache \
+          --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
+          --tag        $CACHE_REPO_NAME:$BUILDER_TAG \
           ./docker/
-      - echo Using cache, build and tag runner image
-      - docker pull $IMAGE_REPO_NAME:latest
+      - echo push stage1 to cache repo
+      - docker push $CACHE_REPO_NAME:$BUILDER_TAG
+      - echo Build Sandbox Docker (stage2)
+      - docker pull $CACHE_REPO_NAME:$MAIN_TAG
       - |
         docker build \
-          --cache-from $CACHE_REPO_NAME:_build_cache \
-          --cache-from $IMAGE_REPO_NAME:latest \
-          --tag        $IMAGE_REPO_NAME:latest \
+          --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
+          --cache-from $CACHE_REPO_NAME:$MAIN_TAG \
+          --tag        $IMAGE_REPO_NAME:$MAIN_TAG \
+          ./docker/
+      - echo Push stage2 cache to cache repo
+      - docker tag $IMAGE_REPO_NAME:$MAIN_TAG $CACHE_REPO_NAME:$MAIN_TAG
+      - docker push $CACHE_REPO_NAME:$MAIN_TAG
+      - echo Build Sandbox Docker sudo version (stage3)
+      - |
+        docker build \
+          --build-arg WITH_SUDO=yes \
+          --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
+          --cache-from $CACHE_REPO_NAME:$MAIN_TAG \
+          --tag        $IMAGE_REPO_NAME:sudo-latest \
           ./docker/
   post_build:
     commands:
@@ -36,13 +50,17 @@ phases:
         # If trigger is push to master, update latest and cache
         if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "branch/master" >/dev/null; then
           docker push $IMAGE_REPO_NAME:latest
-          docker push $CACHE_REPO_NAME:latest
+          docker push $IMAGE_REPO_NAME:sudo-latest
         fi
       - |
         # If trigger is a tag, update tag and cache
         if expr ${CODEBUILD_WEBHOOK_TRIGGER} : "tag/" >/dev/null; then
           IMAGE_TAG=$(echo ${CODEBUILD_WEBHOOK_TRIGGER} | cut -c5-)
+          # regular
           docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_NAME:$IMAGE_TAG
           docker push $IMAGE_REPO_NAME:$IMAGE_TAG
-          docker push $CACHE_REPO_NAME:latest
+          # sudo
+
+          docker tag $IMAGE_REPO_NAME:sudo-latest $IMAGE_REPO_NAME:sudo-$IMAGE_TAG
+          docker push $IMAGE_REPO_NAME:sudo-$IMAGE_TAG
         fi
