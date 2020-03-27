@@ -16,7 +16,7 @@ if [ "${branch}" = "master" ]; then
     echo "Tagging as latest"
     MAIN_TAG="latest"
     BUILDER_TAG="${BUILDER_TAG0}"
-elif [ "$GITHUB_EVENT_NAME" = "release" ]; then
+elif [[ "${GITHUB_REF}" == *"/tags/"* ]]; then
     echo "Tagging as release"
     MAIN_TAG="${release}"
     BUILDER_TAG="${BUILDER_TAG0}_${release}"
