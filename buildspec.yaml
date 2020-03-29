@@ -15,25 +15,28 @@ phases:
       - echo Build started on `date`
       - source ./.github/workflows/ci-helpers.sh
       - echo Build Sandbox Docker stage1
-      - pull_docker_cache $CACHE_REPO_NAME:$BUILDER_TAG $CACHE_REPO_NAME:$BUILDER_TAG0
+      - docker pull $CACHE_REPO_NAME:$BUILDER_TAG || docker pull $CACHE_REPO_NAME:$BUILDER_TAG0
       - |
         docker build \
           --target env_builder \
           --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
+          --cache-from $CACHE_REPO_NAME:$BUILDER_TAG0 \
           --tag        $CACHE_REPO_NAME:$BUILDER_TAG \
           ./docker/
       - echo push stage1 to cache repo
       - docker push $CACHE_REPO_NAME:$BUILDER_TAG
       - echo Build Sandbox Docker stage2
-      - pull_docker_cache $CACHE_REPO_NAME:$MAIN_TAG $CACHE_REPO_NAME:latest
+      - docker pull $CACHE_REPO_NAME:$MAIN_TAG || docker pull $CACHE_REPO_NAME:latest
       - |
         docker build \
+          --build-arg BUILDKIT_INLINE_CACHE=1
           --cache-from $CACHE_REPO_NAME:$BUILDER_TAG \
           --cache-from $CACHE_REPO_NAME:$MAIN_TAG \
-          --tag        $IMAGE_REPO_NAME:$MAIN_TAG \
+          --cache-from $CACHE_REPO_NAME:latest \
+          --tag        $IMAGE_REPO_NAME:latest \
           ./docker/
       - echo Push stage2 cache to cache repo
-      - docker tag $IMAGE_REPO_NAME:$MAIN_TAG $CACHE_REPO_NAME:$MAIN_TAG
+      - docker tag $IMAGE_REPO_NAME:latest $CACHE_REPO_NAME:$MAIN_TAG
       - docker push $CACHE_REPO_NAME:$MAIN_TAG
       - echo Build Sandbox Docker sudo version stage3
       - |
