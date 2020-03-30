@@ -3,10 +3,11 @@
 # It defines how git branch maps to docker tag and provides some bash functions
 
 BUILDER_TAG0=_build_cache
-branch="${CODEBUILD_WEBHOOK_TRIGGER/branch\/}"
-release="${CODEBUILD_WEBHOOK_TRIGGER/tag\/}"
+branch="${CODEBUILD_RESOLVED_SOURCE_VERSION/refs\/heads\//}"
+release="${CODEBUILD_RESOLVED_SOURCE_VERSION/refs\/tags\//}"
 
-echo "CODEBUILD_WEBHOOK_TRIGGER is $CODEBUILD_WEBHOOK_TRIGGER"
+echo "GITHUB_REF is $CODEBUILD_RESOLVED_SOURCE_VERSION"
+echo "GITHUB_EVENT_NAME is $GITHUB_EVENT_NAME"
 
 echo "Branch is $branch"
 echo "Release is $release"
@@ -15,7 +16,7 @@ if [ "${branch}" = "master" ]; then
     echo "Tagging as latest"
     MAIN_TAG="latest"
     BUILDER_TAG="${BUILDER_TAG0}"
-elif [[ "${CODEBUILD_WEBHOOK_TRIGGER}" == *"tag/"* ]]; then
+elif [[ "${CODEBUILD_RESOLVED_SOURCE_VERSION}" == *"/tags/"* ]]; then
     echo "Tagging as release"
     MAIN_TAG="${release}"
     BUILDER_TAG="${BUILDER_TAG0}_${release}"
