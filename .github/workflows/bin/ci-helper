@@ -28,6 +28,7 @@ branch_name () {
 
 export_cfg () {
     local ref="${1:-${GITHUB_REF:-}}"
+    local sha="${2:-${GITHUB_SHA:-missing_sha}}"
 
     pull_cache="yes"  # always yes for now
     push_cache="yes"  # not from PR, not from Release
@@ -37,6 +38,7 @@ export_cfg () {
     im_stage2_fallback=${im_latest}
     im_stage1_fallback=${ORG}/${IMAGE_DEV}:master_stage1
     extra_tag=""  # only set on master
+    build_info="$(date -Im) $sha"
 
     case "${ref}" in
         "refs/heads/master")
@@ -83,7 +85,8 @@ export_cfg () {
       im_stage1 im_stage1_fallback
       im_stage2 im_stage2_fallback
       im_sudo
-      im_latest'
+      im_latest
+      build_info'
 
     for x in $all_envs; do
         export "${x}"                         # make it available to calling script

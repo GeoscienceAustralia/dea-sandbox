@@ -140,4 +140,10 @@ RUN if [ "$WITH_SUDO" = "yes" ]; then \
   echo "${nb_user} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 ;fi
 
+ARG BUILD_INFO=""
+RUN if [ -z "${BUILD_INFO}" ]; then \
+  BUILD_INFO="$(date)" \
+;fi \
+  && echo "${BUILD_INFO}" > /build.info
+
 USER $nb_user
