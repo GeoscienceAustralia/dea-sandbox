@@ -25,7 +25,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Update PATH 
+    - name: Update PATH
       run: |
         echo "::add-path::${GITHUB_WORKSPACE}/.github/workflows/bin"
 
@@ -54,7 +54,7 @@ jobs:
     - name: Pull Cache (stage1)
       if: steps.cfg.outputs.pull_cache == 'yes'
       run: |
-        ci-helper pull_docker_cache ${im_stage1} ${im_stage1_fallback} 
+        ci-helper pull_docker_cache ${im_stage1} ${im_stage1_fallback}
 
     - name: Build Sandbox Docker (stage1)
       run: |
@@ -79,19 +79,38 @@ jobs:
         docker system prune --force
         echo "After Prune:"
         docker images
-        ci-helper pull_docker_cache ${im_stage2} ${im_stage2_fallback} 
+        ci-helper pull_docker_cache ${im_stage2} ${im_stage2_fallback}
         echo "After Pull:"
         docker images
 
     - name: Build Sandbox Docker (stage2)
       run: |
         # now build second stage making sure first stage is from cache
+        set -o pipefail
         docker build \
           --build-arg BUILD_INFO="${build_info}" \
           --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_stage2} \
-          ./docker/
+          ./docker/ 2>&1 | tee docker-build.log || {
+              echo "Docker build failed"
+              tail docker-build.log
+
+              if grep "no space left on device" docker-build.log 2>&1 > /dev/null ; then
+                echo "Out of disk, will retry without cache"
+                docker rmi ${im_stage2}
+                docker system prune
+                docker images
+                docker build \
+                  --build-arg BUILD_INFO="${build_info}" \
+                  --cache-from ${im_stage1} \
+                  --tag        ${im_stage2} \
+                  ./docker/
+              else
+                # some other error, just fail this step
+                false
+              fi
+          }
 
     - name: DockerHub Push Image (stage2)
       if: steps.cfg.outputs.push_image == 'yes'
