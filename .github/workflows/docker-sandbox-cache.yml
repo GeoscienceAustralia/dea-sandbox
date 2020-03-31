@@ -117,11 +117,8 @@ jobs:
     - name: Push Extra tags (master branch only)
       if: github.ref == 'refs/heads/master' && steps.cfg.outputs.push_image == 'yes'
       run: |
-        im_stage2_extra="${im_stage2%:latest}:${extra_tag}"
-        im_sudo_extra="${im_sudo%:sudo-latest}:sudo-${extra_tag}"
-
-        docker tag "${im_stage2}" "${im_stage2_extra}"
+        docker tag "${im_stage2}" "${im_extra}"
         docker tag "${im_sudo}" "${im_sudo_extra}"
 
-        docker push "${im_stage2_extra}"
+        docker push "${im_extra}"
         docker push "${im_sudo_extra}"
