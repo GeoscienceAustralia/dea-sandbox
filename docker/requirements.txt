@@ -80,6 +80,7 @@ mypy
 line_profiler
 nbformat
 nbval
+nbresuse
 
 # jupyter + matplotlib
 matplotlib
