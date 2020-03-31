@@ -40,6 +40,7 @@ jobs:
         echo stage1: ${im_stage1} ${im_stage1_fallback}
         echo stage2: ${im_stage2} ${im_stage2_fallback}
         echo sudo:   ${im_sudo}
+        echo build_info: ${build_info}
         echo push_image: cfg:${{ steps.cfg.outputs.push_image }} env:$push_image
         echo push_cache: cfg:${{ steps.cfg.outputs.push_cache }} env:$push_cache
         echo pull_cache: cfg:${{ steps.cfg.outputs.pull_cache }} env:$pull_cache
@@ -85,6 +86,7 @@ jobs:
       run: |
         # now build second stage making sure first stage is from cache
         docker build \
+          --build-arg BUILD_INFO=${build_info} \
           --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_stage2} \
@@ -99,6 +101,7 @@ jobs:
       run: |
         docker build \
           --build-arg WITH_SUDO=yes \
+          --build-arg BUILD_INFO="${build_info} (sudo)" \
           --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_sudo} \
