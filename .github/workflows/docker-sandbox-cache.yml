@@ -46,6 +46,7 @@ jobs:
         echo pull_cache: cfg:${{ steps.cfg.outputs.pull_cache }} env:$pull_cache
 
     - name: DockerHub Login
+      if: steps.cfg.outputs.push_cache == 'yes' || steps.cfg.outputs.push_image == 'yes'
       run: |
         echo "Login to DockerHub as ${DOCKER_USER}"
         echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
