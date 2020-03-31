@@ -87,7 +87,7 @@ jobs:
       run: |
         # now build second stage making sure first stage is from cache
         docker build \
-          --build-arg BUILD_INFO=${build_info} \
+          --build-arg BUILD_INFO="${build_info}" \
           --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_stage2} \
