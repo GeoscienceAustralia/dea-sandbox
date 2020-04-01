@@ -32,6 +32,7 @@ dask[complete]==2.8.1
 distributed==2.8.1
 xarray
 tensorflow
+geojson
 
 # Geo stack
 geojson
@@ -80,6 +81,7 @@ mypy
 line_profiler
 nbformat
 nbval
+nbresuse
 
 # jupyter + matplotlib
 matplotlib==3.2.1

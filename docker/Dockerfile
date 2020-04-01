@@ -106,18 +106,17 @@ ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
 ENV PATH=${py_env_path}/bin:$PATH
 
-# TODO: remove this once we have working NFS with tidal data in it
-# RUN mkdir -p /var/share/TPX08_atlas_compact/ \
-#     && (cd /var/share/TPX08_atlas_compact/ && otps_fetch_data .)
-
-# Patch env when needed here
-RUN pip install --no-cache-dir nbresuse \
+RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --system nbresuse \
   && jupyter serverextension enable --py --system jupyterlab_code_formatter \
   && jupyter serverextension enable --py --system jupyterlab_iframe \
-  && pip install --no-cache-dir \
-  --extra-index-url="https://packages.dea.ga.gov.au" \
-  --no-deps --upgrade odc-algo odc-ui 'datacube[performance]'
+  && echo done
+
+# Patch env when needed here
+# RUN echo "Patching python env" \
+#   && pip install --no-cache-dir \
+#   --extra-index-url="https://packages.dea.ga.gov.au" \
+#   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
 COPY --chown=1000:100  jupyter_notebook_config.py /etc/jupyter/
 
@@ -139,5 +138,11 @@ ARG WITH_SUDO="no"
 RUN if [ "$WITH_SUDO" = "yes" ]; then \
   echo "${nb_user} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 ;fi
+
+ARG BUILD_INFO=""
+RUN if [ -z "${BUILD_INFO}" ]; then \
+  BUILD_INFO="$(date)" \
+;fi \
+  && echo "${BUILD_INFO}" > /build.info
 
 USER $nb_user
