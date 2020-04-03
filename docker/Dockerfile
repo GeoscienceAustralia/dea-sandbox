@@ -16,10 +16,11 @@ COPY requirements.txt /conf/
 RUN echo "Building python environment: stage 2" \
   && env-build-tool extend /conf/requirements.txt ${py_env_path}
 
-ENV PATH=${py_env_path}/bin:$PATH
+COPY requirements-jupyter.txt /conf/
+RUN echo "Building python environment: stage Jupyter" \
+  && env-build-tool extend /conf/requirements.txt ${py_env_path}
 
-# Install extra libs for labextensions without a full rebuild
-RUN pip install --no-cache-dir jupyterlab_iframe==0.2.1
+ENV PATH=${py_env_path}/bin:$PATH
 
 RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
@@ -37,7 +38,7 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
   && jupyter labextension list \
-  && echo "...done"
+  && echo "...done" || true
 
 COPY requirements-odc.txt /conf/
 RUN echo "Adding odc-dependencies" \
