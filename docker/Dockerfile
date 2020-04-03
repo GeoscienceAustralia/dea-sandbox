@@ -38,7 +38,7 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build jupyterlab_iframe@0.2.1 \
   && jupyter lab build \
   && jupyter labextension list \
-  && echo "...done" || true
+  && echo "...done"
 
 COPY requirements-odc.txt /conf/
 RUN echo "Adding odc-dependencies" \
@@ -112,12 +112,6 @@ RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --system jupyterlab_code_formatter \
   && jupyter serverextension enable --py --system jupyterlab_iframe \
   && echo done
-
-# Patch env when needed here
-# RUN echo "Patching python env" \
-#   && pip install --no-cache-dir \
-#   --extra-index-url="https://packages.dea.ga.gov.au" \
-#   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
 COPY --chown=1000:100  jupyter_notebook_config.py /etc/jupyter/
 
