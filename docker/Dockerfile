@@ -113,6 +113,12 @@ RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --system jupyterlab_iframe \
   && echo done
 
+# Patch env when needed here
+# RUN echo "Patching python env" \
+#   && pip install --no-cache-dir \
+#   --extra-index-url="https://packages.dea.ga.gov.au" \
+#   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
+
 COPY --chown=1000:100  jupyter_notebook_config.py /etc/jupyter/
 
 COPY sync_repo with_bootstrap /usr/local/bin/
