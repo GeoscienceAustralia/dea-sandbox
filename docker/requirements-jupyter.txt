@@ -18,6 +18,7 @@ jupyter-contrib-nbextensions
 jupyter-contrib-core
 jupyter-ui-poll
 nbgitpuller
+nbresuse
 black
 autopep8
 yapf
