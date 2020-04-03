@@ -18,7 +18,7 @@ RUN echo "Building python environment: stage 2" \
 
 COPY requirements-jupyter.txt /conf/
 RUN echo "Building python environment: stage Jupyter" \
-  && env-build-tool extend /conf/requirements.txt ${py_env_path}
+  && env-build-tool extend /conf/requirements-jupyter.txt ${py_env_path}
 
 ENV PATH=${py_env_path}/bin:$PATH
 
