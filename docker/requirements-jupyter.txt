@@ -32,7 +32,7 @@ nbval
 matplotlib
 bokeh
 descartes
-ipympl
+ipympl==0.5.6
 datashader
 graphviz
 folium
