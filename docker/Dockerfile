@@ -16,11 +16,11 @@ COPY requirements.txt /conf/
 RUN echo "Building python environment: stage 2" \
   && env-build-tool extend /conf/requirements.txt ${py_env_path}
 
+ENV PATH=${py_env_path}/bin:$PATH
+
 COPY requirements-jupyter.txt /conf/
 RUN echo "Building python environment: stage Jupyter" \
   && env-build-tool extend /conf/requirements-jupyter.txt ${py_env_path}
-
-ENV PATH=${py_env_path}/bin:$PATH
 
 RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager@v1.0.2 \
@@ -28,7 +28,7 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension install --no-build @jupyterlab/hub-extension@v1.1.0 \
   && jupyter labextension install --no-build jupyter-leaflet@v0.11.1 \
   && jupyter labextension install --no-build dask-labextension@v1.0.1 \
-  && jupyter labextension install --no-build jupyter-matplotlib@v0.4.2 \
+  && jupyter labextension install --no-build jupyter-matplotlib@v0.7.2 \
   && jupyter labextension install --no-build @bokeh/jupyter_bokeh@1.1.1 \
   && jupyter labextension install --no-build nbdime-jupyterlab@v1.0.0 \
   && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter@v0.5.0 \
