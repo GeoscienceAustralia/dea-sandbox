@@ -39,7 +39,6 @@ jobs:
         echo branch: ${BRANCH}
         echo stage1: ${im_stage1} ${im_stage1_fallback}
         echo stage2: ${im_stage2} ${im_stage2_fallback}
-        echo sudo:   ${im_sudo}
         echo build_info: ${build_info}
         echo push_image: cfg:${{ steps.cfg.outputs.push_image }} env:$push_image
         echo push_cache: cfg:${{ steps.cfg.outputs.push_cache }} env:$push_cache
@@ -119,6 +118,7 @@ jobs:
 
     - name: Build Sandbox Docker (sudo)
       run: |
+        im_sudo=${im_stage2/:/:sudo-}
         docker build \
           --build-arg WITH_SUDO=yes \
           --build-arg BUILD_INFO="${build_info} (sudo)" \
@@ -130,12 +130,15 @@ jobs:
     - name: DockerHub Push Image (sudo)
       if: steps.cfg.outputs.push_image == 'yes'
       run: |
+        im_sudo=${im_stage2/:/:sudo-}
         docker push ${im_sudo}
 
 
     - name: Push Extra tags (master branch only)
       if: github.ref == 'refs/heads/master' && steps.cfg.outputs.push_image == 'yes'
       run: |
+        im_sudo=${im_stage2/:/:sudo-}
+        im_sudo_extra=${im_extra/:/:sudo-}
         docker tag "${im_stage2}" "${im_extra}"
         docker tag "${im_sudo}" "${im_sudo_extra}"
 

@@ -38,7 +38,6 @@ export_cfg () {
     im_stage2_fallback=${im_latest}
     im_stage1_fallback=${ORG}/${IMAGE_DEV}:master_stage1
     im_extra=""  # only set on master
-    im_sudo_extra=""  # only set on master
     build_info="$(date -Im) $sha"
 
     case "${ref}" in
@@ -46,23 +45,19 @@ export_cfg () {
             BRANCH="master"
             im_stage2=${im_latest}
             im_stage2_fallback=""
-            im_sudo=${ORG}/${IMAGE}:sudo-latest
             # figure out extra tag
             git fetch --prune --unshallow 2> /dev/null || true
             vv=$(git describe --tags)
             im_extra="${ORG}/${IMAGE_DEV}:${vv}"
-            im_sudo_extra="${ORG}/${IMAGE_DEV}:sudo-${vv}"
             ;;
         "refs/heads/"*)
             BRANCH="${ref#refs/heads/}"
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
-            im_sudo=${ORG}/${IMAGE_DEV}:sudo-${BRANCH}
             ;;
         "refs/tags/"*)
             push_cache="no"
             BRANCH="${ref#refs/tags/}"
             im_stage2=${ORG}/${IMAGE}:${BRANCH}
-            im_sudo=${ORG}/${IMAGE}:sudo-${BRANCH}
             ;;
         "refs/pull/"*)
             if [ -z "${GITHUB_HEAD_REF:-}" ] ; then
@@ -72,7 +67,6 @@ export_cfg () {
             push_image="no"
             BRANCH="${GITHUB_HEAD_REF}"
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
-            im_sudo=${ORG}/${IMAGE_DEV}:sudo-${BRANCH}
             ;;
         *)
             return 1
@@ -86,10 +80,8 @@ export_cfg () {
       push_image
       im_stage1 im_stage1_fallback
       im_stage2 im_stage2_fallback
-      im_sudo
       im_latest
       im_extra
-      im_sudo_extra
       build_info'
 
     for x in $all_envs; do
