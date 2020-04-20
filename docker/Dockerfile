@@ -26,7 +26,12 @@ COPY jupyter-extensions.txt /conf/
 # TAB_NAME -- name to appear in the browser tab
 ARG TAB_NAME="DEA Sandbox"
 RUN echo "Adding jupyter lab extensions" \
-  xargs -n1 jupyter labextension install --no-build < /conf/jupyter-extensions.txt \
+  && while read ext; do \
+      if [ -n "${ext}" ]; then \
+        echo "Installing ${ext}"; \
+        jupyter labextension install --no-build "${ext}"; \
+      fi; \
+     done < /conf/jupyter-extensions.txt \
   && jupyter lab build --name="${TAB_NAME}" \
   && jupyter lab clean \
   && jupyter labextension list \
