@@ -109,8 +109,6 @@ RUN echo "Enable server extensions" \
 #   --extra-index-url="https://packages.dea.ga.gov.au" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
-COPY --chown=1000:100  jupyter_notebook_config.py /etc/jupyter/
-
 COPY sync_repo with_bootstrap /usr/local/bin/
 ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
 
