@@ -23,9 +23,11 @@ RUN echo "Building python environment: stage Jupyter" \
   && env-build-tool extend /conf/requirements-jupyter.txt ${py_env_path}
 
 COPY jupyter-extensions.txt /conf/
+# TAB_NAME -- name to appear in the browser tab
+ARG TAB_NAME="DEA Sandbox"
 RUN echo "Adding jupyter lab extensions" \
   xargs -n1 jupyter labextension install --no-build < /conf/jupyter-extensions.txt \
-  && jupyter lab build \
+  && jupyter lab build --name="${TAB_NAME}" \
   && jupyter lab clean \
   && jupyter labextension list \
   && echo "...done"
