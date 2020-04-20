@@ -11,9 +11,13 @@ Sandbox Docker
 
 ### Extending
 
-For large changes add new libraries to `requirements.txt`. There are several
-"logical clusters" of packages in there, try to attach new package to a correct
-group or create new category if needed.
+For large changes add new libraries to `requirements.txt` or
+`requirements-jupyter.txt`. There are several "logical clusters" of packages in
+there, try to attach new package to a correct group or create new category if
+needed.
+
+To add a new jupyter lab extension edit `jupyter-extensions.txt`. Always pin
+extensions and Python libraries that use them.
 
 Modifying `requirements.txt` will trigger a complete rebuild of the python
 environment and docker image. This is not always desirable. If you just need to
