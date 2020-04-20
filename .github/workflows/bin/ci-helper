@@ -38,7 +38,7 @@ export_cfg () {
     im_stage2_fallback=${im_latest}
     im_stage1_fallback=${ORG}/${IMAGE_DEV}:master_stage1
     im_extra=""  # only set on master
-    build_info="$(date -Im) $sha"
+    build_info="$(TZ=Australia/Sydney date -Im) $sha"
 
     case "${ref}" in
         "refs/heads/master")
