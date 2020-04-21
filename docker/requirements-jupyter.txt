@@ -5,19 +5,18 @@ jupyterlab_iframe==0.2.1
 jupyterhub==1.1.0
 ipyleaflet==0.11.1
 jupyter-server-proxy==1.3.2
-dask-labextension==1.0.3
 nbdime==1.1.0
 jupyterlab-code-formatter==0.5.0
 sidecar==0.3.0
 ipyevents==0.7.0
 ipycanvas==0.3.4
-jupyter-bokeh==1.1.1
+ipyfilechooser
 jupyterlab-git
+nbgitpuller
 jupyter-nbextensions-configurator
 jupyter-contrib-nbextensions
 jupyter-contrib-core
 jupyter-ui-poll
-nbgitpuller
 nbresuse
 black
 autopep8
@@ -30,16 +29,21 @@ nbval
 
 # jupyter + matplotlib
 matplotlib
-bokeh==1.4.0
 descartes
 ipympl==0.5.6
-datashader
 graphviz
 folium
-geoviews
-holoviews
-cartopy
 seaborn
-ipyfilechooser
 pydotplus
 plotly
+
+# jupyter + bokeh
+# bokeh==1.4.0 is pinned in requirements.txt because of dask
+#
+jupyter-bokeh==1.1.1
+dask-labextension==1.0.3
+geoviews==1.7.0
+cartopy==0.17.0
+datashader==0.10.0
+panel==0.8.0
+holoviews==1.13.2

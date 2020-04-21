@@ -44,6 +44,8 @@ dask[complete]==2.8.1
 distributed==2.8.1
 xarray
 tensorflow
+### plotting
+bokeh==1.4.0
 
 # Geo stack
 geojson
