@@ -29,11 +29,9 @@ nbval
 
 # jupyter + matplotlib
 # matplotlib itself is in requirements.txt as it's pulled in by other libs there
-descartes
 ipympl==0.5.6
 graphviz
 folium
-seaborn
 pydotplus
 plotly
 

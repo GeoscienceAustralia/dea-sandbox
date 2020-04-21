@@ -48,6 +48,8 @@ tensorflow
 ### plotting
 bokeh==1.4.0
 matplotlib==3.2.1
+descartes
+seaborn
 
 # Geo stack
 geojson
