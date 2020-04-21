@@ -47,6 +47,7 @@ xarray
 tensorflow
 ### plotting
 bokeh==1.4.0
+matplotlib==3.2.1
 
 # Geo stack
 geojson
