@@ -27,6 +27,7 @@ lmdb
 zstandard
 thredds-crawler
 astropy
+boltons
 
 # Scientific Stack
 numpy
