@@ -7,14 +7,26 @@ cython
 ruamel.yaml
 ruamel.yaml.clib
 pyrsistent
-ciso8601
-psycopg2
 param
 dill
 ffmpeg-python
 tqdm
 voluptuous
 pydash
+# pre-install misc datacube dependencies
+jsonschema
+ciso8601
+psycopg2
+sqlalchemy
+toolz
+lark-parser
+setuptools_scm[toml]
+bottleneck
+# pre-install misc odc-tools dependencies
+lmdb
+zstandard
+thredds-crawler
+astropy
 
 # Scientific Stack
 numpy
@@ -58,6 +70,7 @@ urbanaccess
 ,cftime\
 ,cryptography\
 ,lxml\
+,lmdb\
 ,numexpr\
 ,numexpr3\
 ,protobuf\
@@ -70,3 +83,4 @@ urbanaccess
 ,statsmodels\
 ,typed_ast\
 ,tables\
+,zstandard\
