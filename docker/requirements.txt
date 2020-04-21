@@ -64,6 +64,7 @@ pysal
 pyepsg
 mapclassify
 urbanaccess
+pysheds
 
 --no-binary=aiohttp\
 ,cffi\
