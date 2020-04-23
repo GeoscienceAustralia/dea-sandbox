@@ -117,18 +117,8 @@ RUN echo "Enable server extensions" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
 COPY sync_repo with_bootstrap /usr/local/bin/
-ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
-
-VOLUME ["/home/$nb_user", "/run/postgresql"]
 
 WORKDIR "/home/$nb_user"
-
-EXPOSE 9988
-
-CMD ["jupyter", "lab", \
-"--ip=0.0.0.0", \
-"--port=9988", \
-"--no-browser"]
 
 ARG WITH_SUDO="no"
 RUN if [ "$WITH_SUDO" = "yes" ]; then \
@@ -142,3 +132,9 @@ RUN if [ -z "${BUILD_INFO}" ]; then \
   && echo "${BUILD_INFO}" > /build.info
 
 USER $nb_user
+
+ENTRYPOINT ["/bin/tini", "-s", "--", "with_bootstrap"]
+CMD ["jupyter", "lab", \
+"--ip=0.0.0.0", \
+"--port=9988", \
+"--no-browser"]

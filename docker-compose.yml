@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:  
+  sandbox:
+    build:
+      context: docker
+      args:
+        - WITH_SUDO=yes
+    environment:
+      - AWS_NO_SIGN_REQUEST=true
+    env_file:
+      - ./.docker.env
+    ports:
+      - "9988:9988"
+    restart: always
+    volumes:
+      - ./notebooks:/home/jovyan
