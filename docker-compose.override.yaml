@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: kartoza/postgis:11.0-2.5
+    environment:
+      - POSTGRES_DB=opendatacube
+      - POSTGRES_PASSWORD=opendatacubepassword
+      - POSTGRES_USER=opendatacube
+    ports:
+      - 5432:5432
+    restart: always
+
+  sandbox:
+    environment:
+      - DATACUBE_DB_URL=postgresql://opendatacube:opendatacubepassword@postgres/opendatacube
