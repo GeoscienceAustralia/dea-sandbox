@@ -17,7 +17,7 @@ jupyter-nbextensions-configurator
 jupyter-contrib-nbextensions
 jupyter-contrib-core
 jupyter-ui-poll
-nbresuse
+nbresuse==0.3.3
 black
 autopep8
 yapf
