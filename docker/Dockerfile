@@ -116,7 +116,7 @@ RUN echo "Enable server extensions" \
 #   --extra-index-url="https://packages.dea.ga.gov.au" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
-COPY sync_repo with_bootstrap /usr/local/bin/
+COPY assets/sync_repo assets/with_bootstrap /usr/local/bin/
 
 WORKDIR "/home/$nb_user"
 
