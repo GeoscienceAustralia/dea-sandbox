@@ -37,6 +37,12 @@ RUN echo "Adding jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
 
+RUN echo "Enable server extensions" \
+  && jupyter serverextension enable --py --sys-prefix nbresuse \
+  && jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
+  && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
+  && echo done
+
 COPY requirements-odc.txt /conf/
 RUN echo "Adding odc-dependencies" \
   && env-build-tool extend /conf/requirements-odc.txt ${py_env_path}
@@ -104,12 +110,6 @@ ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
 # Put `/usr/local/bin` before env to allow overrides in there
 ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
-
-RUN echo "Enable server extensions" \
-  && jupyter serverextension enable --py --system nbresuse \
-  && jupyter serverextension enable --py --system jupyterlab_code_formatter \
-  && jupyter serverextension enable --py --system jupyterlab_iframe \
-  && echo done
 
 # Patch env when needed here
 # RUN echo "Patching python env" \
