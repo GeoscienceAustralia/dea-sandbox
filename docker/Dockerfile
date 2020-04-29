@@ -102,7 +102,8 @@ COPY --chown=1000:100 --from=env_builder $py_env_path $py_env_path
 
 ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
-ENV PATH=${py_env_path}/bin:$PATH
+# Put `/usr/local/bin` before env to allow overrides in there
+ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
 
 RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --system nbresuse \
@@ -116,7 +117,7 @@ RUN echo "Enable server extensions" \
 #   --extra-index-url="https://packages.dea.ga.gov.au" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
-COPY assets/sync_repo assets/with_bootstrap /usr/local/bin/
+COPY assets/sync_repo assets/with_bootstrap assets/jupyter-labhub /usr/local/bin/
 
 WORKDIR "/home/$nb_user"
 
