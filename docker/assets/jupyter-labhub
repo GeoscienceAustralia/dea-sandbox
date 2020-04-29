@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Wrapper around jupyter-labhub to enable restarting jupyter-labhub without
+# stopping docker image.
+#
+# This is needed to debug installation of server extensions without re-building
+# entire docker images.
+
+set -o pipefail
+
+APP_LOG="/tmp/labhub.log"
+REAL_APP="$(dirname $(which python))/jupyter-labhub"
+
+while true
+do
+    if "${REAL_APP}" $@ 2>&1 | tee -a "${APP_LOG}" ; then
+        echo "Exited normally"
+        exit 0
+    else
+        echo "Failure<$?>: restarting" | tee -a "${APP_LOG}"
+    fi
+done
