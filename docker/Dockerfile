@@ -49,6 +49,17 @@ RUN echo "Adding odc-dependencies" \
 
 FROM opendatacube/geobase:runner${V_BASE}
 
+#Install ffmpeg static binary
+RUN apt-get update -y \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
+  xz-utils \
+  curl \
+  && curl -s -L https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.1.4-amd64-static.tar.xz > ffmpeg.tar.xz \
+  && echo "546b9eb4517f4f5278356dfa125e08f95829b00282331d23f0c60241955b99c2" ffmpeg.tar.xz | sha256sum -c - \
+  && tar xvJ --strip-components=1 -C /tmp < ffmpeg.tar.xz \
+  && mv /tmp/ffmpeg /usr/local/bin/ffmpeg \
+  && rm -rf /tmp/* ffmpeg.tar.xz
+
 RUN apt-get update -y \
 && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
   # developer convenience
@@ -85,13 +96,6 @@ RUN apt-get update -y \
   libfftw3-dev \
   liblapack-dev \
 && rm -rf /var/lib/apt/lists/*
-
-#Install ffmpeg static binary
-RUN curl -s -L https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.1.4-amd64-static.tar.xz > ffmpeg.tar.xz \
-  && echo "546b9eb4517f4f5278356dfa125e08f95829b00282331d23f0c60241955b99c2" ffmpeg.tar.xz | sha256sum -c - \
-  && tar xvJ --strip-components=1 -C /tmp < ffmpeg.tar.xz \
-  && mv /tmp/ffmpeg /usr/local/bin/ffmpeg \
-  && rm -rf /tmp/* ffmpeg.tar.xz
 
 # Install Tini
 COPY --from=env_builder /bin/tini /bin/tini
