@@ -74,6 +74,7 @@ RUN apt-get update -y \
   fish \
   tig \
   git \
+  jq \
   xz-utils \
   openssh-client \
   graphviz \
