@@ -35,18 +35,18 @@ scipy
 pandas
 scikit-image
 scikit-learn
-msgpack==0.6.2
+msgpack==1.0.0
 numexpr
 numexpr3
 numba
 statsmodels
 Pillow
-dask[complete]==2.8.1
-distributed==2.8.1
+dask[complete]==2.16.0
+distributed==2.16.0
 xarray
 tensorflow
 ### plotting
-bokeh==1.4.0
+bokeh==2.0.1
 matplotlib==3.2.1
 descartes
 seaborn
