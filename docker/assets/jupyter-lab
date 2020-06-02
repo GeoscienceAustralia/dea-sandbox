@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Wrapper around jupyter-lab to enable restarting jupyter-lab without
+# stopping docker image.
+#
+# This is needed to debug installation of server extensions without re-building
+# entire docker images.
+
+set -o pipefail
+
+APP_LOG="/tmp/labhub.log"
+REAL_APP="$(dirname $(which python))/jupyter-lab"
+
+restart_count=0
+while true
+do
+    if "${REAL_APP}" $@ 2>&1 | tee -a "${APP_LOG}" ; then
+        echo "Exited normally"
+        exit 0
+    else
+        restart_count=$((restart_count+1))
+        if [ $restart_count -gt 100 ]; then
+            # avoid infinite restart loops
+            exit 1
+         else
+             echo "Failure<$?>: restarting" | tee -a "${APP_LOG}"
+        fi
+    fi
+done
