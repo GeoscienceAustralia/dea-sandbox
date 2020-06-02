@@ -122,10 +122,10 @@ ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
 #   --extra-index-url="https://packages.dea.ga.gov.au" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
-COPY assets/sync_repo assets/with_bootstrap assets/jupyter-lab /usr/local/bin/
+COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 
 # TODO: get rid of line below when spawner is updated to launch jupyter-lab instead of -labhub
-COPY assets/jupyter-lab /usr/local/bin/jupyter-labhub
+COPY assets/jupyterhub-singleuser /usr/local/bin/jupyter-labhub
 
 
 WORKDIR "/home/$nb_user"

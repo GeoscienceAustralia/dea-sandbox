@@ -9,7 +9,7 @@
 set -o pipefail
 
 APP_LOG="/tmp/labhub.log"
-REAL_APP="$(dirname $(which python))/jupyter-lab"
+REAL_APP="$(dirname $(which python))/jupyterhub-singleuser"
 
 restart_count=0
 while true
