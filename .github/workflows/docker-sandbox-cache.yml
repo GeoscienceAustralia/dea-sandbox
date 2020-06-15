@@ -134,8 +134,8 @@ jobs:
         docker push ${im_sudo}
 
 
-    - name: Push Extra tags (master branch only)
-      if: github.ref == 'refs/heads/master' && steps.cfg.outputs.push_image == 'yes'
+    - name: Push Extra tags (not all branches)
+      if: steps.cfg.outputs.im_extra != '' && steps.cfg.outputs.push_image == 'yes'
       run: |
         im_sudo=${im_stage2/:/:sudo-}
         im_sudo_extra=${im_extra/:/:sudo-}
