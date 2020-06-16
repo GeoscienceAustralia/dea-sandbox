@@ -38,7 +38,7 @@ export_cfg () {
 
     im_latest=${ORG}/${IMAGE}:latest
     im_stage2_fallback=${im_latest}
-    im_stage1_fallback=${ORG}/${IMAGE_DEV}:master_stage1
+    im_stage1_fallback=${ORG}/${IMAGE_DEV}:${DEV_BRANCH}_stage1
     im_extra=""  # only set on $DEV_BRANCH
     build_info="$(TZ=Australia/Sydney date -Im) $sha"
 
