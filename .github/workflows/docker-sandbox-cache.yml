@@ -4,11 +4,13 @@ on:
   push:
     paths:
       - 'docker/**'
+      - '.trivyignore'
       - '.github/workflows/docker-sandbox-cache.yml'
       - '.github/workflows/bin/**'
   pull_request:
     paths:
       - 'docker/**'
+      - '.trivyignore'
       - '.github/workflows/docker-sandbox-cache.yml'
       - '.github/workflows/bin/**'
 
