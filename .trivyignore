@@ -1,0 +1,2 @@
+# ignore lodash issue for now (there is no fix as of 16-Jun-2020)
+NSWG-ECO-516
