@@ -123,6 +123,7 @@ ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
+COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
 
 WORKDIR "/home/$nb_user"
 
