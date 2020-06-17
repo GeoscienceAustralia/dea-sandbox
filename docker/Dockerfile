@@ -124,10 +124,6 @@ ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
 
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 
-# TODO: get rid of line below when spawner is updated to launch jupyter-lab instead of -labhub
-COPY assets/jupyterhub-singleuser /usr/local/bin/jupyter-labhub
-
-
 WORKDIR "/home/$nb_user"
 
 ARG WITH_SUDO="no"
