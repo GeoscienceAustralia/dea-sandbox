@@ -1,8 +1,8 @@
 # misc
-aiobotocore[boto3,awscli]==0.11.1
-pyyaml==5.1.2
-python-dateutil==2.8.0
-colorama==0.4.1
+aiobotocore[boto3,awscli]==1.0.7
+pyyaml==5.3.1
+python-dateutil==2.8.1
+colorama==0.4.3
 cython
 ruamel.yaml
 ruamel.yaml.clib
@@ -29,6 +29,9 @@ zstandard
 thredds-crawler
 astropy
 boltons
+# pre-install datacube-stats dependencies
+cattrs
+structlog
 
 # Scientific Stack
 numpy
@@ -42,12 +45,12 @@ numexpr3
 numba
 statsmodels
 Pillow
-dask[complete]==2.16.0
-distributed==2.16.0
+dask[complete]==2.19.0
+distributed==2.19.0
 xarray
 tensorflow
 ### plotting
-bokeh==2.0.1
+bokeh==2.1.1
 matplotlib==3.2.1
 descartes
 seaborn
