@@ -43,13 +43,9 @@ RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
   && echo done
 
-# Use `--build-arg PURGE_CACHE_ODC=$(date)` to force re-installation of ODC dependencies
-# without the need to "edit" requirements-odc.txt
-ARG PURGE_CACHE_ODC=N
-COPY requirements-odc.txt /conf/
-RUN echo "Adding odc-dependencies" \
-  && if [ "${PURGE_CACHE_ODC}" != "N" ]; then echo "Forced docker to purge cache for this step!"; fi \
-  && env-build-tool extend /conf/requirements-odc.txt ${py_env_path}
+COPY requirements-odc-fixed.txt /conf/
+RUN echo "Adding odc-dependencies (fixed)" \
+  && env-build-tool extend /conf/requirements-odc-fixed.txt ${py_env_path}
 
 FROM opendatacube/geobase:runner${V_BASE}
 
@@ -119,6 +115,16 @@ ENV LC_ALL=C.UTF-8
 ENV SHELL=bash
 # Put `/usr/local/bin` before env to allow overrides in there
 ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
+
+# Use `--build-arg PURGE_CACHE_ODC=$(date)` to force re-installation of ODC dependencies
+# without the need to "edit" requirements-odc.txt
+ARG PURGE_CACHE_ODC=N
+COPY requirements-odc.txt /conf/
+RUN echo "Adding odc-dependencies" \
+  && if [ "${PURGE_CACHE_ODC}" != "N" ]; then echo "Forced docker to purge cache for this step!"; fi \
+  && ${py_env_path}/bin/pip install \
+  --no-cache-dir \
+  --requirement=/conf/requirements-odc.txt
 
 # Patch env when needed here
 # RUN echo "Patching python env" \
