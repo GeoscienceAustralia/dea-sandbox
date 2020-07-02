@@ -1,0 +1,17 @@
+# ODC/DEA: these are installed in builder stage
+--extra-index-url="https://packages.dea.ga.gov.au"
+otps>=0.3.1
+fc
+hdstats>=0.1.3
+datacube-stats
+hdmedians
+
+eodatasets3
+
+# rsgislib is conda only, but was manually packaged as a binary wheel compatible
+# with geobase docker images
+rsgislib
+
+--no-binary=fc\
+,hdstats\
+,hdmedians
