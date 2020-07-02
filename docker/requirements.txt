@@ -29,14 +29,15 @@ zstandard
 thredds-crawler
 astropy
 boltons
-# pre-install datacube-stats dependencies
+# pre-install eodatasets3 dependencies
 cattrs
 structlog
 
 # Scientific Stack
-numpy
-scipy
-pandas
+dask[complete]==2.19.0
+distributed==2.19.0
+tensorflow==2.2.0
+scipy==1.4.1  # fixed because of tensorflow 2.2.0
 scikit-image
 scikit-learn
 msgpack==1.0.0
@@ -45,10 +46,9 @@ numexpr3
 numba
 statsmodels
 Pillow
-dask[complete]==2.19.0
-distributed==2.19.0
+pandas
 xarray
-tensorflow
+numpy
 ### plotting
 bokeh==2.1.1
 matplotlib==3.2.1
