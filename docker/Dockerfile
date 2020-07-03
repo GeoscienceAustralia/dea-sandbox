@@ -120,12 +120,14 @@ ENV PATH=/usr/local/bin:${py_env_path}/bin:$PATH
 # without the need to "edit" requirements-odc.txt
 ARG PURGE_CACHE_ODC=N
 COPY requirements-odc.txt /conf/
+USER $nb_user
 RUN echo "Adding odc-dependencies" \
   && if [ "${PURGE_CACHE_ODC}" != "N" ]; then echo "Forced docker to purge cache for this step!"; fi \
   && ${py_env_path}/bin/pip install \
   --no-cache-dir \
   --requirement=/conf/requirements-odc.txt
 
+USER root
 # Patch env when needed here
 # RUN echo "Patching python env" \
 #   && pip install --no-cache-dir \
