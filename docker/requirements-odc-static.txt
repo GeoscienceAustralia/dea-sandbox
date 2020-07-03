@@ -1,7 +1,6 @@
 # ODC/DEA: these are installed in builder stage
 --extra-index-url="https://packages.dea.ga.gov.au"
 otps>=0.3.1
-fc
 hdstats>=0.1.3
 hdmedians
 
@@ -11,6 +10,6 @@ eodatasets3
 # with geobase docker images
 rsgislib
 
---no-binary=fc\
+--no-binary=\
 ,hdstats\
 ,hdmedians
