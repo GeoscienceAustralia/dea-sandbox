@@ -1,6 +1,6 @@
 # ODC/DEA: frequently changing
 --extra-index-url="https://packages.dea.ga.gov.au"
-datacube[performance,s3]==1.8.1
+datacube[performance,s3]
 datacube-stats
 fc
 odc_algo
