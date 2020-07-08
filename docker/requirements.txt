@@ -38,6 +38,7 @@ dask[complete]==2.19.0
 distributed==2.19.0
 tensorflow==2.2.0
 scipy==1.4.1  # fixed because of tensorflow 2.2.0
+xgboost       # used by Dale's s2cloudmask
 scikit-image
 scikit-learn
 msgpack==1.0.0

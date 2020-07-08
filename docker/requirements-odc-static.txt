@@ -10,6 +10,10 @@ eodatasets3
 # with geobase docker images
 rsgislib
 
+# Dale's s2cloudmask
+#  https://github.com/daleroberts/s2cloudmask
+s2cloudmask
+
 --no-binary=\
 ,hdstats\
 ,hdmedians
