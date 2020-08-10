@@ -78,6 +78,7 @@ mapclassify
 urbanaccess
 pysheds
 https://github.com/ubarsc/rios/archive/rios-1.4.10.tar.gz
+owslib
 
 --no-binary=aiohttp\
 ,cffi\
