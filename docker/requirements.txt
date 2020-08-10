@@ -29,6 +29,7 @@ zstandard
 thredds-crawler
 astropy
 boltons
+dataclasses
 # pre-install eodatasets3 dependencies
 cattrs
 structlog
