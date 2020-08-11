@@ -146,11 +146,3 @@ jobs:
 
         docker push "${im_extra}"
         docker push "${im_sudo_extra}"
-
-    - name: Run vulnerability scanner
-      uses: aquasecurity/trivy-action@0.0.6
-      with:
-        image-ref: ${{steps.cfg.outputs.im_stage2}}
-        format: "table"
-        exit-code: "1"
-        severity: "CRITICAL,HIGH"
