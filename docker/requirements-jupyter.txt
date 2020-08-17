@@ -27,6 +27,7 @@ mypy
 line_profiler
 nbformat
 nbval
+jupytext==1.5.2
 
 # jupyter + matplotlib
 # matplotlib itself is in requirements.txt as it's pulled in by other libs there
