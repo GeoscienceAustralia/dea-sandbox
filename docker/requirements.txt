@@ -45,7 +45,7 @@ scikit-image
 scikit-learn
 msgpack==1.0.0
 numexpr
-numexpr3
+numexpr3==3.0.1a1
 numba
 statsmodels
 Pillow
