@@ -7,10 +7,10 @@ assignees: ''
 
 ---
 
-**What domains needed? Please describe.**
-A list of domains you would like to access from sandbox workspace.
+**What domain(s) needed? Please describe.**
+A list of domain(s) you would like to access from sandbox workspace.
 
-**Why this domains needed? Please describe.**
+**Why this domain(s) needed? Please describe.**
 A clear and concise description of why you want to access listed domains.
 
 **Provide impacted notebook reference and purpose**
