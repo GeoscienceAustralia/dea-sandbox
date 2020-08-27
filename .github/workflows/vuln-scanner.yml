@@ -1,0 +1,15 @@
+on:
+  schedule:
+    - cron: 07 7 * * * 
+
+jobs:
+  vuln-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run vulnerability scanner
+        uses: aquasecurity/trivy-action@0.0.6
+        with:
+          image-ref: "geoscienceaustralia/sandbox:latest"
+          format: "table"
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"
