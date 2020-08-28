@@ -1,6 +1,6 @@
 # jupyter things
 jupyter==1.0.0
-jupyterlab==2.1.3
+jupyterlab==2.2.6
 jupyterlab_iframe==0.2.2
 jupyterhub==1.1.0
 ipywidgets==7.5.1
@@ -44,5 +44,5 @@ dask-labextension==2.0.2
 geoviews==1.8.1
 cartopy==0.18.0
 datashader==0.11.0
-panel==0.9.5
+panel==0.9.7
 holoviews==1.13.2

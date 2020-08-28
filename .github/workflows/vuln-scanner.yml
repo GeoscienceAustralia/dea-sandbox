@@ -1,3 +1,5 @@
+name: Vulnerability Scan
+
 on:
   schedule:
     - cron: 07 7 * * * 
