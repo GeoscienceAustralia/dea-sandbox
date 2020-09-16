@@ -54,8 +54,8 @@ RUN apt-get update -y \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
   xz-utils \
   curl \
-  && curl -s -L https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.1.4-amd64-static.tar.xz > ffmpeg.tar.xz \
-  && echo "546b9eb4517f4f5278356dfa125e08f95829b00282331d23f0c60241955b99c2" ffmpeg.tar.xz | sha256sum -c - \
+  && curl -s -L https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.2.2-amd64-static.tar.xz > ffmpeg.tar.xz \
+  && echo "c1c7ec5180523db214a7f6f59ea737e8e582570cb884c3ab0c583da4f5165e27" ffmpeg.tar.xz | sha256sum -c - \
   && tar xvJ --strip-components=1 -C /tmp < ffmpeg.tar.xz \
   && mv /tmp/ffmpeg /usr/local/bin/ffmpeg \
   && rm -rf /tmp/* ffmpeg.tar.xz
