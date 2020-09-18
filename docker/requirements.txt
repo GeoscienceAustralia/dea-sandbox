@@ -69,6 +69,7 @@ geopandas
 cligj
 GDAL
 rasterio
+rio-cogeo
 Shapely
 pyproj
 h5py
