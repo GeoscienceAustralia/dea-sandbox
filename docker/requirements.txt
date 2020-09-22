@@ -50,8 +50,8 @@ numexpr3==3.0.1a1
 numba
 statsmodels
 Pillow
-pandas==1.0.5
-xarray==0.16.0
+pandas==1.1.2
+xarray==0.16.1
 numpy
 ### plotting
 bokeh==2.1.1
