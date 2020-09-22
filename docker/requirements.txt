@@ -38,6 +38,7 @@ structlog
 dask[complete]==2.26.0
 distributed==2.26.0
 dask-image
+dask-ml
 tensorflow==2.2.0
 scipy==1.4.1  # fixed because of tensorflow 2.2.0
 xgboost       # used by Dale's s2cloudmask
