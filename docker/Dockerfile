@@ -84,6 +84,7 @@ RUN apt-get update -y \
   net-tools \
   simpleproxy \
   rsync \
+  libtiff-tools \
 # rgsislib dependencies
   libcgal13 \
   libmuparser2v5 \
