@@ -1,7 +1,7 @@
 # ODC/DEA: these are installed in builder stage
 --extra-index-url="https://packages.dea.ga.gov.au"
 otps>=0.3.1
-hdstats>=0.1.6
+hdstats>=0.1.7.post4
 hdmedians
 
 eodatasets3
