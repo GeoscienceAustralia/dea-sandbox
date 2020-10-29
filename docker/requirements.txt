@@ -55,6 +55,7 @@ Pillow
 pandas==1.1.2
 xarray==0.16.1
 numpy
+zarr
 ### plotting
 bokeh==2.1.1
 matplotlib==3.2.1
