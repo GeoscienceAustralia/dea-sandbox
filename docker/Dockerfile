@@ -80,6 +80,7 @@ RUN apt-get update -y \
   zip \
   unzip \
   file \
+  time \
   openssh-client \
   graphviz \
   sudo \
