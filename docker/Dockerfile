@@ -77,6 +77,9 @@ RUN apt-get update -y \
   git \
   jq \
   xz-utils \
+  zip \
+  unzip \
+  file \
   openssh-client \
   graphviz \
   sudo \
