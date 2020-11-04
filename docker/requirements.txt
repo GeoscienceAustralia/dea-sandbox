@@ -1,5 +1,5 @@
 # misc
-aiobotocore[boto3,awscli]==1.1.1
+aiobotocore[boto3,awscli]==1.1.2
 docutils==0.15.2 # because of botocore
 pyyaml==5.3.1
 python-dateutil==2.8.0  # pinned because of pysal==2.2.0
@@ -36,19 +36,19 @@ cattrs
 structlog
 
 # Scientific Stack
-dask[complete]==2.26.0
-distributed==2.26.0
+dask[complete]==2.30.0
+distributed==2.30.0
 dask-image
 dask-ml
-tensorflow==2.2.1
-scipy==1.4.1  # fixed because of tensorflow 2.2.0
+tensorflow==2.3.1
+scipy
 xgboost       # used by Dale's s2cloudmask
 pathos
 scikit-image
 scikit-learn
 msgpack==1.0.0
 numexpr
-numexpr3==3.0.1a1
+numexpr3==3.0.1a5
 numba
 statsmodels
 Pillow
