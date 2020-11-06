@@ -89,6 +89,7 @@ owslib
 rioxarray
 python-geohash
 geohash2
+richdem
 
 
 --no-binary=aiohttp\
@@ -110,3 +111,4 @@ geohash2
 ,typed_ast\
 ,tables\
 ,zstandard\
+,richdem\
