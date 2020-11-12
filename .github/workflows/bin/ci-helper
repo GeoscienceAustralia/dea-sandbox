@@ -88,7 +88,7 @@ export_cfg () {
 
     for x in $all_envs; do
         export "${x}"                         # make it available to calling script
-        echo "::set-env name=${x}::${!x}"     # make it available to subsequent Actions
+        echo "${x}=${!x}" >> $GITHUB_ENV      # make it available to subsequent Actions
         echo "::set-output name=${x}::${!x}"  # make it available to subsequent Actions inside if:
     done
 }
