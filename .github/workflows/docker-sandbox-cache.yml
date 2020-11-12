@@ -29,7 +29,7 @@ jobs:
 
     - name: Update PATH
       run: |
-        echo "::add-path::${GITHUB_WORKSPACE}/.github/workflows/bin"
+        echo "${GITHUB_WORKSPACE}/.github/workflows/bin" >> $GITHUB_PATH
 
     - name: Config
       id: cfg
