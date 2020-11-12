@@ -54,11 +54,13 @@ export_cfg () {
             ;;
         "refs/heads/"*)
             BRANCH="${ref#refs/heads/}"
+            BRANCH="${BRANCH/\//_}"
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
             ;;
         "refs/tags/"*)
             push_cache="no"
             BRANCH="${ref#refs/tags/}"
+            BRANCH="${BRANCH/\//_}"
             im_stage2=${ORG}/${IMAGE}:${BRANCH}
             ;;
         "refs/pull/"*)
@@ -68,6 +70,7 @@ export_cfg () {
             push_cache="no"
             push_image="no"
             BRANCH="${GITHUB_HEAD_REF}"
+            BRANCH="${BRANCH/\//_}"
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
             ;;
         *)
