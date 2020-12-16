@@ -1,5 +1,5 @@
 # ODC/DEA: frequently changing
-# bumps: 17-11-2020 update odc-tools
+# bumps: 16-12-2020 update odc-tools
 --extra-index-url="https://packages.dea.ga.gov.au"
 datacube[performance,s3]==1.8.3
 datacube-stats
