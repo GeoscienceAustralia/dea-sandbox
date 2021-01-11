@@ -1,4 +1,8 @@
 # DEA Sandbox
+
+![Sandbox build and push latest](https://github.com/GeoscienceAustralia/dea-sandbox/workflows/Sandbox%20build%20and%20push%20latest/badge.svg)
+![Vulnerability Scan](https://github.com/GeoscienceAustralia/dea-sandbox/workflows/Vulnerability%20Scan/badge.svg)
+
 Digital Earth Australia Sandbox Docker build, configuration and planning.
 
 Please ensure all tasks have a description that includes a clear definition of when the task is complete.
