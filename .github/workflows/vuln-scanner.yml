@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Run vulnerability scanner
         uses: aquasecurity/trivy-action@0.0.8
+        continue-on-error: true
         with:
           image-ref: "geoscienceaustralia/sandbox:latest"
-          exit-code: "1"
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
