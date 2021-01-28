@@ -1,6 +1,7 @@
 @jupyter-widgets/jupyterlab-manager@v2.0.0
 @jupyterlab/geojson-extension@v2.0.1
 @jupyterlab/hub-extension@v2.1.2
+@jupyterlab/toc@v4.0.0
 dask-labextension@v2.0.2
 jupyter-matplotlib@v0.7.2
 @bokeh/jupyter_bokeh@2.0.2
