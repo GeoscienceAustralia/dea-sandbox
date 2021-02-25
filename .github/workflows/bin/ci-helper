@@ -28,6 +28,10 @@ branch_name () {
     esac
 }
 
+safe_tag_name () {
+    echo ${1//\//_}
+}
+
 export_cfg () {
     local ref="${1:-${GITHUB_REF:-}}"
     local sha="${2:-${GITHUB_SHA:-missing_sha}}"
@@ -53,14 +57,12 @@ export_cfg () {
             im_extra="${ORG}/${IMAGE_DEV}:${vv}"
             ;;
         "refs/heads/"*)
-            BRANCH="${ref#refs/heads/}"
-            BRANCH="${BRANCH/\//_}"
+            BRANCH=$(safe_tag_name "${ref#refs/heads/}")
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
             ;;
         "refs/tags/"*)
             push_cache="no"
-            BRANCH="${ref#refs/tags/}"
-            BRANCH="${BRANCH/\//_}"
+            BRANCH=$(safe_tag_name "${ref#refs/tags/}")
             im_stage2=${ORG}/${IMAGE}:${BRANCH}
             ;;
         "refs/pull/"*)
@@ -69,8 +71,7 @@ export_cfg () {
             fi
             push_cache="no"
             push_image="no"
-            BRANCH="${GITHUB_HEAD_REF}"
-            BRANCH="${BRANCH/\//_}"
+            BRANCH=$(safe_tag_name "${GITHUB_HEAD_REF}")
             im_stage2=${ORG}/${IMAGE_DEV}:${BRANCH}
             ;;
         *)
