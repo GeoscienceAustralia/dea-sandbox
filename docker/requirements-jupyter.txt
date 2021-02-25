@@ -2,7 +2,7 @@
 jupyter==1.0.0
 jupyterlab==2.2.9
 jupyterlab_iframe==0.2.2
-jupyterhub==1.1.0
+jupyterhub==1.3.0
 ipywidgets==7.5.1
 ipyleaflet==0.13.0
 jupyter-server-proxy==1.5.0
