@@ -79,7 +79,7 @@ h5py
 netcdf4
 rtree
 pandana
-pysal
+pysal==2.3.0
 pyepsg
 mapclassify
 urbanaccess
