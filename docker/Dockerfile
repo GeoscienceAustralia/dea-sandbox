@@ -49,20 +49,21 @@ RUN echo "Adding odc-dependencies (static)" \
 
 FROM opendatacube/geobase:runner${V_BASE}
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 #Install ffmpeg static binary
 RUN apt-get update -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
-  xz-utils \
-  curl \
+  && apt-get install -y --fix-missing --no-install-recommends xz-utils curl \
   && rm -rf /var/lib/apt/lists/* \
   && curl -s -L https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-4.2.2-amd64-static.tar.xz > ffmpeg.tar.xz \
   && echo "c1c7ec5180523db214a7f6f59ea737e8e582570cb884c3ab0c583da4f5165e27" ffmpeg.tar.xz | sha256sum -c - \
   && tar xvJ --strip-components=1 -C /tmp < ffmpeg.tar.xz \
+  && mkdir -p /usr/local/bin/ \
   && mv /tmp/ffmpeg /usr/local/bin/ffmpeg \
   && rm -rf /tmp/* ffmpeg.tar.xz
 
 RUN apt-get update -y \
-&& DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
+&& apt-get install -y --fix-missing --no-install-recommends \
   # developer convenience
   postgresql-client-10 \
   postgresql-10 \
