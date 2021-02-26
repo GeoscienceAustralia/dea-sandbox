@@ -3,6 +3,7 @@
 --extra-index-url="https://packages.dea.ga.gov.au"
 datacube[performance,s3]>=1.8.4.dev
 datacube-stats
+datacube-wps
 fc
 odc_algo
 odc_ui
