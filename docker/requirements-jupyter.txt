@@ -29,6 +29,9 @@ nbconvert==5.6.1
 nbformat==5.0.8
 nbval==0.9.6
 jupytext==1.5.2
+# fix for auto-complete breaking with jedi 0.18
+jedi==0.17.2
+parso==0.7.1
 
 # jupyter + matplotlib
 # matplotlib itself is in requirements.txt as it's pulled in by other libs there
