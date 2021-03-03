@@ -18,4 +18,4 @@ odc_dtools
 odc_stats
 odc-apps-dc-tools
 odc-apps-cloud
-hdstats==0.1.8.post1 --no-binary=hdstats
+hdstats>=0.2.1 --no-binary=hdstats
