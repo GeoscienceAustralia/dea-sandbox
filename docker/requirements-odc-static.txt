@@ -13,5 +13,9 @@ rsgislib
 #  https://github.com/daleroberts/s2cloudmask
 s2cloudmask
 
+# need to be installed after to override libs with non-gl ones
+opencv-python-headless
+opencv-contrib-python-headless
+
 --no-binary=\
 ,hdmedians
