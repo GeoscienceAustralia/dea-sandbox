@@ -92,6 +92,7 @@ rioxarray
 python-geohash
 geohash2
 richdem
+cmocean
 
 
 --no-binary=aiohttp\
