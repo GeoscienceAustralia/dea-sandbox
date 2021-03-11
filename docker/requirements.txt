@@ -38,8 +38,6 @@ structlog
 # Scientific Stack
 dask[complete]==2.30.0
 distributed==2.30.0
-opencv-python-headless
-opencv-contrib-python-headless
 dask-image
 dask-ml
 tensorflow==2.3.1
