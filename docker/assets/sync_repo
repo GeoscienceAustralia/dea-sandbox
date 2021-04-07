@@ -15,4 +15,8 @@ BRANCH="${2:-master}"
     rm -rf "${WORKDIR}"/{.git,.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
     rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
+    # Install Tools folder if available
+    if [ -e $HOME/Tools/setup.py ]; then
+        python -m pip install -e "$HOME/Tools" || true
+    fi
 }
