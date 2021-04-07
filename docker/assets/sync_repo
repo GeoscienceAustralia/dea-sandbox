@@ -19,5 +19,5 @@ REPO_DIR="${REPO_NAME%.*}"
     rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
     # Install Tools folder if available
-    pip install -e REPO_DIR/Tools || true
+    python -m pip install -e "${REPO_DIR}/Tools" || true
 }
