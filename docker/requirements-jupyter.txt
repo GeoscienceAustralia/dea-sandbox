@@ -50,3 +50,7 @@ cartopy==0.18.0
 datashader==0.11.0
 panel==0.9.7
 holoviews==1.13.2
+
+# jupyterhub + dask
+dask-gateway==0.9.0
+dask-gateway-server==0.9.0
