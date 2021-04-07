@@ -3,9 +3,6 @@
 REPO=$1
 BRANCH="${2:-master}"
 
-REPO_NAME=$(basename -- "$REPO")
-REPO_DIR="${REPO_NAME%.*}"
-
 # Don't sync if there's a .no_sync file
 [ -e .no_sync  ] || {
     # Sync notebook repo
@@ -19,5 +16,7 @@ REPO_DIR="${REPO_NAME%.*}"
     rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
     # Install Tools folder if available
-    python -m pip install -e "${REPO_DIR}/Tools" || true
+    if [ -e $HOME/Tools/setup.py ]; then
+        python -m pip install -e "$HOME/Tools" || true
+    fi
 }
