@@ -1,7 +1,7 @@
 # misc
 aiobotocore[boto3,awscli]==1.1.2
 docutils==0.15.2 # because of botocore
-pyyaml==5.3.1
+pyyaml==5.4
 python-dateutil==2.8.0  # pinned because of pysal==2.2.0
 colorama==0.4.3
 cython
