@@ -24,7 +24,7 @@ autopep8
 yapf
 isort
 mypy
-ipython==7.16.1 # because of line_profiler
+ipython==7.7.0 # because of line_profiler
 prompt-toolkit==2.0.10 # because of line_profiler/ipython
 line_profiler
 nbconvert==5.6.1
