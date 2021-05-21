@@ -24,6 +24,8 @@ autopep8
 yapf
 isort
 mypy
+ipython==7.7.0 # because of line_profiler
+prompt-toolkit==2.0.10 # because of line_profiler/ipython
 line_profiler
 nbconvert==5.6.1
 nbformat==5.0.8
@@ -47,7 +49,7 @@ jupyter-bokeh==2.0.2
 dask-labextension==2.0.2
 geoviews==1.8.1
 cartopy==0.18.0
-datashader==0.11.0
+datashader==0.12.1
 panel==0.9.7
 holoviews==1.13.2
 
