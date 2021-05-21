@@ -2,6 +2,7 @@
 aiobotocore[boto3,awscli]==1.3.0
 docutils==0.15.2 # because of botocore
 pyyaml==5.4.1
+urllib3==1.26.4 # for botocore, but conflicts with pysal, which can not be updated as it dropped 3.6
 python-dateutil==2.8.0  # pinned because of pysal==2.2.0
 colorama==0.4.3
 cython
