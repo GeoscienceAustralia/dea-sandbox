@@ -19,6 +19,7 @@ env:
   IMAGE: sandbox
   IMAGE_DEV: sandbox-dev
   DOCKER_USER: gadockersvc
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   build-and-push:
@@ -48,9 +49,10 @@ jobs:
 
     - name: DockerHub Login
       if: steps.cfg.outputs.push_cache == 'yes' || steps.cfg.outputs.push_image == 'yes'
-      run: |
-        echo "Login to DockerHub as ${DOCKER_USER}"
-        echo "${{ secrets.DockerPassword }}" | docker login -u "${DOCKER_USER}" --password-stdin
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.DOCKER_USER }}
+        password: ${{ secrets.DockerPassword }}
 
     - name: Pull Cache (stage1)
       if: steps.cfg.outputs.pull_cache == 'yes'
