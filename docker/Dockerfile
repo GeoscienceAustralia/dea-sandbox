@@ -10,16 +10,19 @@ RUN mkdir -p /conf
 # minimal env with those first, then extend further
 COPY requirements0.txt /conf/
 RUN echo "Building python environment: stage 1" \
+  && cat /conf/requirements0.txt \
   && env-build-tool new /conf/requirements0.txt ${py_env_path}
 
 COPY requirements.txt /conf/
 RUN echo "Building python environment: stage 2" \
+  && cat /conf/requirements.txt \
   && env-build-tool extend /conf/requirements.txt ${py_env_path}
 
 ENV PATH=${py_env_path}/bin:$PATH
 
 COPY requirements-jupyter.txt /conf/
 RUN echo "Building python environment: stage Jupyter" \
+  && cat /conf/requirements-jupyter.txt \
   && env-build-tool extend /conf/requirements-jupyter.txt ${py_env_path}
 
 COPY jupyter-extensions.txt /conf/
