@@ -1,7 +1,7 @@
-ARG V_BASE=-3.0.4
+ARG V_BASE=3.3.0
 ARG py_env_path=/env
 
-FROM opendatacube/geobase:wheels${V_BASE} as env_builder
+FROM opendatacube/geobase-builder:${V_BASE} as env_builder
 ARG py_env_path
 
 RUN mkdir -p /conf
@@ -47,7 +47,7 @@ COPY requirements-odc-static.txt /conf/
 RUN echo "Adding odc-dependencies (static)" \
   && env-build-tool extend /conf/requirements-odc-static.txt ${py_env_path}
 
-FROM opendatacube/geobase:runner${V_BASE}
+FROM opendatacube/geobase-runner:${V_BASE}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
