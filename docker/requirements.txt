@@ -1,5 +1,9 @@
 # misc
+access
+affine
 aiobotocore
+aiohttp
+alabaster
 colorama
 dill
 docutils
