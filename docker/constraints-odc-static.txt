@@ -1,6 +1,6 @@
 otps>=0.3.1
 eodatasets3==0.21.1
-rsgislib==4.0.6
+rsgislib==4.1.95
 s2cloudmask==0.1
 
 # need to be installed after to override libs with non-gl ones
