@@ -87,7 +87,7 @@ pandana==0.6.1
 pyepsg==0.4.0
 pysal==2.3.0
 pysheds==0.2.7
-python-geohash
+python-geohash==0.8.5
 cmocean==2.0
 mapclassify==2.4.2
 rioxarray==0.3.1
