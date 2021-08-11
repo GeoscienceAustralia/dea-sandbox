@@ -44,9 +44,10 @@ RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
   && echo done
 
-COPY requirements-odc-static.txt /conf/
+COPY requirements-odc-static.txt constraints-odc-static.txt /conf/
 RUN echo "Adding odc-dependencies (static)" \
-  && env-build-tool extend /conf/requirements-odc-static.txt ${py_env_path}
+  && NOBINARY=/conf/nobinary-odc-static.txt \
+  env-build-tool extend /conf/requirements-odc-static.txt /conf/constraints-odc-static.txt ${py_env_path}
 #
 #FROM opendatacube/geobase-runner:${V_BASE}
 #

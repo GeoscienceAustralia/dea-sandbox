@@ -1,7 +1,7 @@
 # ODC/DEA: frequently changing
 # bumps: 27-01-2020 update odc-tools
 --extra-index-url="https://packages.dea.ga.gov.au"
-datacube[performance,s3]>=1.8.4.dev
+datacube
 datacube-stats
 fc
 odc_algo
@@ -17,4 +17,4 @@ odc_dtools
 odc_stats
 odc-apps-dc-tools
 odc-apps-cloud
-hdstats>=0.2.1 --no-binary=hdstats
+hdstats --no-binary=hdstats
