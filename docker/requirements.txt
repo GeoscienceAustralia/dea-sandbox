@@ -46,7 +46,6 @@ msgpack
 numba
 numexpr
 numexpr3
-numpy
 pandas
 pathos
 Pillow
