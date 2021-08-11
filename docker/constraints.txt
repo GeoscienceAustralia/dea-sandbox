@@ -18,7 +18,7 @@ ruamel.yaml==0.17.10
 ruamel.yaml.clib==0.2.4
 s3fs==2021.6.1
 tqdm==4.56.0
-urllib3<1.25  # for botocore, but conflicts with pysal, which can not be updated as it dropped 3.6
+urllib3==1.24  # for botocore, but conflicts with pysal, which can not be updated as it dropped 3.6
 voluptuous==0.12.1
 # pre-install misc datacube dependencies
 bottleneck==1.3.2
@@ -32,7 +32,7 @@ toolz==0.11.1
 # pre-install misc odc-tools dependencies
 astropy==4.1
 boltons==21.0.0
-# dataclasses==0.8
+dataclasses==0.5
 lmdb==1.2.1
 thredds-crawler==1.5.4
 zstandard==0.15.2
