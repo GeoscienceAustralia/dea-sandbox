@@ -83,13 +83,8 @@ RUN apt-get update -y \
  rsync \
  libtiff-tools \
 # rgsislib dependencies
-# TODO -  Unable to locate package?
-#  libcgal13 \
-#  libmuparser2v5 \
-#  libgsl23 \
-#  libboost-system1.65.1 \
-#  libboost-filesystem1.65.1 \
-#  libboost-date-time1.65.1 \
+ libcgal-dev \
+ libboost-dev \
 # for cython to work need compilers
  build-essential \
 # for pyRAT install or something
