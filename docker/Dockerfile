@@ -4,17 +4,10 @@ ARG py_env_path=/env
 FROM opendatacube/geobase-builder:${V_BASE} as env_builder
 ARG py_env_path
 
-# Some libs assume presence of Cython and numpy in the environment, so build
-# minimal env with those first, then extend further
-COPY requirements0.txt constraints0.txt nobinary0.txt /conf/
-RUN echo "Building python environment: stage 1" \
-  && cat /conf/requirements0.txt \
-  && NOBINARY=/conf/nobinary0.txt env-build-tool new /conf/requirements0.txt /conf/constraints0.txt ${py_env_path}
-
 COPY requirements.txt constraints.txt nobinary.txt /conf/
-RUN echo "Building python environment: stage 2" \
+RUN echo "Building python environment: stage 1" \
   && cat /conf/requirements.txt \
-  && NOBINARY=/conf/nobinary.txt env-build-tool extend /conf/requirements.txt /conf/constraints.txt ${py_env_path}
+  && NOBINARY=/conf/nobinary.txt env-build-tool new /conf/requirements.txt /conf/constraints.txt ${py_env_path}
 
 ENV PATH=${py_env_path}/bin:$PATH
 

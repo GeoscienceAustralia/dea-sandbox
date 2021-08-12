@@ -95,7 +95,6 @@ rioxarray
 richdem
 urbanaccess
 
---extra-index-url="https://google-coral.github.io/py-repo/"
-tflite_runtime
+--extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
 
 https://github.com/ubarsc/rios/archive/rios-1.4.10.tar.gz
