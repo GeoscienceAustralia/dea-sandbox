@@ -6,7 +6,7 @@ jupyterlab==2.2.9
 jupyterlab-code-formatter==1.3.6
 jupyterlab_iframe==0.2.2
 jupyterlab-git==0.20.0
-jupyterhub==1.3.0
+jupyterhub==1.4.2
 jupytext==1.5.2
 jupyter-contrib-core==0.3.3
 jupyter-contrib-nbextensions==0.5.1

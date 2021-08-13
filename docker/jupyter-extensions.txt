@@ -8,4 +8,4 @@ jupyter-matplotlib@v0.7.2
 @ryantam626/jupyterlab_code_formatter@v1.3.6
 jupyterlab-jupytext@v1.2.1
 jupyterlab-code-snippets@v1.0.4
-jupyter-leaflet@v0.13.1
+# jupyter-leaflet@v0.13.1
