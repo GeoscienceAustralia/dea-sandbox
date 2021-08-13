@@ -7,4 +7,3 @@ s2cloudmask==0.1
 opencv-contrib-python==4.5.2.54
 opencv-contrib-python-headless==4.5.2.54
 opencv-python-headless==4.5.2.54
-

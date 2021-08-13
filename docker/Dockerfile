@@ -47,45 +47,45 @@ FROM opendatacube/geobase-runner:${V_BASE}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y \
-&& apt-get install -y --fix-missing --no-install-recommends \
- # developer convenience
- postgresql-client-12 \
- postgresql-12 \
- less \
- wget \
- curl \
- vim \
- tmux \
- htop \
- fish \
- tig \
- git \
- jq \
- xz-utils \
- zip \
- unzip \
- file \
- time \
- openssh-client \
- graphviz \
- sudo \
- iproute2 \
- iputils-ping \
- net-tools \
- simpleproxy \
- rsync \
- libtiff-tools \
-# rgsislib dependencies
- libcgal-dev \
- libboost-dev \
-# for cython to work need compilers
- build-essential \
-# for pyRAT install or something
- libfftw3-dev \
- liblapack-dev \
-# install ffmpeg the normal way
- ffmpeg \
-&& rm -rf /var/lib/apt/lists/*
+  && apt-get install -y --fix-missing --no-install-recommends \
+     # developer convenience
+     postgresql-client-12 \
+     postgresql-12 \
+     less \
+     wget \
+     curl \
+     vim \
+     tmux \
+     htop \
+     fish \
+     tig \
+     git \
+     jq \
+     xz-utils \
+     zip \
+     unzip \
+     file \
+     time \
+     openssh-client \
+     graphviz \
+     sudo \
+     iproute2 \
+     iputils-ping \
+     net-tools \
+     simpleproxy \
+     rsync \
+     libtiff-tools \
+    # rgsislib dependencies
+     libcgal-dev \
+     libboost-dev \
+    # for cython to work need compilers
+     build-essential \
+    # for pyRAT install or something
+     libfftw3-dev \
+     liblapack-dev \
+    # install ffmpeg the normal way
+     ffmpeg \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Tini
 COPY --from=env_builder /bin/tini /bin/tini
@@ -111,11 +111,12 @@ ARG PURGE_CACHE_ODC=N
 COPY requirements-odc.txt constraints-odc.txt /conf/
 USER $nb_user
 RUN echo "Adding odc-dependencies" \
- && if [ "${PURGE_CACHE_ODC}" != "N" ]; then echo "Forced docker to purge cache for this step!"; fi \
- && ${py_env_path}/bin/pip install \
- --no-cache-dir \
- --requirement=/conf/requirements-odc.txt \
- -c /conf/constraints-odc.txt
+  && if [ "${PURGE_CACHE_ODC}" != "N" ]; then echo "Forced docker to purge cache for this step!"; fi \
+  && ${py_env_path}/bin/pip install \
+    --no-cache-dir \
+    --requirement=/conf/requirements-odc.txt \
+    -c /conf/constraints-odc.txt
+
 
 USER root
 # Patch env when needed here
@@ -124,6 +125,11 @@ USER root
 #   --extra-index-url="https://packages.dea.ga.gov.au" \
 #   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
 
+# upgrade numpy - to resove issue - https://github.com/scikit-image/scikit-image/issues/5270
+RUN echo "Patching python env" \
+  && pip install --no-cache-dir \
+    --no-deps --upgrade numpy==1.20.1
+
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
 
@@ -131,14 +137,14 @@ WORKDIR "/home/$nb_user"
 
 ARG WITH_SUDO="no"
 RUN if [ "$WITH_SUDO" = "yes" ]; then \
- echo "${nb_user} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+  echo "${nb_user} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 ;fi
 
 ARG BUILD_INFO=""
 RUN if [ -z "${BUILD_INFO}" ]; then \
- BUILD_INFO="$(date)" \
+  BUILD_INFO="$(date)" \
 ;fi \
- && echo "${BUILD_INFO}" > /build.info
+  && echo "${BUILD_INFO}" > /build.info
 
 USER $nb_user
 
