@@ -4,12 +4,17 @@ ARG py_env_path=/env
 FROM opendatacube/geobase-builder:${V_BASE} as env_builder
 ARG py_env_path
 
+ENV PATH=${py_env_path}/bin:$PATH
+
+# install numpy - needed for stage1 dependency
+# later step we updating it to numpy==1.20.1
+RUN echo "Building python prereq: stage 0" \
+  && pip install numpy==1.19.5 cython==0.29.22 --no-binary=cython
+
 COPY requirements.txt constraints.txt nobinary.txt /conf/
 RUN echo "Building python environment: stage 1" \
   && cat /conf/requirements.txt \
   && NOBINARY=/conf/nobinary.txt env-build-tool new /conf/requirements.txt /conf/constraints.txt ${py_env_path}
-
-ENV PATH=${py_env_path}/bin:$PATH
 
 COPY requirements-jupyter.txt constraints-jupyter.txt /conf/
 RUN echo "Building python environment: stage Jupyter" \
