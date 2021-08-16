@@ -80,8 +80,12 @@ RUN apt-get update -y \
      rsync \
      libtiff-tools \
     # rgsislib dependencies
+     libgsl-dev \
      libcgal-dev \
      libboost-dev \
+     libboost-system1.71.0 \
+     libboost-filesystem1.71.0 \
+     libboost-date-time1.71.0 \
     # for cython to work need compilers
      build-essential \
     # for pyRAT install or something
