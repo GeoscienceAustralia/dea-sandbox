@@ -14,4 +14,3 @@ odc_dtools>=0.2.dev
 odc_stats>=0.2.dev
 odc-apps-dc-tools>=0.2.dev
 odc-apps-cloud>=0.2.dev
-hdstats==0.1.8.post1

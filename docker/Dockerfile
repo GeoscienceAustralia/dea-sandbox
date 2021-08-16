@@ -135,6 +135,11 @@ RUN echo "Patching python env" \
   && pip install --no-cache-dir \
     --no-deps --upgrade numpy==1.20.1
 
+# override faster version of hdstats from dea packages
+RUN echo "Patching python env" \
+  && pip install \
+  --extra-index-url="https://packages.dea.ga.gov.au" hdstats==hdstats-0.1.8.post1
+
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
 
