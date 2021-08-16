@@ -102,7 +102,7 @@ ARG nb_gid=100
 RUN useradd -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 
 # Copy python env
-ARG py_env_path
+ARG py_env_path=/env
 COPY --chown=1000:100 --from=env_builder $py_env_path $py_env_path
 
 ENV LC_ALL=C.UTF-8
