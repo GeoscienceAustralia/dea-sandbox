@@ -83,6 +83,7 @@ RUN apt-get update -y \
      libgsl-dev \
      libcgal-dev \
      libboost-dev \
+     libmuparser2v5 \
      libboost-system1.71.0 \
      libboost-filesystem1.71.0 \
      libboost-date-time1.71.0 \
