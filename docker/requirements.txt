@@ -74,7 +74,6 @@ geohash2
 geojson
 geopandas
 geopy
-GDAL --no-binary=GDAL
 rasterio
 rasterstats
 rio-cogeo

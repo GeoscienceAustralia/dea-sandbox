@@ -17,4 +17,3 @@ odc_dtools
 odc_stats
 odc-apps-dc-tools
 odc-apps-cloud
-hdstats --no-binary=hdstats

@@ -2,6 +2,7 @@ aiohttp==3.7.4.post0
 cffi==1.14.5
 cftime==1.5.0
 cryptography==3.4.7
+GDAL==3.3.0
 lmdb==1.2.1
 lxml==4.6.3
 msgpack==1.0.0

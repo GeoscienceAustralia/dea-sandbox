@@ -1,1 +1,2 @@
 hdmedians==0.14.2
+hdstats==0.1.8.post1

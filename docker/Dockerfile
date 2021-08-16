@@ -1,8 +1,7 @@
 ARG V_BASE=3.3.0
-ARG py_env_path=/env
 
 FROM opendatacube/geobase-builder:${V_BASE} as env_builder
-ARG py_env_path
+ARG py_env_path=/env
 
 ENV PATH=${py_env_path}/bin:$PATH
 
@@ -43,7 +42,7 @@ RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
   && echo done
 
-COPY requirements-odc-static.txt constraints-odc-static.txt /conf/
+COPY requirements-odc-static.txt constraints-odc-static.txt nobinary-odc-static.txt /conf/
 RUN echo "Adding odc-dependencies (static)" \
   && NOBINARY=/conf/nobinary-odc-static.txt \
   env-build-tool extend /conf/requirements-odc-static.txt /conf/constraints-odc-static.txt ${py_env_path}
