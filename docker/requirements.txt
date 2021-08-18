@@ -1,7 +1,7 @@
 # misc
 access
 affine
-aiobotocore
+aiobotocore[boto3,awscli]
 aiohttp
 alabaster
 colorama
@@ -26,8 +26,7 @@ ciso8601
 jsonschema
 lark-parser
 psycopg2
-setuptools-scm
-setuptools-scm
+setuptools-scm[toml]
 sqlalchemy
 toolz
 # pre-install misc odc-tools dependencies
@@ -42,7 +41,7 @@ cattrs
 structlog
 
 # Scientific Stack
-dask
+dask[complete]
 distributed
 dask-image
 dask-ml
