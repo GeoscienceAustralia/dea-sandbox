@@ -1,10 +1,10 @@
 # ODC/DEA: these are installed in builder stage
 --extra-index-url="https://packages.dea.ga.gov.au"
-otps
+otps>=0.3.1
 eodatasets3
 # rsgislib is conda only, but was manually packaged as a binary wheel compatible
 # with geobase docker images
-rsgislib
+rsgislib==4.1.95
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
 s2cloudmask
