@@ -1,24 +1,22 @@
 # misc
 access
 affine
-aiobotocore[boto3,awscli]
-aiohttp
+aiobotocore[boto3,awscli]==1.3.3
 alabaster
 colorama
 dill
-docutils
-cython
+docutils==0.15.2 # because of botocore
 ffmpeg-python
 param
 pydash
 pyyaml
 pyrsistent
-python-dateutil
+python-dateutil==2.8.0 # because of pysal
 ruamel.yaml
 ruamel.yaml.clib
 s3fs
 tqdm
-urllib3
+urllib3==1.26.6 # because of botocore
 voluptuous
 # pre-install misc datacube dependencies
 bottleneck
@@ -84,7 +82,7 @@ rtree
 owslib
 pandana
 pyepsg
-pysal
+pysal==2.5.0
 pysheds
 python-geohash
 cmocean
