@@ -21,26 +21,15 @@ RUN echo "Building python environment: stage Jupyter" \
   && cat /conf/requirements-jupyter.txt \
   && env-build-tool extend /conf/requirements-jupyter.txt /conf/constraints-jupyter.txt ${py_env_path}
 
-COPY jupyter-extensions.txt /conf/
-# TAB_NAME -- name to appear in the browser tab
-ARG TAB_NAME="DEA Sandbox"
-RUN echo "Adding jupyter lab extensions" \
-  && while read ext; do \
-      if [ -n "${ext}" ]; then \
-        echo "Installing ${ext}"; \
-        jupyter labextension install --no-build "${ext}"; \
-      fi; \
-     done < /conf/jupyter-extensions.txt \
-  && jupyter lab build --name="${TAB_NAME}" \
-  && jupyter lab clean \
+# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI 
+RUN echo "List jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
 
 RUN echo "Enable server extensions" \
-  && jupyter serverextension enable --py --sys-prefix nbresuse \
-  && jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
-  && echo done
+  && jupyter serverextension list \
+  && echo "...done"
 
 COPY requirements-odc-static.txt constraints-odc-static.txt /conf/
 RUN echo "Adding odc-dependencies (static)" \
