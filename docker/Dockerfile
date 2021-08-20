@@ -22,9 +22,7 @@ RUN echo "Building python environment: stage Jupyter" \
   && env-build-tool extend /conf/requirements-jupyter.txt /conf/constraints-jupyter.txt ${py_env_path}
 
 # NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI 
-ARG TAB_NAME="DEA Sandbox"
 RUN echo "Enable jupyter lab extensions" \
-  && jupyter lab build --name="${TAB_NAME}" \
   && jupyter lab clean \
   && jupyter labextension list \
   && echo "...done"
