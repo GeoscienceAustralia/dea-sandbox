@@ -28,6 +28,7 @@ RUN echo "Enable jupyter lab extensions" \
   && echo "...done"
 
 RUN echo "Enable server extensions" \
+  && jupyter serverextension enable --py jupyterlab_iframe \
   && jupyter serverextension list \
   && echo "...done"
 
