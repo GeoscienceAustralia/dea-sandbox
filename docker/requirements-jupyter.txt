@@ -6,7 +6,6 @@ jupyterlab==3.1.4 # beacuse of jupyterlab-code-formatter and jupyterlab-code-sni
 jupyterlab-code-formatter==1.4.10
 jupyterlab-iframe==0.4.0
 jupyterlab-git==0.32.2
-jupyterlab-python-file==0.5.5
 jupyterlab-widgets==1.0.0
 jupyterlab-geojson==3.1.2
 jupyterhub==1.4.2
