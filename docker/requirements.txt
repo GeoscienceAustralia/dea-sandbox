@@ -39,10 +39,10 @@ cattrs
 structlog
 
 # Scientific Stack
-dask[complete]
-distributed
-dask-image
-dask-ml
+dask[complete]==2021.6.0
+distributed==2021.6.0
+dask-image==0.6.0
+dask-ml==1.9.0
 msgpack
 numba
 numexpr
