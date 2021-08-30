@@ -24,6 +24,7 @@ RUN echo "Building python environment: stage Jupyter" \
 # NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI 
 RUN echo "Enable jupyter lab extensions" \
   && jupyter lab clean \
+  && jupyter labextension install jupyterlab-topbar-text \
   && jupyter labextension list \
   && echo "...done"
 
