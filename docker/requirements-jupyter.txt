@@ -56,6 +56,7 @@ geoviews==1.9.1
 holoviews==1.14.5
 jupyter-bokeh==3.0.2
 panel==0.12.1
+pyviz_comms==2.1.0
 
 # jupyterhub + dask
 dask-gateway==0.9.0
