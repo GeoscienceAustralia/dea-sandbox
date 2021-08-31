@@ -21,7 +21,7 @@ RUN echo "Building python environment: stage Jupyter" \
   && cat /conf/requirements-jupyter.txt \
   && env-build-tool extend /conf/requirements-jupyter.txt /conf/constraints-jupyter.txt ${py_env_path}
 
-# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI 
+# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
 RUN echo "Enable jupyter lab extensions" \
   && jupyter lab clean \
   && jupyter labextension install jupyterlab-topbar-text \
@@ -29,7 +29,6 @@ RUN echo "Enable jupyter lab extensions" \
   && echo "...done"
 
 RUN echo "Enable server extensions" \
-  && jupyter serverextension enable --py --sys-prefix nbresuse \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
   && jupyter serverextension list \
   && echo "...done"
