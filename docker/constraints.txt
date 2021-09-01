@@ -72,8 +72,8 @@ cattrs==1.0.0
 structlog==21.1.0
 
 # Scientific Stack
-dask==2021.7.1
-distributed==2021.7.1
+dask==2.30.0
+distributed==2.30.0
 dask-image==0.6.0
 dask-ml==1.9.0
 msgpack==1.0.0

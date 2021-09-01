@@ -39,8 +39,8 @@ cattrs
 structlog
 
 # Scientific Stack
-dask[complete]==2021.7.1
-distributed==2021.7.1
+dask[complete]==2.30.0 # due to dask-gateway
+distributed==2.30.0 # due to dask-gateway
 dask-image==0.6.0
 dask-ml==1.9.0
 msgpack
