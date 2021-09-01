@@ -14,6 +14,7 @@ jupytext==1.11.4
 jupyter-contrib-core==0.3.3
 jupyter-contrib-nbextensions==0.5.1
 jupyter-nbextensions-configurator==0.4.1
+jupyter_server==1.10.2
 jupyter-server-proxy==3.1.0
 jupyter-ui-poll==0.1.2
 ipycanvas==0.9.0
@@ -52,7 +53,8 @@ datashader==0.13.0
 geoviews==1.9.1
 holoviews==1.14.5
 jupyter-bokeh==3.0.2
-# panel==0.12.1
+panel==0.12.1
+pyviz_comms==2.0.1
 
 # jupyterhub + dask
 dask-gateway==0.9.0
