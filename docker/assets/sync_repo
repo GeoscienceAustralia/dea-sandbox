@@ -12,11 +12,12 @@ BRANCH="${2:-master}"
     until $(git clone --depth 1 --branch "$BRANCH" "$REPO" "$WORKDIR") ||  [ $NEXT_WAIT_TIME -eq 4 ]; do
       sleep $(( NEXT_WAIT_TIME++ ))
     done
-    rm -rf "${WORKDIR}"/{.git,.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
+    rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,DEAfrica_notebooks_template.ipynb} || true
     rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
     # Install Tools folder if available
     if [ -e $HOME/Tools/setup.py ]; then
         python -m pip install -e "$HOME/Tools" || true
     fi
+    rm -rf "$HOME/.git"
 }
