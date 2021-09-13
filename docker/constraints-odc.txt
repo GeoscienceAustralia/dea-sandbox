@@ -8,6 +8,7 @@ odc-apps-dc-tools==0.2.0a1
 odc-apps-cloud==0.2.0a1
 odc-geom==0.2.0a0
 odc-io==0.2.0a0
+odc-stac==0.2.0a4
 
 # currently available only from dea packages
 datacube-stats>=1.0.2
