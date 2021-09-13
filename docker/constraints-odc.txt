@@ -1,16 +1,19 @@
+# PyPi
 datacube==1.8.5
-datacube-stats==1.0.2
-fc==1.3.5
-odc_algo>=0.2.1.dev
-odc_ui>=0.2.1.dev
-odc_index>=0.2.1.dev
-odc_aws>=0.2.1.dev
-odc_geom>=0.2.1.dev
-odc_io>=0.2.1.dev
-odc_aio>=0.2.1.dev
-odc_ppt>=0.2.1.dev
-odc_dscache>=0.2.1.dev
-odc_dtools>=0.2.1.dev
-odc_stats>=0.2.1.dev
-odc-apps-dc-tools>=0.2.1.dev
-odc-apps-cloud>=0.2.1.dev
+odc-algo==0.2.0a3
+odc_stats==0.2.0a2
+odc-ui==0.2.0a1
+odc_aio==0.2.0a1
+odc-dscache==0.2.0a1
+odc-apps-dc-tools==0.2.0a1
+odc-apps-cloud==0.2.0a1
+odc-geom==0.2.0a0
+odc-io==0.2.0a0
+
+# currently available only from dea packages
+datacube-stats>=1.0.2
+fc>=1.3.5
+odc-index>=0.2.1.dev
+odc-aws>=0.2.1.dev
+odc-ppt>=0.2.1.dev
+odc-dtools>=0.2.1.dev
