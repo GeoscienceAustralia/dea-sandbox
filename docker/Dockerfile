@@ -30,6 +30,7 @@ RUN echo "Enable jupyter lab extensions" \
 
 RUN echo "Enable server extensions" \
   && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
+  && jupyter serverextension disable jupyter-resource-usage \
   && jupyter serverextension list \
   && echo "...done"
 
