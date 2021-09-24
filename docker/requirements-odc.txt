@@ -1,14 +1,14 @@
 # PyPi
 datacube[performance,s3]==1.8.5
-odc-algo==0.2.0a3
-odc-cloud[ASYNC]==0.2.0a0
-odc-dscache==0.2.0a1
-odc-io==0.2.0a0
-odc-stac==0.2.0a5
-odc-stats==0.2.0a3
-odc-ui==0.2.0a1
 
 # currently only available from dea packages
 --extra-index-url="https://packages.dea.ga.gov.au"
+odc-algo==0.2.1.dev2856
+odc-cloud[ASYNC]==0.2.1.dev2856
+odc-dscache==0.2.1.dev2856
+odc-io==0.2.1.dev2856
+odc-stac==0.2.1.dev2856
+odc-stats==0.2.1.dev2856
+odc-ui==0.2.1.dev2856
 datacube-stats==1.0.2
 fc==1.3.5
