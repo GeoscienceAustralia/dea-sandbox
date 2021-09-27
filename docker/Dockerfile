@@ -21,26 +21,17 @@ RUN echo "Building python environment: stage Jupyter" \
   && cat /conf/requirements-jupyter.txt \
   && env-build-tool extend /conf/requirements-jupyter.txt /conf/constraints-jupyter.txt ${py_env_path}
 
-COPY jupyter-extensions.txt /conf/
-# TAB_NAME -- name to appear in the browser tab
-ARG TAB_NAME="DEA Sandbox"
-RUN echo "Adding jupyter lab extensions" \
-  && while read ext; do \
-      if [ -n "${ext}" ]; then \
-        echo "Installing ${ext}"; \
-        jupyter labextension install --no-build "${ext}"; \
-      fi; \
-     done < /conf/jupyter-extensions.txt \
-  && jupyter lab build --name="${TAB_NAME}" \
-  && jupyter lab clean \
+# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
+RUN echo "Enable jupyter lab extensions" \
+  && jupyter labextension install jupyterlab-theme-toggle \
   && jupyter labextension list \
   && echo "...done"
 
 RUN echo "Enable server extensions" \
-  && jupyter serverextension enable --py --sys-prefix nbresuse \
-  && jupyter serverextension enable --py --sys-prefix jupyterlab_code_formatter \
-  && jupyter serverextension enable --py --sys-prefix jupyterlab_iframe \
-  && echo done
+  && jupyter server extension enable --py jupyterlab_iframe --sys-prefix \
+  && jupyter server extension enable --py jupyter_resource_usage  --sys-prefix \
+  && jupyter server extension list \
+  && echo "...done"
 
 COPY requirements-odc-static.txt constraints-odc-static.txt /conf/
 RUN echo "Adding odc-dependencies (static)" \
@@ -142,7 +133,7 @@ RUN echo "Patching python env - hdstats" \
 # upgrade numpy - to resove issue - https://github.com/scikit-image/scikit-image/issues/5270
 RUN echo "Patching python env - numpy" \
   && pip install --no-cache-dir \
-    --no-deps --upgrade numpy==1.20.1
+    --no-deps --upgrade numpy==1.21.2
 
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
