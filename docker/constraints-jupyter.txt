@@ -28,7 +28,7 @@ ipywidgets==7.6.3
 isort==5.9.3
 line-profiler==3.3.0
 nbdime==3.1.0
-nbgitpuller==0.10.1
+nbgitpuller==0.10.2
 # nbresuse==0.4.0
 mypy==0.910
 prompt-toolkit==3.0.19 # because of line_profiler/ipython
