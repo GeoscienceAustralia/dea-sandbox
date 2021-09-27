@@ -28,8 +28,9 @@ RUN echo "Enable jupyter lab extensions" \
   && echo "...done"
 
 RUN echo "Enable server extensions" \
-  && jupyter serverextension enable --py jupyterlab_iframe --sys-prefix \
-  && jupyter serverextension list \
+  && jupyter server extension enable --py jupyterlab_iframe --sys-prefix \
+  && jupyter server extension enable --py jupyter_resource_usage  --sys-prefix \
+  && jupyter server extension list \
   && echo "...done"
 
 COPY requirements-odc-static.txt constraints-odc-static.txt /conf/
