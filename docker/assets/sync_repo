@@ -12,7 +12,7 @@ BRANCH="${2:-master}"
     until $(git clone --depth 1 --branch "$BRANCH" "$REPO" "$WORKDIR") ||  [ $NEXT_WAIT_TIME -eq 4 ]; do
       sleep $(( NEXT_WAIT_TIME++ ))
     done
-    rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
+    rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,docker-compose.yml,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
     rsync --verbose --recursive "${WORKDIR}/" ~/
     rm -rf "${WORKDIR}"
     # Install Tools folder if available
