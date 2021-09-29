@@ -93,10 +93,10 @@ xarray==0.16.1
 xgboost==1.4.2
 zarr==2.8.3
 ### plotting
-bokeh==2.3.3
+bokeh==2.4.0
 descartes==1.1.0
 matplotlib==3.4.3
-seaborn==0.11.1
+seaborn==0.11.2
 
 # Geo stack
 cligj==0.7.2
