@@ -95,8 +95,8 @@ zarr==2.8.3
 ### plotting
 bokeh==2.3.3
 descartes==1.1.0
-matplotlib==3.2.1
-seaborn==0.11.1
+matplotlib==3.4.3
+seaborn==0.11.2
 
 # Geo stack
 cligj==0.7.2

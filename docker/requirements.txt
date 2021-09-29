@@ -59,7 +59,7 @@ xgboost       # used by Dale's s2cloudmask
 xarray
 zarr
 ### plotting
-bokeh
+bokeh==2.3.3 # due to tensorflow/typing-extensions
 descartes
 matplotlib
 seaborn

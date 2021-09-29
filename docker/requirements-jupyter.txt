@@ -31,7 +31,7 @@ ipywidgets==7.6.3
 isort==5.9.3
 line-profiler==3.3.0
 nbdime==3.1.0
-nbgitpuller==0.10.1
+nbgitpuller==1.0.2
 # nbresuse==0.4.0
 mypy==0.910
 prompt-toolkit==3.0.19 # because of line_profiler/ipython
@@ -46,9 +46,9 @@ parso==0.8.2
 # jupyter + matplotlib
 # matplotlib itself is in requirements.txt as it's pulled in by other libs there
 folium==0.12.1
-ipympl==0.7.0
+ipympl==0.8.0
 graphviz==0.17
-plotly==5.2.1
+plotly==5.3.1
 pydotplus==2.0.2
 
 # jupyter + bokeh
