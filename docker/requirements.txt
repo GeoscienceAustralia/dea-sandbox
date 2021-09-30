@@ -12,8 +12,6 @@ pydash
 pyyaml
 pyrsistent
 python-dateutil==2.8.0 # because of pysal
-ruamel.yaml
-ruamel.yaml.clib
 s3fs
 tqdm
 urllib3==1.26.6 # because of botocore
@@ -43,7 +41,6 @@ dask[complete]==2.30.0 # due to dask-gateway
 distributed==2.30.0 # due to dask-gateway
 dask-image==0.6.0
 dask-ml==1.9.0
-msgpack
 numba
 numexpr
 numexpr3
@@ -66,29 +63,23 @@ seaborn
 
 # Geo stack
 cligj
-fiona
+cmocean
 geohash2
 geojson
 geopandas
 geopy
-rasterio
-rasterstats
-rio-cogeo
-Shapely
-pyproj
-h5py
-netcdf4
-rtree
-owslib
+h5py==3.1.0 # due to tensorflow
+mapclassify
+OWSLib
 pandana
-pyepsg
-pysal==2.5.0
+pyproj
+pysal
 pysheds
 python-geohash
-cmocean
-mapclassify
-rioxarray
 richdem
+rioxarray
+rio-cogeo
+Rtree
 urbanaccess
 
 --extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime

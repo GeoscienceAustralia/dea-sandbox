@@ -1,5 +1,5 @@
 # PyPi
-datacube[performance,s3]==1.8.5
+datacube[performance,s3]==1.8.6
 
 # currently only available from dea packages
 --extra-index-url="https://packages.dea.ga.gov.au"
