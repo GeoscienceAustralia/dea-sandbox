@@ -3,12 +3,12 @@ datacube[performance,s3]==1.8.6
 
 # currently only available from dea packages
 --extra-index-url="https://packages.dea.ga.gov.au"
-odc-algo==0.2.1.dev2954
-odc-cloud[ASYNC]==0.2.1.dev2954
-odc-dscache==0.2.1.dev2954
-odc-io==0.2.1.dev2954
-odc-stac==0.2.1.dev2954
-odc-stats==0.2.1.dev2954
-odc-ui==0.2.1.dev2954
+odc-algo
+odc-cloud[ASYNC]
+odc-dscache
+odc-io
+odc-stac
+odc-stats
+odc-ui
 datacube-stats==1.0.2
 fc==1.3.5
