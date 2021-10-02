@@ -9,7 +9,6 @@ lxml
 msgpack
 multidict
 netcdf4
-protobuf
 pyepsg
 pygeos
 pyzmq
