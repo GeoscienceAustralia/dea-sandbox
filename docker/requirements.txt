@@ -64,7 +64,6 @@ cligj
 cmocean
 geohash2
 geojson
-geopandas
 geopy
 h5py==3.1.0 # due to tensorflow
 mapclassify
