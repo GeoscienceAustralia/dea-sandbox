@@ -1,23 +1,22 @@
 # misc
 access
 affine
-aiobotocore[boto3,awscli]==1.3.3
+aiobotocore[boto3,awscli]
 alabaster
 colorama
 dill
-docutils==0.15.2 # because of botocore
+docutils
 ffmpeg-python
 param
 pydash
 pyyaml
 pyrsistent
 python-dateutil==2.8.0 # because of pysal
-ruamel.yaml
-ruamel.yaml.clib
 s3fs
 tqdm
-urllib3==1.26.6 # because of botocore
+urllib3
 voluptuous
+
 # pre-install misc datacube dependencies
 bottleneck
 ciso8601
@@ -31,9 +30,7 @@ toolz
 astropy
 boltons
 dataclasses
-lmdb
 thredds-crawler
-zstandard
 # pre-install eodatasets3 dependencies
 cattrs
 structlog
@@ -41,9 +38,8 @@ structlog
 # Scientific Stack
 dask[complete]==2.30.0 # due to dask-gateway
 distributed==2.30.0 # due to dask-gateway
-dask-image==0.6.0
-dask-ml==1.9.0
-msgpack
+dask-image
+dask-ml
 numba
 numexpr
 numexpr3
@@ -53,9 +49,8 @@ Pillow
 scikit-image
 scikit-learn
 scipy
-statsmodels
 tensorflow
-xgboost       # used by Dale's s2cloudmask
+xgboost # used by Dale's s2cloudmask
 xarray
 zarr
 ### plotting
@@ -66,29 +61,22 @@ seaborn
 
 # Geo stack
 cligj
-fiona
+cmocean
 geohash2
 geojson
-geopandas
 geopy
-rasterio
-rasterstats
-rio-cogeo
-Shapely
-pyproj
-h5py
-netcdf4
-rtree
-owslib
+h5py==3.1.0 # due to tensorflow
+mapclassify
+OWSLib
 pandana
-pyepsg
-pysal==2.5.0
+protobuf==3.17.3 # due to tensorflow
+pyproj
+pysal
 pysheds
 python-geohash
-cmocean
-mapclassify
 rioxarray
-richdem
+rio-cogeo
+Rtree
 urbanaccess
 
 --extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
