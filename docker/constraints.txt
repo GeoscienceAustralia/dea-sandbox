@@ -86,7 +86,7 @@ cftime==1.5.1
 cryptography==3.4.8
 fiona==1.8.20
 geopandas==0.10.0
-GDAL==3.3.2
+GDAL==3.3.0 # Needs to be same as base image
 lmdb==1.2.1
 lxml==4.6.3
 msgpack==1.0.2
