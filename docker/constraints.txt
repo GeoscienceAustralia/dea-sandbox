@@ -43,7 +43,7 @@ dask-ml==1.9.0
 numba==0.54.0
 numexpr==2.7.3
 numexpr3==3.0.1a6
-pandas==1.3.3
+pandas==1.3.4
 pathos==0.2.8
 Pillow==8.3.2
 scikit-image==0.18.3
@@ -85,7 +85,7 @@ cffi==1.14.6
 cftime==1.5.1
 cryptography==3.4.8
 fiona==1.8.20
-geopandas==0.10.0
+geopandas==0.10.2
 GDAL==3.3.0 # Needs to be same as base image
 lmdb==1.2.1
 lxml==4.6.3
