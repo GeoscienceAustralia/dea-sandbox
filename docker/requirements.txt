@@ -43,6 +43,7 @@ dask-ml
 numba
 numexpr
 numexpr3
+numpy
 pandas
 pathos
 Pillow
