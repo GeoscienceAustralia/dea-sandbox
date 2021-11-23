@@ -12,7 +12,7 @@ pydash==5.0.2
 PyYAML==5.4.1
 pyrsistent==0.18.0
 python-dateutil==2.8.0
-s3fs==2021.9.0
+s3fs==2021.11.0
 tqdm==4.62.3
 urllib3==1.26.6
 voluptuous==0.12.2
@@ -40,21 +40,22 @@ dask==2.30.0
 distributed==2.30.0
 dask-image==0.6.0
 dask-ml==1.9.0
-numba==0.54.0
+numba==0.54.1
 numexpr==2.7.3
 numexpr3==3.0.1a6
+numpy==1.20.3
 pandas==1.3.4
 pathos==0.2.8
 Pillow==8.3.2
 scikit-image==0.18.3
 scikit-learn==1.0
 scipy==1.7.1
-tensorflow==2.6.0
+tensorflow==2.7.0
 xgboost==1.4.2
 xarray==0.19.0
 zarr==2.10.1
 ### plotting
-bokeh==2.3.3
+bokeh==2.4.2
 descartes==1.1.0
 matplotlib==3.4.3
 seaborn==0.11.2
@@ -65,22 +66,22 @@ cmocean==2.0
 geohash2==1.1
 geojson==2.5.0
 geopy==2.2.0
-h5py==3.1.0
+h5py==3.6.0
 mapclassify==2.4.3
 OWSLib==0.25.0
 pandana==0.6.1
-protobuf==3.17.3
+protobuf==3.19.1
 pyproj==3.2.1
 pysal==2.5.0
 pysheds==0.2.7
 python-geohash==0.8.5
-rioxarray==0.7.1
-rio-cogeo==3.0.0
+rioxarray==0.8.0
+rio-cogeo==3.0.1
 Rtree==0.9.7
 urbanaccess==0.2.2
 
 # nobinary
-aiohttp==3.7.4.post0
+aiohttp==3.8.1
 cffi==1.14.6
 cftime==1.5.1
 cryptography==3.4.8
@@ -114,7 +115,7 @@ aioitertools==0.8.0
 appdirs==1.4.4
 asciitree==0.3.3
 astunparse==1.6.3
-async-timeout==3.0.1
+async-timeout==4.0.1
 attrs==21.2.0
 aws-requests-auth==0.4.3
 awscli==1.19.106
@@ -141,7 +142,7 @@ Flask==2.0.1
 Flask-Cors==3.0.10
 Flask-JSON==0.3.4
 flatbuffers==1.12
-fsspec==2021.9.0
+fsspec==2021.11.0
 future==0.18.2
 gast==0.4.0
 geographiclib==1.52
@@ -161,7 +162,7 @@ Jinja2==3.0.1
 jmespath==0.10.0
 joblib==1.0.1
 jsonlines==1.2.0
-keras==2.6.0
+keras==2.7.0
 Keras-Preprocessing==1.1.2
 kiwisolver==1.3.2
 libpysal==4.5.1
@@ -178,7 +179,6 @@ multiprocess==0.70.12.2
 munch==2.5.0
 networkx==2.6.3
 numcodecs==0.9.1
-numpy==1.19.5
 oauthlib==3.1.1
 opencv-contrib-python==4.5.3.56
 opt-einsum==3.3.0
@@ -233,7 +233,7 @@ tenacity==8.0.1
 tensorboard==2.6.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.0
-tensorflow-estimator==2.6.0
+tensorflow-estimator==2.7.0
 termcolor==1.1.0
 threadpoolctl==3.0.0
 tifffile==2021.8.30
@@ -241,7 +241,7 @@ tobler==0.8.2
 toml==0.10.2
 tomli==1.2.1
 tornado==6.1
-typing-extensions==3.7.4.3
+typing-extensions==4.0.0
 Werkzeug==2.0.1
 wrapt==1.12.1
 zict==2.0.0
