@@ -119,16 +119,16 @@ RUN echo "Adding odc-dependencies" \
 
 
 USER root
-# Patch env when needed here
-# RUN echo "Patching python env" \
-#   && pip install --no-cache-dir \
-#   --extra-index-url="https://packages.dea.ga.gov.au" \
-#   --no-deps --upgrade odc-algo odc-ui 'datacube[performance,s3]'
-
+## Patch env when needed here
 # override hdstats - install faster version from dea packages
 RUN echo "Patching python env - hdstats" \
   && pip install --force-reinstall \
   --extra-index-url="https://packages.dea.ga.gov.au" hdstats==0.1.8.post1
+
+# upgrade numpy - to resove issue - https://github.com/scikit-image/scikit-image/issues/5270
+RUN echo "Patching python env - numpy" \
+  && pip install --no-cache-dir \
+    --no-deps --upgrade numpy==1.21.4
 
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
