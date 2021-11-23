@@ -1,7 +1,7 @@
 # misc
 access
 affine
-aiobotocore[boto3,awscli]
+aiobotocore[boto3,awscli]==1.4.1 # due to s3fs
 alabaster
 colorama
 dill
@@ -43,6 +43,7 @@ dask-ml
 numba
 numexpr
 numexpr3
+numpy==1.20.3 # due to numba, patching version to '1.21.4' in later step (check Dockerfile)
 pandas
 pathos
 Pillow
@@ -54,7 +55,7 @@ xgboost # used by Dale's s2cloudmask
 xarray
 zarr
 ### plotting
-bokeh==2.3.3 # due to tensorflow/typing-extensions
+bokeh
 descartes
 matplotlib
 seaborn
@@ -65,11 +66,11 @@ cmocean
 geohash2
 geojson
 geopy
-h5py==3.1.0 # due to tensorflow
+h5py
 mapclassify
 OWSLib
 pandana
-protobuf==3.17.3 # due to tensorflow
+protobuf
 pyproj
 pysal
 pysheds
