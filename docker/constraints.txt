@@ -49,7 +49,7 @@ Pillow==8.3.2
 scikit-image==0.18.3
 scikit-learn==1.0
 scipy==1.7.1
-tensorflow==2.6.0
+tensorflow==2.7.0
 xgboost==1.4.2
 xarray==0.19.0
 zarr==2.10.1
@@ -74,8 +74,8 @@ pyproj==3.2.1
 pysal==2.5.0
 pysheds==0.2.7
 python-geohash==0.8.5
-rioxarray==0.7.1
-rio-cogeo==3.0.0
+rioxarray==0.8.0
+rio-cogeo==3.0.1
 Rtree==0.9.7
 urbanaccess==0.2.2
 
@@ -233,7 +233,7 @@ tenacity==8.0.1
 tensorboard==2.6.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.0
-tensorflow-estimator==2.6.0
+tensorflow-estimator==2.7.0
 termcolor==1.1.0
 threadpoolctl==3.0.0
 tifffile==2021.8.30
