@@ -1,7 +1,7 @@
 # misc
 access==1.1.3
 affine==2.3.0
-aiobotocore==1.4.1
+aiobotocore==2.0.0
 alabaster==0.7.12
 colorama==0.4.3
 dill==0.3.4
@@ -80,7 +80,7 @@ Rtree==0.9.7
 urbanaccess==0.2.2
 
 # nobinary
-aiohttp==3.7.4.post0
+aiohttp==3.8.1
 cffi==1.14.6
 cftime==1.5.1
 cryptography==3.4.8
@@ -117,10 +117,10 @@ astunparse==1.6.3
 async-timeout==3.0.1
 attrs==21.2.0
 aws-requests-auth==0.4.3
-awscli==1.19.106
+awscli==1.21.8
 beautifulsoup4==4.10.0
-boto3==1.17.106
-botocore==1.20.106
+boto3==1.19.8
+botocore==1.22.8
 cachetools==4.2.4
 certifi==2021.5.30
 chardet==4.0.0
