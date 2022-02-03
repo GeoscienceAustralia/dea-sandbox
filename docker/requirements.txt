@@ -43,7 +43,7 @@ dask-ml
 numba
 numexpr
 numexpr3
-numpy==1.20.3 # due to numba, patching version to '1.21.4' in later step (check Dockerfile)
+numpy==1.21.4
 pandas
 pathos
 Pillow

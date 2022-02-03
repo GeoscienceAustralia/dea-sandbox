@@ -125,11 +125,6 @@ RUN echo "Patching python env - hdstats" \
   && pip install --force-reinstall \
   --extra-index-url="https://packages.dea.ga.gov.au" hdstats==0.1.8.post1
 
-# upgrade numpy - to resove issue - https://github.com/scikit-image/scikit-image/issues/5270
-RUN echo "Patching python env - numpy" \
-  && pip install --no-cache-dir \
-    --no-deps --upgrade numpy==1.21.4
-
 COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json $py_env_path/share/jupyter/lab/settings/
 
