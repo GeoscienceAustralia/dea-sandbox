@@ -105,7 +105,7 @@ richdem==0.3.4
 ruamel.yaml==0.17.16
 ruamel.yaml.clib==0.2.6
 Shapely==1.8rc1
-statsmodels==0.13.0
+statsmodels==0.13.2
 tables==3.6.1
 typed-ast==1.4.3
 zstandard==0.15.2
