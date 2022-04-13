@@ -37,7 +37,7 @@ structlog
 
 # Scientific Stack
 dask[complete]==2.30.0 # due to dask-gateway
-distributed==2.30.0 # due to dask-gateway
+distributed==2021.10.0 # due to dask-gateway
 dask-image
 dask-ml
 numba
