@@ -80,6 +80,7 @@ rio-cogeo
 Rtree
 urbanaccess
 contextily
+pyTMD
 
 --extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
 
