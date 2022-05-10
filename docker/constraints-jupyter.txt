@@ -59,8 +59,8 @@ panel==0.12.1
 pyviz_comms==2.0.1
 
 # jupyterhub + dask
-dask-gateway==0.9.0
-dask-gateway-server==0.9.0
+dask-gateway==2022.4.0
+dask-gateway-server==2022.4.0
 
 # jupyterlab + language packages
 jupyterlab-language-pack-fr-FR==3.1.post0

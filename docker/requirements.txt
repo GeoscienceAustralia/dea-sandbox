@@ -36,14 +36,14 @@ cattrs
 structlog
 
 # Scientific Stack
-dask[complete]==2.30.0 # due to dask-gateway
-distributed==2.30.0 # due to dask-gateway
-dask-image
-dask-ml
+numpy==1.21.4
 numba
 numexpr
 numexpr3
-numpy==1.21.4
+dask[complete]==2022.4.1 # due to dask-gateway
+distributed==2022.4.1 # due to dask-gateway
+dask-image
+dask-ml
 pandas
 pathos
 Pillow
