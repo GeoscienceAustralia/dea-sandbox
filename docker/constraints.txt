@@ -36,14 +36,14 @@ cattrs==1.8.0
 structlog==21.1.0
 
 # Scientific Stack
-dask==2.30.0
-distributed==2.30.0
-dask-image==0.6.0
-dask-ml==1.9.0
+numpy==1.21.4
 numba==0.55.1
 numexpr==2.7.3
 numexpr3==3.0.1a6
-numpy==1.21.4
+dask==2022.4.1
+distributed==2022.4.1
+dask-image==2021.12.0
+dask-ml==2022.1.22
 pandas==1.3.4
 pathos==0.2.8
 Pillow==8.3.2
@@ -73,7 +73,7 @@ OWSLib==0.25.0
 pandana==0.6.1
 protobuf==3.19.1
 pyproj==3.2.1
-pysal==2.5.0
+pysal==2.6.0
 pysheds==0.2.7
 python-geohash==0.8.5
 rioxarray==0.8.0
@@ -168,7 +168,7 @@ jsonlines==1.2.0
 keras==2.7.0
 Keras-Preprocessing==1.1.2
 kiwisolver==1.3.2
-libpysal==4.5.1
+libpysal==4.6.2
 llvmlite==0.38.0
 locket==0.2.1
 Markdown==3.3.4
@@ -223,11 +223,11 @@ slicerator==1.0.0
 snuggs==1.4.7
 sortedcontainers==2.4.0
 soupsieve==2.2.1
-spaghetti==1.6.4
+spaghetti==1.6.5
 spglm==1.0.8
 spint==1.0.7
 splot==1.1.4
-spopt==0.1.2
+spopt==0.2.1
 spreg==1.2.4
 spvcm==0.3.0
 sympy==1.8
