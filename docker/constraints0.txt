@@ -1,5 +1,0 @@
-# tensorflow dependencies
-Cython==0.29.24
-
-## The following requirements were added by pip freeze:
-certifi==2021.5.30

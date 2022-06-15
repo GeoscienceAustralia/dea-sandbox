@@ -1,13 +1,5 @@
-datacube==1.8.6
+# solve any conflict here
 datacube-stats==1.0.2
-fc==1.3.5
-odc-algo==0.2.1
-odc-cloud==0.2.1
-odc-dscache==0.2.0a3
-odc-io==0.2.1
-odc-stac==0.2.2
-odc-stats==1.0.7
-odc-ui==0.2.0a2
-numpy==1.21.4
-PyYAML==5.4.1
+numpy==1.22.4
+PyYAML==5.4
 pyparsing==2.4.7

@@ -1,0 +1,6 @@
+# tensorflow dependencies
+cython
+attrs
+pydantic
+pyproj
+--no-binary cython

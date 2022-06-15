@@ -1,7 +1,7 @@
 # misc
 access
 affine
-aiobotocore[boto3,awscli]==1.4.1 # due to s3fs
+aiobotocore[boto3,awscli] # due to s3fs
 alabaster
 colorama
 dill
@@ -11,7 +11,7 @@ param
 pydash
 pyyaml
 pyrsistent
-python-dateutil==2.8.0 # because of pysal
+python-dateutil # because of pysal
 s3fs
 tqdm
 urllib3
@@ -29,19 +29,18 @@ toolz
 # pre-install misc odc-tools dependencies
 astropy
 boltons
-dataclasses
 thredds-crawler
 # pre-install eodatasets3 dependencies
 cattrs
 structlog
 
 # Scientific Stack
-numpy==1.21.4
+numpy
 numba
 numexpr
 numexpr3
-dask[complete]==2022.4.1 # due to dask-gateway
-distributed==2022.4.1 # due to dask-gateway
+dask[complete] # due to dask-gateway
+distributed # due to dask-gateway
 dask-image
 dask-ml
 pandas
@@ -61,6 +60,7 @@ matplotlib
 seaborn
 
 # Geo stack
+pygeos
 cligj
 cmocean
 geohash2
@@ -82,6 +82,33 @@ urbanaccess
 contextily
 pyTMD
 pystac-client
+
+--no-binary aiohttp
+--no-binary cffi
+--no-binary cftime
+--no-binary cryptography
+--no-binary fiona
+--no-binary geopandas
+--no-binary lmdb
+--no-binary lxml
+--no-binary msgpack
+--no-binary multidict
+# --no-binary netcdf4
+--no-binary pygeos
+--no-binary pyepsg
+--no-binary pyzmq
+--no-binary rasterio
+--no-binary rasterstats
+--no-binary regex
+--no-binary richdem
+--no-binary ruamel.yaml
+--no-binary ruamel.yaml.clib
+--no-binary Shapely
+--no-binary statsmodels
+# --no-binary tables
+--no-binary typed-ast
+--no-binary zstandard
+--no-binary yarl
 
 --extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
 
