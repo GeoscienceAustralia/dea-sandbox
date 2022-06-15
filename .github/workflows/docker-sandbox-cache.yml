@@ -40,7 +40,6 @@ jobs:
     - name: Env Dump (for debugging)
       run: |
         echo branch: ${BRANCH}
-        echo stage1: ${im_stage1} ${im_stage1_fallback}
         echo stage2: ${im_stage2} ${im_stage2_fallback}
         echo build_info: ${build_info}
         echo push_image: cfg:${{ steps.cfg.outputs.push_image }} env:$push_image
@@ -54,45 +53,12 @@ jobs:
         username: ${{ env.DOCKER_USER }}
         password: ${{ secrets.DockerPassword }}
 
-    - name: Pull Cache (stage1)
-      if: steps.cfg.outputs.pull_cache == 'yes'
-      run: |
-        ci-helper pull_docker_cache ${im_stage1} ${im_stage1_fallback}
-
-    - name: Build Sandbox Docker (stage1)
-      run: |
-        # build and cache first stage (env_builder)
-        docker build \
-          --target env_builder \
-          --cache-from ${im_stage1} \
-          --tag        ${im_stage1} \
-          ./docker/
-
-    - name: DockerHub Push Cache (stage1)
-      if: steps.cfg.outputs.push_cache == 'yes'
-      run: |
-        docker push ${im_stage1}
-
-    - name: Pull Cache (stage2)
-      if: steps.cfg.outputs.pull_cache == 'yes'
-      run: |
-        # Remove old layers first to help with disk usage
-        echo "Before Prune:"
-        docker images
-        docker system prune --force
-        echo "After Prune:"
-        docker images
-        ci-helper pull_docker_cache ${im_stage2} ${im_stage2_fallback}
-        echo "After Pull:"
-        docker images
-
-    - name: Build Sandbox Docker (stage2)
+    - name: Build Sandbox Docker 
       run: |
         # now build second stage making sure first stage is from cache
         set -o pipefail
         docker build \
           --build-arg BUILD_INFO="${build_info}" \
-          --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_stage2} \
           ./docker/ 2>&1 | tee docker-build.log || {
@@ -106,7 +72,6 @@ jobs:
                 docker images
                 docker build \
                   --build-arg BUILD_INFO="${build_info}" \
-                  --cache-from ${im_stage1} \
                   --tag        ${im_stage2} \
                   ./docker/
               else
@@ -115,7 +80,7 @@ jobs:
               fi
           }
 
-    - name: DockerHub Push Image (stage2)
+    - name: DockerHub Push Image 
       if: steps.cfg.outputs.push_image == 'yes'
       run: |
         docker push ${im_stage2}
@@ -126,7 +91,6 @@ jobs:
         docker build \
           --build-arg WITH_SUDO=yes \
           --build-arg BUILD_INFO="${build_info} (sudo)" \
-          --cache-from ${im_stage1} \
           --cache-from ${im_stage2} \
           --tag        ${im_sudo} \
           ./docker/
