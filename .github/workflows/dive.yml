@@ -13,8 +13,8 @@ on:
       - 'docker/**'
 
 env:
-  ORG: opendatacube
-  IMAGE: ows-local
+  ORG: dea
+  IMAGE: dea-sandbox
 
 jobs:
   dive:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t ${ORG}/${IMAGE}:_build .
+          docker build -t ${ORG}/${IMAGE}:_build ./docker/
 
       - name: Dive
         uses: yuichielectric/dive-action@0.0.3

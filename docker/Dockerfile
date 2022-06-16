@@ -1,6 +1,7 @@
 FROM osgeo/gdal:ubuntu-small-latest
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x |  bash - \
+    && apt-get update -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --fix-missing --no-install-recommends \
     # Build tools\ 
     build-essential \ 
@@ -17,7 +18,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x |  bash - \
     postgresql-client-12 \
     less \
     wget \
-    curl \
     vim \
     tmux \
     htop \
@@ -32,7 +32,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x |  bash - \
     time \
     openssh-client \
     graphviz \
-    sudo \
     iproute2 \
     iputils-ping \
     net-tools \
