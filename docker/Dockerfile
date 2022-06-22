@@ -65,8 +65,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x |  bash - \
     # Cleanup 
     && apt-get autoremove -y \ 
     && apt-get clean \ 
-    && rm -vrf /var/lib/apt/lists/* \ 
-    && rm -vrf /var/lib/{apt,dpkg,cache,log}
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
 
 ARG py_env_path=/env
 ARG nb_user=jovyan
