@@ -7,6 +7,7 @@ odc-io
 odc-stac
 odc-stats[ows]
 odc-ui
+odc-geo
 
 # currently only available from dea packages
 --extra-index-url="https://packages.dea.ga.gov.au"
