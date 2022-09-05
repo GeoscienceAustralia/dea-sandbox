@@ -81,7 +81,7 @@ rio-cogeo==3.0.1
 Rtree==0.9.7
 urbanaccess==0.2.2
 contextily==1.2.0
-pyTMD==1.0.6
+pyTMD==1.0.9
 
 # nobinary
 aiohttp==3.8.1
