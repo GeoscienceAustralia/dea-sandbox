@@ -8,6 +8,10 @@ RUN micromamba create  -y -p /env -f /conf/env.yaml && \
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 COPY requirements.txt /conf/
+# required to build hdmedians
+# or any --no-binary
+ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
+    LDSHARED="/env/bin/x86_64-conda_cos6-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt
 
@@ -28,7 +32,6 @@ ENV LC_ALL=C.UTF-8 \
     GDAL_DATA=/env/share/gdal \
     PATH=/env/bin:$PATH
 
-
 USER $nb_user
 # NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
 RUN echo "Enable jupyter lab extensions" \
@@ -37,19 +40,17 @@ RUN echo "Enable jupyter lab extensions" \
   && echo "...done"
 
 RUN echo "Enable server extensions" \ 
-   && jupyter server --generate-config \
    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
    && jupyter server extension list \
    && echo "...done"
 
-COPY assets/sync_repo assets/with_bootstrap assets/jupyterhub-singleuser /env/bin/
+COPY assets/sync_repo assets/jupyterhub-singleuser /env/bin/
 COPY assets/overrides.json /env/share/jupyter/lab/settings/
 
 WORKDIR "/home/$nb_user"
 ENTRYPOINT ["/env/bin/tini", "--"]
 CMD ["jupyter", "lab", \
-"--debug", \
 "--ip=0.0.0.0", \
 "--port=9988", \
 "--no-browser"]

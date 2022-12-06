@@ -4,12 +4,12 @@ jupyterlab-logout
 jupyter-contrib-core
 jupyter-contrib-nbextensions
 jupyter-nbextensions-configurator
-notebook-shim
 
 # ODC/DEA: these are installed in builder stage
 otps
 eodatasets3
 # rsgislib was manually packaged as a binary wheel
+# rios required by rsgislib no PIPy publish
 https://github.com/ubarsc/rios/releases/download/rios-1.4.13/rios-1.4.13.tar.gz
 rsgislib==4.1.95
 # Dale's s2cloudmask
@@ -29,7 +29,9 @@ odc-stats[ows]
 odc-ui
 odc-geo
 
+thredds-crawler
 hdstats==0.1.8.post1
+hdmedians
 datacube-stats
 fc
 --extra-index-url="https://packages.dea.ga.gov.au"
