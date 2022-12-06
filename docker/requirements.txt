@@ -1,115 +1,35 @@
-# misc
-access
-affine
-aiobotocore[boto3,awscli] # due to s3fs
-alabaster
-colorama
-dill
-docutils
-ffmpeg-python
-param
-pydash
-pyyaml
-pyrsistent
-python-dateutil # because of pysal
-s3fs
-tqdm
-urllib3
-voluptuous
+cognitojwt
+line-profiler
+jupyterlab-logout
+jupyter-contrib-core
+jupyter-contrib-nbextensions
+jupyter-nbextensions-configurator
+notebook-shim
 
-# pre-install misc datacube dependencies
-bottleneck
-ciso8601
-jsonschema
-lark-parser
-psycopg2
-setuptools-scm[toml]
-sqlalchemy
-toolz
-# pre-install misc odc-tools dependencies
-astropy
-boltons
-thredds-crawler
-# pre-install eodatasets3 dependencies
-cattrs
-structlog
+# ODC/DEA: these are installed in builder stage
+otps
+eodatasets3
+# rsgislib was manually packaged as a binary wheel
+https://github.com/ubarsc/rios/releases/download/rios-1.4.13/rios-1.4.13.tar.gz
+rsgislib==4.1.95
+# Dale's s2cloudmask
+#  https://github.com/daleroberts/s2cloudmask
+s2cloudmask
+# need to be installed after to override libs with non-gl ones
+opencv-python-headless
+opencv-contrib-python-headless
 
-# Scientific Stack
-numpy
-numba
-numexpr
-numexpr3
-dask[complete] # due to dask-gateway
-distributed # due to dask-gateway
-dask-image
-dask-ml
-pandas
-pathos
-Pillow
-scikit-image
-scikit-learn
-scipy
-tensorflow
-xgboost # used by Dale's s2cloudmask
-xarray
-zarr
-### plotting
-bokeh
-descartes
-matplotlib
-seaborn
+datacube[performance,s3]
+odc-algo
+odc-cloud[ASYNC]
+odc-dscache
+odc-io
+odc-stac
+odc-stats[ows]
+odc-ui
+odc-geo
 
-# Geo stack
-pygeos
-cligj
-cmocean
-geohash2
-geojson
-geopy
-h5py
-mapclassify
-OWSLib
-pandana
-protobuf
-pyproj
-pysal
-pysheds
-python-geohash
-rioxarray
-rio-cogeo
-Rtree
-urbanaccess
-contextily
-pyTMD
-pystac-client
-
---no-binary aiohttp
---no-binary cffi
---no-binary cftime
---no-binary cryptography
---no-binary fiona
---no-binary geopandas
---no-binary lmdb
---no-binary lxml
---no-binary msgpack
---no-binary multidict
-# --no-binary netcdf4
---no-binary pygeos
---no-binary pyepsg
---no-binary pyzmq
---no-binary rasterio
---no-binary rasterstats
---no-binary regex
---no-binary richdem
---no-binary ruamel.yaml
---no-binary ruamel.yaml.clib
---no-binary Shapely
---no-binary statsmodels
-# --no-binary tables
---no-binary typed-ast
---no-binary zstandard
---no-binary yarl
-
---extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
-
-https://github.com/ubarsc/rios/archive/rios-1.4.10.tar.gz
+hdstats==0.1.8.post1
+datacube-stats
+fc
+--extra-index-url="https://packages.dea.ga.gov.au"

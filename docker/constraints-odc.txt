@@ -1,5 +1,0 @@
-# solve any conflict here
-datacube-stats==1.0.2
-numpy==1.22.4
-PyYAML==5.4
-pyparsing==2.4.7
