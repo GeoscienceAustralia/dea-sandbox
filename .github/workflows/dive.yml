@@ -3,6 +3,8 @@ name: docker checker
 
 on:
   pull_request:
+    branches:
+      - develop
     paths:
       - '.github/workflows/dive.yml'
       - 'docker/**'
@@ -22,7 +24,8 @@ jobs:
     name: Analyze image efficiency
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
       - name: lint
         uses: luke142367/Docker-Lint-Action@v1.1.1
         with:
@@ -35,7 +38,7 @@ jobs:
           docker build -t ${ORG}/${IMAGE}:_build ./docker/
 
       - name: Dive
-        uses: yuichielectric/dive-action@0.0.4
+        uses: yuichielectric/dive-action@0.0.3
         with:
           image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
           config-file: ${{ github.workspace }}/dive-ci.yml

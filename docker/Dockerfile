@@ -21,7 +21,7 @@ ARG nb_user=jovyan
 ARG nb_uid=1000
 ARG nb_gid=100
 
-RUN useradd -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
+RUN useradd -l -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 
 COPY --chown=$nb_uid:$nb_gid --from=sandbox-conda /env /env
 

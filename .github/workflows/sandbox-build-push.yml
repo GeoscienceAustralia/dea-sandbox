@@ -1,0 +1,74 @@
+name: Sandbox build and push latest
+
+on:
+  workflow_run:
+    workflows: ["docker checker"]
+    branches: [develop]
+    types:
+      - completed
+  release:
+    types: [published]
+    
+env:
+  IMAGE_NAME: geoscienceaustralia/sandbox
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
+jobs:
+  set_dev_tags:
+    if: github.ref == 'refs/heads/develop'
+      && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build a new docker image with tag
+        id: tag-image
+        run: |
+          echo "TAG=dev$(git rev-parse --short HEAD)" \
+          >> $GITHUB_OUTPUT
+    outputs:
+      image_tag: ${{ steps.tag-image.outputs.TAG }}
+
+  set_release_tags:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build a new docker image with tag
+        id: tag-image
+        run: |
+          echo "TAG=$github.ref_name" \
+          >> $GITHUB_OUTPUT
+    outputs:
+      image_tag: ${{ steps.tag-image.outputs.TAG }}
+
+
+  push_ecr:
+    if: ${{ always() }}
+      && (needs.set_dev_tags.outputs.image_tag
+      || needs.set_release_tags.outputs.image_tag)
+    needs: [set_dev_tags, set_release_tags]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::538673716275:role/github-actions-role
+          aws-region: ap-southeast-2
+
+      - name: Push image to ECR
+        uses: whoan/docker-build-with-cache-action@master
+        with:
+          context: ./docker
+          registry: 538673716275.dkr.ecr.ap-southeast-2.amazonaws.com
+          image_name: ${{ env.IMAGE_NAME }}
+          image_tag: latest,${{ needs.set_tags.outputs.image_tag }}

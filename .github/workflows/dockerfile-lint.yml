@@ -4,18 +4,15 @@ name: dockerfile Linting
 on:
   pull_request:
     branches:
-        - 'master'
+        - develop
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/dockerfile-lint.yml'
 
   push:
-    branches:
-      - 'master'
     paths:
       - 'docker/Dockerfile'
       - '.github/workflows/dockerfile-lint.yml'
-
 
 jobs:
   dockerfile-lint:
@@ -23,9 +20,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
       - name: lint Dockerfile
         uses: hadolint/hadolint-action@v1.5.0
