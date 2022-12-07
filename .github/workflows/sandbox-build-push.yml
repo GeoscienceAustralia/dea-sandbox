@@ -48,11 +48,8 @@ jobs:
     outputs:
       image_tag: ${{ steps.tag-image.outputs.TAG }}
 
-
   push_ecr:
-    if: ${{ always() }}
-      && (needs.set_dev_tags.outputs.image_tag
-      || needs.set_release_tags.outputs.image_tag)
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
     needs: [set_dev_tags, set_release_tags]
     runs-on: ubuntu-latest
     steps:
@@ -71,4 +68,4 @@ jobs:
           context: ./docker
           registry: 538673716275.dkr.ecr.ap-southeast-2.amazonaws.com
           image_name: ${{ env.IMAGE_NAME }}
-          image_tag: latest,${{ needs.set_tags.outputs.image_tag }}
+          image_tag: latest,${{ needs.set_dev_tags.outputs.image_tag }},${{ needs.set_release_tags.outputs.image_tag }}
