@@ -23,15 +23,52 @@ this will be pushed to `0.0.6` and `sudo-0.0.6`.
 
 ## Local environment
 
-A simple local environment that can be used to test the JupyterHub system in can be started using Docker Compose
-with the command `docker-compose up` and browsing to http://localhost:8888 and adding the token that is displayed
-on your terminal after starting the system.
+### Simple test environment
 
-To run connected to a database in one of the DEA systems, you'll need to start a Kubernetes port forwading process
+A simple local environment that can be used to test the JupyterHub system in can be started using Docker Compose
+with the command `docker-compose up`
+
+if the container started up successfully, it will show console log similar to the following
+
+```
+dea-sandbox-sandbox-1   | [C 2022-12-08 03:02:47.100 ServerApp]
+dea-sandbox-sandbox-1   |
+dea-sandbox-sandbox-1   |     To access the server, open this file in a browser:
+dea-sandbox-sandbox-1   |         file:///home/jovyan/.local/share/jupyter/runtime/jpserver-7-open.html
+dea-sandbox-sandbox-1   |     Or copy and paste one of these URLs:
+dea-sandbox-sandbox-1   |         http://5cf0ca7d3dd0:9988/lab?token=bedea39c6e6ef14f633a99968cf47ec891588b6e14ec0862
+dea-sandbox-sandbox-1   |      or http://127.0.0.1:9988/lab?token=bedea39c6e6ef14f633a99968cf47ec891588b6e14ec0862
+```
+
+browsing to http://localhost:9988 and adding the token that is displayed
+on your terminal, i.e. `http://localhost:9988/lab?token=bedea39c6e6ef14f633a99968cf47ec891588b6e14ec0862`
+
+#### Tip for hosting behind reverse proxy
+
+```
+location / {
+        proxy_set_header   Host $http_host;
+        proxy_set_header   X-Forwarded-For $remote_addr;
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 75s;
+
+        # forward to port 9988
+        proxy_pass         "http://localhost:9988";
+
+        # for terminal and notebook websockets
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+```
+
+
+### With DEA database
+To run `docker-compose` with a DEA indexed database, you'll need to start a Kubernetes port forwading process
 with a command like `port-forward -n service deployment/pg-proxy 5432:5432`.
 
-And then set up a file in the root of this folder `.docker.env` with connection details in it. Use the
-`.docker.env.example` as a template for this file. You then want to run the Docker Compose environment without a
+And then set up a file in the root of this folder `.env` with connection details in it. Use the
+`.env.example` as a template for this file. You then want to run the Docker Compose environment without a
 postgres database, so use the command `docker-compose -f docker-compose.yml up` to start it. This will ignore
 the `docker-compose.override.yml` file, which provides a postgres container.
 
