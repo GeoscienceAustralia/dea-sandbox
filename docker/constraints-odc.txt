@@ -8,6 +8,6 @@ odc-io==0.2.1
 odc-stac==0.2.2
 odc-stats==1.0.7
 odc-ui==0.2.0a2
-numpy==1.21.4
+numpy==1.22.0
 PyYAML==5.4.1
 pyparsing==2.4.7
