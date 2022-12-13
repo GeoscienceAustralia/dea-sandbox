@@ -1,8 +1,0 @@
-otps==0.3.2
-eodatasets3==0.21.1
-rsgislib==4.1.95
-s2cloudmask==0.1
-opencv-contrib-python==4.5.2.54
-opencv-contrib-python-headless==4.5.2.54
-opencv-python-headless==4.5.2.54
-hdmedians==0.14.2

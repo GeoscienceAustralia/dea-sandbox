@@ -1,88 +1,37 @@
-# misc
-access
-affine
-aiobotocore[boto3,awscli]==1.4.1 # due to s3fs
-alabaster
-colorama
-dill
-docutils
-ffmpeg-python
-param
-pydash
-pyyaml
-pyrsistent
-python-dateutil==2.8.0 # because of pysal
-s3fs
-tqdm
-urllib3
-voluptuous
+cognitojwt
+line-profiler
+jupyterlab-logout
+jupyter-contrib-core
+jupyter-contrib-nbextensions
+jupyter-nbextensions-configurator
 
-# pre-install misc datacube dependencies
-bottleneck
-ciso8601
-jsonschema
-lark-parser
-psycopg2
-setuptools-scm[toml]
-sqlalchemy
-toolz
-# pre-install misc odc-tools dependencies
-astropy
-boltons
-dataclasses
+# ODC/DEA: these are installed in builder stage
+otps
+eodatasets3
+# rsgislib was manually packaged as a binary wheel
+# rios required by rsgislib no PIPy publish
+https://github.com/ubarsc/rios/releases/download/rios-1.4.13/rios-1.4.13.tar.gz
+rsgislib==4.1.95
+# Dale's s2cloudmask
+#  https://github.com/daleroberts/s2cloudmask
+s2cloudmask
+# need to be installed after to override libs with non-gl ones
+opencv-python-headless
+opencv-contrib-python-headless
+
+datacube[performance,s3]
+odc-algo
+odc-cloud[ASYNC]
+odc-dscache
+odc-io
+odc-stac
+odc-stats[ows]
+odc-ui
+odc-geo
+
 thredds-crawler
-# pre-install eodatasets3 dependencies
-cattrs
-structlog
-
-# Scientific Stack
-numpy==1.21.4
-numba
-numexpr
-numexpr3
-dask[complete]==2022.4.1 # due to dask-gateway
-distributed==2022.4.1 # due to dask-gateway
-dask-image
-dask-ml
-pandas
-pathos
-Pillow
-scikit-image
-scikit-learn
-scipy
-tensorflow
-xgboost # used by Dale's s2cloudmask
-xarray
-zarr
-### plotting
-bokeh
-descartes
-matplotlib
-seaborn
-
-# Geo stack
-cligj
-cmocean
-geohash2
-geojson
-geopy
-h5py
-mapclassify
-OWSLib
-pandana
-protobuf
-pyproj
-pysal
-pysheds
-python-geohash
-rioxarray
-rio-cogeo
-Rtree
-urbanaccess
-contextily
-pyTMD
-pystac-client
-
---extra-index-url="https://google-coral.github.io/py-repo/" tflite_runtime
-
-https://github.com/ubarsc/rios/archive/rios-1.4.10.tar.gz
+hdstats==0.1.8.post1
+hdmedians
+datacube-stats
+fc
+--extra-index-url="https://packages.dea.ga.gov.au"

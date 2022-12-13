@@ -1,2 +1,0 @@
-# tensorflow dependencies
-cython --no-binary=cython
