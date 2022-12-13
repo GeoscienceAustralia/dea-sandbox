@@ -1,6 +1,6 @@
 version: "3.7"
 
-services:  
+services:
   sandbox:
     build:
       context: docker
@@ -9,8 +9,6 @@ services:
     environment:
       - AWS_NO_SIGN_REQUEST=true
       - AWS_DEFAULT_REGION=ap-southeast-2
-    env_file:
-      - ./.docker.env
     ports:
       - "9988:9988"
     restart: always
