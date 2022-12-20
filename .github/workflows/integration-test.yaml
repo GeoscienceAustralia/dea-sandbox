@@ -13,22 +13,21 @@ on:
 jobs:
   integration-test:
     runs-on: ubuntu-latest
+    steps:
+      - name: git checkout dea-sandbox
+          uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+            path: dea-sandbox
 
-  steps:
-    - name: git checkout dea-sandbox
+      - name: git checkout dea-notebooks
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-          path: dea-sandbox
+          repository: GeoscienceAustralia/dea-notebooks
+          path: dea-notebooks
 
-    - name: git checkout dea-notebooks
-      uses: actions/checkout@v2
-      with:
-        repository: GeoscienceAustralia/dea-notebooks
-        path: dea-notebooks
-
-    - name: Set up Datacube
-      run: |
-        cd dea-sandbox/integration-testing
-        docker-compose exec -T index setup_test_datacube.sh
-        docker-compose exec -T index datacube product list
+      - name: Set up Datacube
+        run: |
+          cd dea-sandbox/integration-testing
+          docker-compose exec -T index setup_test_datacube.sh
+          docker-compose exec -T index datacube product list
