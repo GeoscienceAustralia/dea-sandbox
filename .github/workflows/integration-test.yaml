@@ -28,12 +28,12 @@ jobs:
 
       - name: Start docker-compose
         run: |
-          # cd ./dea-sandbox/integration-testing
-          # docker-compose up -d
+          cd ./dea-sandbox/integration-testing
+          docker-compose up -d
 
       - name: Set up Datacube
         run: |
           chmod 644 /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/Tests/setup_test_datacube.sh
-          # cd ./dea-sandbox/integration-testing
-          # docker-compose exec -T index setup_test_datacube.sh
-          # docker-compose exec -T index datacube product list
+          cd ./dea-sandbox/integration-testing
+          docker-compose exec -T index setup_test_datacube.sh
+          docker-compose exec -T index datacube product list
