@@ -30,6 +30,7 @@ jobs:
         run: |
           ls -la
           cd ./dea-sandbox/integration-testing
+          pwd
           docker-compose up -d
 
       - name: Set up Datacube
