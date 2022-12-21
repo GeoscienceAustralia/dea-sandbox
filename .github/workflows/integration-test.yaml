@@ -28,6 +28,13 @@ jobs:
 
       - name: Set up Datacube
         run: |
+          pwd
+          cd dea-sandbox/integration-testing
+          docker-compose up -d
+
+      - name: Set up Datacube
+        run: |
+          pwd
           cd dea-sandbox/integration-testing
           docker-compose exec -T index setup_test_datacube.sh
           docker-compose exec -T index datacube product list
