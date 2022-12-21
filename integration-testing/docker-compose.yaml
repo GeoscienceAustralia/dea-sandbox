@@ -41,7 +41,7 @@ services:
         - DB_PORT=5432
         - AWS_DEFAULT_REGION=ap-southeast-2
      volumes:
-        - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
+        - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/Tests/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
      depends_on:
         - postgres
      entrypoint: bash -c 'sleep infinity'
