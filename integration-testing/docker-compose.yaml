@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:11.5-alpine
     ports:
-      - "5434:5432"
+      - "5455:5432"
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=opendatacubepassword
@@ -29,7 +29,7 @@ services:
         - postgres
      entrypoint: bash -c 'sleep infinity'
      volumes:
-       - /home/runner/work/dea-notebooks:/dea-notebooks
+       - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks:/dea-notebooks
 
   index:
      image: opendatacube/datacube-index:latest
@@ -41,7 +41,7 @@ services:
         - DB_PORT=5432
         - AWS_DEFAULT_REGION=ap-southeast-2
      volumes:
-        - /home/runner/work/dea-notebooks/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
+        - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
      depends_on:
         - postgres
      entrypoint: bash -c 'sleep infinity'
