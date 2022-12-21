@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: git checkout dea-sandbox
-          uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-            path: dea-sandbox
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: dea-sandbox
 
       - name: git checkout dea-notebooks
         uses: actions/checkout@v2
