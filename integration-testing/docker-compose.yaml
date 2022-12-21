@@ -14,7 +14,8 @@ services:
     restart: always
 
   sandbox:
-     build: /home/runner/work/dea-sandbox/dea-sandbox/Dockerfile
+     build:
+      context: /home/runner/work/dea-sandbox/dea-sandbox
      environment:
        - DB_HOSTNAME=postgres
        - DB_USERNAME=postgres
