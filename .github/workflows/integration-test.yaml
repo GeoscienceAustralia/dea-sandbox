@@ -33,7 +33,7 @@ jobs:
 
       - name: Set up Datacube
         run: |
-          ls -la /ome/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/setup_test_datacube.sh
+          ls -la /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/setup_test_datacube.sh
           # cd ./dea-sandbox/integration-testing
           # docker-compose exec -T index setup_test_datacube.sh
           # docker-compose exec -T index datacube product list
