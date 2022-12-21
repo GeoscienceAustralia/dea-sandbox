@@ -28,7 +28,7 @@ jobs:
 
       - name: Start docker-compose
         run: |
-          pwd
+          ls -la
           cd /home/runner/work/dea-sandbox/dea-sandbox/integration-testing
           docker-compose up -d
 
