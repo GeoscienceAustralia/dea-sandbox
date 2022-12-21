@@ -13,6 +13,8 @@ on:
 jobs:
   integration-test:
     runs-on: ubuntu-latest
+    env:
+      WORKDIR: /home/runner/work/dea-sandbox/dea-sandbox
     steps:
       - name: git checkout dea-sandbox
         uses: actions/checkout@v2
@@ -41,10 +43,7 @@ jobs:
       - name: Test with pytest
         run: |
           cd ./dea-sandbox/integration-testing
-          docker-compose exec -T sandbox pip install testbook
-          docker-compose exec -T sandbox mkdir /home/jovyan/dea-notebooks
-          docker-compose exec -T sandbox cp -r /dea-notebooks/.git /home/jovyan/.git
-          docker-compose exec -T sandbox cp -r /dea-notebooks/Tools /home/jovyan/Tools
-          docker-compose exec -T sandbox pip install /home/jovyan/Tools
-          docker-compose exec -T sandbox bash "-c" "cd /home/jovyan/dea-notebooks; pytest /dea-notebooks/Tests --ignore /dea-notebooks/Tests/Beginners_guide/07_Intro_to_numpy_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Animated_timeseries_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Contour_extraction_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Polygon_drill_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Tidal_modelling_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Rasterize_vectorize_test.py"
-          docker-compose exec -T sandbox bash "-c" "cd /home/jovyan/dea-notebooks; pytest /dea-notebooks/Tests/Frequently_used_code/Rasterize_vectorize_test.py"
+          docker-compose exec -T sandbox pip install testbook /dea-notebooks/Tools
+
+          docker-compose exec -T sandbox bash "-c" "cd /dea-notebooks; pytest /dea-notebooks/Tests --ignore /dea-notebooks/Tests/Beginners_guide/07_Intro_to_numpy_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Animated_timeseries_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Contour_extraction_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Polygon_drill_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Tidal_modelling_test.py --ignore /dea-notebooks/Tests/Frequently_used_code/Rasterize_vectorize_test.py"
+          docker-compose exec -T sandbox bash "-c" "cd /dea-notebooks; pytest /dea-notebooks/Tests/Frequently_used_code/Rasterize_vectorize_test.py"

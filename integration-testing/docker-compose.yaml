@@ -29,7 +29,7 @@ services:
         - postgres
      entrypoint: bash -c 'sleep infinity'
      volumes:
-       - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks:/dea-notebooks
+       - ${WORKDIR}/dea-notebooks:/dea-notebooks
 
   index:
      image: opendatacube/datacube-index:latest
@@ -41,7 +41,7 @@ services:
         - DB_PORT=5432
         - AWS_DEFAULT_REGION=ap-southeast-2
      volumes:
-        - /home/runner/work/dea-sandbox/dea-sandbox/dea-notebooks/Tests/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
+        - ${WORKDIR}/dea-notebooks/Tests/setup_test_datacube.sh:/usr/local/bin/setup_test_datacube.sh
      depends_on:
         - postgres
      entrypoint: bash -c 'sleep infinity'
