@@ -26,10 +26,10 @@ jobs:
           repository: GeoscienceAustralia/dea-notebooks
           path: dea-notebooks
 
-      - name: Set up Datacube
+      - name: Start docker-compose
         run: |
           pwd
-          cd ./integration-testing
+          cd /home/runner/work/dea-sandbox/dea-sandbox/integration-testing
           docker-compose up -d
 
       - name: Set up Datacube
