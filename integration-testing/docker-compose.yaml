@@ -14,10 +14,7 @@ services:
     restart: always
 
   sandbox:
-     build:
-      context: docker
-      args:
-        - WITH_SUDO=yes
+     build: ../
      environment:
        - DB_HOSTNAME=postgres
        - DB_USERNAME=postgres
