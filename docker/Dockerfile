@@ -39,14 +39,14 @@ RUN echo "Enable jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
 
-RUN echo "Enable server extensions" \ 
+RUN echo "Enable server extensions" \
    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
    && jupyter server extension list \
    && echo "...done"
 
-COPY assets/sync_repo assets/jupyterhub-singleuser /env/bin/
-COPY assets/overrides.json /env/share/jupyter/lab/settings/
+COPY --chown=$nb_uid:$nb_gid assets/sync_repo assets/jupyterhub-singleuser /env/bin/
+COPY --chown=$nb_uid:$nb_gid assets/overrides.json /env/share/jupyter/lab/settings/
 
 WORKDIR "/home/$nb_user"
 ENTRYPOINT ["/env/bin/tini", "--"]
