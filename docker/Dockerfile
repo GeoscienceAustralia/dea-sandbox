@@ -45,8 +45,8 @@ RUN echo "Enable server extensions" \
    && jupyter server extension list \
    && echo "...done"
 
-COPY --chown=$nb_uid:$nb_gid assets/sync_repo assets/jupyterhub-singleuser /env/bin/
-COPY --chown=$nb_uid:$nb_gid assets/overrides.json /env/share/jupyter/lab/settings/
+COPY assets/sync_repo assets/jupyterhub-singleuser /usr/local/bin/
+COPY assets/overrides.json /env/share/jupyter/lab/settings/
 
 WORKDIR "/home/$nb_user"
 ENTRYPOINT ["/env/bin/tini", "--"]
