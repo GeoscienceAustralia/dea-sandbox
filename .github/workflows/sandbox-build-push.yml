@@ -43,7 +43,7 @@ jobs:
       - name: Build a new docker image with tag
         id: tag-image
         run: |
-          echo "TAG=$github.ref_name" \
+          echo "TAG=${{ github.ref_name }}" \
           >> $GITHUB_OUTPUT
     outputs:
       image_tag: ${{ steps.tag-image.outputs.TAG }}
