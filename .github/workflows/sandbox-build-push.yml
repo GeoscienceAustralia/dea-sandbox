@@ -59,6 +59,10 @@ jobs:
       - name: Get image tag
         id: tag-image
         run: |
+          # check if the tag string is empty
+          # tag = `dev_tag` if triggered by pr merged 
+          # or `release_tag` if triggered by release published 
+          # or `dev_tag,release_tag`, which should not happen given current workflow though
           if [[ ! -z "${{ needs.set_dev_tags.outputs.image_tag }}" ]]; then \
           tag="${{ needs.set_dev_tags.outputs.image_tag }}"; fi
           if [[ ! -z "${{ needs.set_release_tags.outputs.image_tag }}" ]]; then \
