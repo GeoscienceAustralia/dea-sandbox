@@ -56,6 +56,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Get image tag
+        id: tag-image
+        run: |
+          # check if the tag string is empty
+          # tag = `dev_tag` if triggered by pr merged 
+          # or `release_tag` if triggered by release published 
+          # or `dev_tag,release_tag`, which should not happen given current workflow though
+          if [[ ! -z "${{ needs.set_dev_tags.outputs.image_tag }}" ]]; then \
+          tag="${{ needs.set_dev_tags.outputs.image_tag }}"; fi
+          if [[ ! -z "${{ needs.set_release_tags.outputs.image_tag }}" ]]; then \
+          if [[ ! -z $tag ]]; then \
+          tag=$tag",${{ needs.set_release_tags.outputs.image_tag }}"; else \
+          tag="${{ needs.set_release_tags.outputs.image_tag }}"; fi \
+          fi
+          echo "TAG=$tag" >>  $GITHUB_OUTPUT
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -68,4 +84,4 @@ jobs:
           context: ./docker
           registry: 538673716275.dkr.ecr.ap-southeast-2.amazonaws.com
           image_name: ${{ env.IMAGE_NAME }}
-          image_tag: latest,${{ needs.set_dev_tags.outputs.image_tag }},${{ needs.set_release_tags.outputs.image_tag }}
+          image_tag: latest,${{ steps.tag-image.outputs.TAG }}
