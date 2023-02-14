@@ -1,4 +1,5 @@
 cognitojwt
+cgal
 line-profiler
 jupyterlab-logout
 jupyter-contrib-core
