@@ -30,6 +30,7 @@ ENV LC_ALL=C.UTF-8 \
     GDAL_DRIVER_PATH=/env/lib/gdalplugins \
     PROJ_LIB=/env/share/proj \
     GDAL_DATA=/env/share/gdal \
+    SQLALCHEMY_SILENCE_UBER_WARNING=1 \
     PATH=/env/bin:$PATH
 
 USER $nb_user
