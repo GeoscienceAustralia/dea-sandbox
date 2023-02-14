@@ -31,6 +31,7 @@ ENV LC_ALL=C.UTF-8 \
     PROJ_LIB=/env/share/proj \
     GDAL_DATA=/env/share/gdal \
     SQLALCHEMY_SILENCE_UBER_WARNING=1 \
+    USE_PYGEOS=0 \
     PATH=/env/bin:$PATH
 
 USER $nb_user
