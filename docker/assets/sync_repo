@@ -13,7 +13,7 @@ BRANCH="${2:-master}"
       sleep $(( NEXT_WAIT_TIME++ ))
     done
     rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,docker-compose.yml,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
-    rsync --verbose --recursive "${WORKDIR}/" ~/
+    cp -Rv ${WORKDIR}/. ~/
     rm -rf "${WORKDIR}"
     # Install Tools folder if available
     if [ -e $HOME/Tools/setup.py ]; then
