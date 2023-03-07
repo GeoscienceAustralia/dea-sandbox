@@ -28,14 +28,12 @@ jobs:
 
       - name: Start docker-compose
         run: |
+          sudo chown -R 1000:100 ./dea-notebooks
           cd ./dea-sandbox/integration-testing
           CURRENT_UID=1000:100 docker-compose up -d
 
       - name: Set up Datacube and Test
         run: |
           cd ./dea-sandbox/integration-testing
-          docker-compose exec -T sandbox pwd
-          docker-compose exec -T sandbox ls -alt 
-          docker-compose exec -T sandbox pip install ./dea-notebooks/Tools
           docker-compose exec -T sandbox ./dea-notebooks/Tests/setup_test_datacube.sh
           docker-compose exec -T sandbox ./dea-notebooks/Tests/test_notebooks.sh
