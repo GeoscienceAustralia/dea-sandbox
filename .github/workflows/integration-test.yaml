@@ -5,10 +5,19 @@ on:
   pull_request:
     branches:
       - develop
+    paths:
+      - '.github/workflows/integration-test.yml'
+      - 'docker/**'
 
   push:
     branches:
       - develop
+    paths:
+      - '.github/workflows/integration-test.yml'
+      - 'docker/**'
+
+  release:
+    types: [published]
 
 jobs:
   integration-test:

@@ -7,6 +7,7 @@ RUN micromamba create  -y -p /env -f /conf/env.yaml && \
     micromamba env export -p /env --explicit
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
+ARG UPDATE_VERSION=1
 COPY requirements.txt /conf/
 # required to build hdmedians
 # or any --no-binary
