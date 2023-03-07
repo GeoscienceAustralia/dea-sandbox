@@ -30,4 +30,4 @@ services:
      entrypoint: bash -c 'sleep infinity'
      user: ${CURRENT_UID}
      volumes:
-       - ${WORKDIR}/dea-notebooks:/home/jovyan/dea-notebooks
+       - ${GITHUB_WORKSPACE}/dea-notebooks:/home/jovyan/dea-notebooks
