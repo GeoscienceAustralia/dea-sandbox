@@ -78,6 +78,14 @@ jobs:
           role-to-assume: arn:aws:iam::538673716275:role/github-actions-role
           aws-region: ap-southeast-2
 
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Integration Test'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20
+
       - name: Push image to ECR
         uses: whoan/docker-build-with-cache-action@master
         with:
@@ -85,3 +93,4 @@ jobs:
           registry: 538673716275.dkr.ecr.ap-southeast-2.amazonaws.com
           image_name: ${{ env.IMAGE_NAME }}
           image_tag: latest,${{ steps.tag-image.outputs.TAG }}
+          build_extra_args: '{"--build-arg": "UPDATE_VERSION=${{ steps.tag-image.outputs.TAG }}"}
