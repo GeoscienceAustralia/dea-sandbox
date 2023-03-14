@@ -62,14 +62,15 @@ jobs:
         run: |
           # check if the tag string is empty
           # tag = `dev_tag` if triggered by pr merged 
-          # or `release_tag` if triggered by release published 
-          # or `dev_tag,release_tag`, which should not happen given current workflow though
+          # or `release_tag, stable` if triggered by release published 
+          # or `dev_tag,release_tag, stable`, which should not happen given current workflow though
           if [[ ! -z "${{ needs.set_dev_tags.outputs.image_tag }}" ]]; then \
           tag="${{ needs.set_dev_tags.outputs.image_tag }}"; fi
           if [[ ! -z "${{ needs.set_release_tags.outputs.image_tag }}" ]]; then \
           if [[ ! -z $tag ]]; then \
           tag=$tag",${{ needs.set_release_tags.outputs.image_tag }}"; else \
           tag="${{ needs.set_release_tags.outputs.image_tag }}"; fi \
+          tag=$tag",stable"
           fi
           echo "TAG=$tag" >>  $GITHUB_OUTPUT
 

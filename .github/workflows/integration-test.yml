@@ -33,7 +33,7 @@ jobs:
         with:
           repository: GeoscienceAustralia/dea-notebooks
           path: dea-notebooks
-          ref: clean_test_workflow
+          ref: stable
 
       - name: Start docker-compose
         run: |
