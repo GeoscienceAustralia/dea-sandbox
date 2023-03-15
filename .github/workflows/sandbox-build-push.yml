@@ -69,9 +69,8 @@ jobs:
           if [[ ! -z "${{ needs.set_release_tags.outputs.image_tag }}" ]]; then \
           if [[ ! -z $tag ]]; then \
           tag=$tag",${{ needs.set_release_tags.outputs.image_tag }}"; else \
-          tag="${{ needs.set_release_tags.outputs.image_tag }}"; fi \
-          tag=$tag",stable" \
-          fi
+          tag="${{ needs.set_release_tags.outputs.image_tag }}"; fi; \
+          tag=$tag",stable"; fi
           echo "TAG=$tag" >>  $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
