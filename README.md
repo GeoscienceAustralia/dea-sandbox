@@ -15,11 +15,30 @@ Please ensure all tasks have a description that includes a clear definition of w
 
 Builds are run automatically out of this repository. Basic workflow is:
 
-- Create a branch and implement your changes
-- The Docker image is built on the branch and as part of the pull request
-- Once the PR is merged, a build will be run and pushed to `latest` and `sudo-latest` from master
-- When a new stable image is ready, create a release with a version number like `0.0.6` and
-this will be pushed to `0.0.6` and `sudo-0.0.6`.
+- Create a branch and implement your changes.
+- The Docker image is built on the branch and as part of the pull request.
+- The integration test will be run on PR, merge and release events.
+- Once the PR is merged, a build will run. The resulted image will be tagged with git `head` and `latest` and pushed to ECR.
+- When decide to release a new stable image, create a release with a version number with `major.minor.patch`, e.g.,  `2.0.1`.
+It will trigger the build and image will be tagged with `2.0.1` and `stable` and pushed to ECR.
+
+## Packages' version maintenance and upgrade
+
+The base environment is using conda and docker image is build in two stages:
+
+1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc` related packages.
+2. Copy the conda env to a new ubuntu image.
+
+To speed up the building, the build workflow pulls the cache stored on ECR. Though with every build, the cache layers starting from `pip install` will be busted such that the newest versions of `odc-` packages will be installed. Thus, for version upgrade on these packages, creating a release will be enough.
+
+The old conda env cache is used for all builds unless `env.yml` is changed. Other than the reason of image building time cited above, it takes more effort to resolve the conflicts and maintain the code base of `odc-` when the major upgrade on some base packages happens, e.g., some geospatial related packages, `GDAL` and `GEOS`. Hence, after evaluate pros and cons, we decide to keep this part rather manual.
+
+The steps for package versions upgrade are as follows:
+
+- For `odc-` packages, create a new release.
+- For packages listed in `env.yml`, be specific with the version required, for example, `Shapely>=2.0`.
+
+**Note**: Avoid using `==` or `<=`, unless there is a hard requirement or a very good reason. The reason must be very specific in your PR, such as required from what, on what base and the linked PR (if applicable). 
 
 ## Local environment
 
