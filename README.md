@@ -24,9 +24,9 @@ It will trigger the build and image will be tagged with `2.0.1` and `stable` and
 
 ## Packages' version maintenance and upgrade
 
-The base environment is using conda and docker image is build in two stages:
+The base environment is using conda and docker image is built in two stages:
 
-1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc` related packages.
+1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc-` packages.
 2. Copy the conda env to a new ubuntu image.
 
 To speed up the building, the build workflow pulls the cache stored on ECR. Though with every build, the cache layers starting from `pip install` will be busted such that the newest versions of `odc-` packages will be installed. Thus, for version upgrade on these packages, creating a release will be enough.
