@@ -38,7 +38,7 @@ The steps for package versions upgrade are as follows:
 - For `odc-` packages, create a new release.
 - For packages listed in `env.yml`, be specific with the version required, for example, `Shapely>=2.0`.
 
-**Note**: Avoid using `==` or `<=`, unless there is a hard requirement or a very good reason. The reason must be very specific in your PR, such as required from what, on what base and the linked PR (if applicable). 
+**Note**: Avoid using `==` or `<=`, unless there is a hard requirement or a very good reason. Ensure you specify this reason clearly in your PR; what is it required for, your justification, and any supporting PRs (if applicable).
 
 ## Local environment
 
