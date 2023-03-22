@@ -26,7 +26,7 @@ Builds are run automatically out of this repository. Basic workflow is:
 The base environment is using conda and docker image is built in two stages:
 
 1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc-` packages.
-2. Copy the conda env to a new ubuntu image.
+2. Copies the Conda env to a new Ubuntu image.
 
 To speed up the build, the workflow pulls images from a cache stored on ECR. However, with every build the cache layers starting from `pip install` will be discarded, so that the newest versions of `odc-` packages will be installed. Thus, to perform version upgrades on these packages, creating a release is sufficient.
 
