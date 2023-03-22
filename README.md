@@ -20,7 +20,6 @@ Builds are run automatically out of this repository. Basic workflow is:
 - The integration test will be run on PR, merge and release events.
 - Once the PR is merged, a build will run. The resulted image will be tagged with git `head` and `latest` and pushed to ECR.
 - When you'd like to release a new stable image, create a release with a version number in the format `major.minor.patch`, e.g., `2.0.1`. This will trigger a build and the resultant image will be tagged with `2.0.1` (in this example) and `stable`, and pushed to ECR.
-It will trigger the build and image will be tagged with `2.0.1` and `stable` and pushed to ECR.
 
 ## Packages' version maintenance and upgrade
 
