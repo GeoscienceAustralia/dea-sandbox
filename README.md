@@ -29,7 +29,7 @@ The base environment is using conda and docker image is built in two stages:
 1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc-` packages.
 2. Copy the conda env to a new ubuntu image.
 
-To speed up the building, the build workflow pulls the cache stored on ECR. Though with every build, the cache layers starting from `pip install` will be busted such that the newest versions of `odc-` packages will be installed. Thus, for version upgrade on these packages, creating a release will be enough.
+To speed up the build, the workflow pulls images from a cache stored on ECR. However, with every build the cache layers starting from `pip install` will be discarded, so that the newest versions of `odc-` packages will be installed. Thus, to perform version upgrades on these packages, creating a release is sufficient.
 
 The old conda env cache is used for all builds unless `env.yml` is changed. Other than the reason of image building time cited above, it takes more effort to resolve the conflicts and maintain the code base of `odc-` when the major upgrade on some base packages happens, e.g., some geospatial related packages, `GDAL` and `GEOS`. Hence, after evaluate pros and cons, we decide to keep this part rather manual.
 
