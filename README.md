@@ -33,7 +33,7 @@ To speed up the building, the build workflow pulls the cache stored on ECR. Thou
 
 The old conda env cache is used for all builds unless `env.yml` is changed. Other than the reason of image building time cited above, it takes more effort to resolve the conflicts and maintain the code base of `odc-` when the major upgrade on some base packages happens, e.g., some geospatial related packages, `GDAL` and `GEOS`. Hence, after evaluate pros and cons, we decide to keep this part rather manual.
 
-The steps for package versions upgrade are as follows:
+The steps for package version upgrades are as follows:
 
 - For `odc-` packages, create a new release.
 - For packages listed in `env.yml`, be specific with the version required, for example, `Shapely>=2.0`.
