@@ -30,7 +30,7 @@ The base environment uses Conda, and the Docker image is built in two stages:
 
 To speed up the build, the workflow pulls images from a cache stored on ECR. However, with every build the cache layers starting from `pip install` will be discarded, so that the newest versions of `odc-` packages will be installed. Thus, to perform version upgrades on these packages, creating a release is sufficient.
 
-The old conda env cache is used for all builds unless `env.yml` is changed. Other than the reason of image building time cited above, it takes more effort to resolve the conflicts and maintain the code base of `odc-` when the major upgrade on some base packages happens, e.g., some geospatial related packages, `GDAL` and `GEOS`. Hence, after evaluate pros and cons, we decide to keep this part rather manual.
+The old Conda env cache is used for all builds unless `env.yml` is changed. In addition to speeding up builds, this cached environment allows us to maintain a working `odc-` codebase and defer resolving conflicts on geospatial base packages such as `GDAL` and `GEOS`, until we have a good opportunity to manually review them.
 
 The steps for package version upgrades are as follows:
 
