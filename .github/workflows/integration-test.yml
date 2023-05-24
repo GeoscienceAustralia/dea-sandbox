@@ -19,6 +19,10 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   integration-test:
     runs-on: ubuntu-latest
@@ -34,6 +38,15 @@ jobs:
           repository: GeoscienceAustralia/dea-notebooks
           path: dea-notebooks
           ref: stable
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::538673716275:role/github-actions-role-readonly
+          aws-region: ap-southeast-2
+
+      - name: Copy tide modelling files with the AWS CLI
+        run: aws s3 sync s3://dea-non-public-data/tide_models/tide_models tide_models
 
       - name: Start docker-compose
         run: |
