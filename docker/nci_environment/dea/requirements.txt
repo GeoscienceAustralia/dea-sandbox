@@ -1,0 +1,8 @@
+datacube
+eodatasets3
+odc-algo
+odc-apps-dc-tools
+odc-dscache
+odc-geom
+odc-io
+odc-ui
