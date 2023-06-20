@@ -15,7 +15,7 @@ install_conda_packages: ../../env.yaml
 
 copy_files:
 - src: ../../env.yaml
-  dest: "{modules_dir}/{module_name}/{module_version}/env.yaml"
+  dest: "{modules_dir}/{module_name}/{module_version}/environment.yaml"
 
 template_files:
 - src: modulefile.template
