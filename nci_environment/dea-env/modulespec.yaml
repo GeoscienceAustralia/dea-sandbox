@@ -11,10 +11,10 @@ templated_variables:
   module_path: "{modules_dir}/{module_name}/{module_version}"
   python_path: "{modules_dir}/{module_name}/{module_version}/lib/python{python_version}/site-packages/"
 
-install_conda_packages: ../../env.yaml
+install_conda_packages: ../../docker/env.yaml
 
 copy_files:
-- src: ../../env.yaml
+- src: ../../docker/env.yaml
   dest: "{modules_dir}/{module_name}/{module_version}/environment.yaml"
 
 template_files:
