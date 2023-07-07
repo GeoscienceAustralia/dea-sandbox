@@ -45,6 +45,7 @@ from pathlib import Path
 import yaml
 
 MODULE_DIR = "/g/data/v10/public/modules"
+MODULE_DIR = "/g/data/u46/users/dsg547/devmodules"
 
 LOG_NAME = "build_dea_module.log"
 FILE_HANDLER = logging.FileHandler(filename=LOG_NAME, mode="w", encoding="utf-8")

@@ -1,5 +1,5 @@
 variables:
-  module_name: dea-env
+  module_name: smalldea-env
   module_description: DEA Environment Module
   modules_dir: "/g/data/u46/users/dsg547/devmodules"
   conda_path: "/g/data/v10/private/mambaforge/bin/mamba"
@@ -11,10 +11,10 @@ templated_variables:
   module_path: "{modules_dir}/{module_name}/{module_version}"
   python_path: "{modules_dir}/{module_name}/{module_version}/lib/python{python_version}/site-packages/"
 
-install_conda_packages: ../../docker/env.yaml
+install_conda_packages: smallenv.yaml
 
 copy_files:
-- src: ../../docker/env.yaml
+- src: smallenv.yaml
   dest: "{modules_dir}/{module_name}/{module_version}/environment.yaml"
 
 template_files:
