@@ -62,7 +62,7 @@ run from VDI.
 
 ## Building a new _Environment Module_
 
-It requires python 3.6+ and pyyaml. Run the following on raijin at the NCI:
+It requires python 3.8+ and pyyaml. Run the following on raijin at the NCI:
 
       $ module use /g/data/v10/public/modules/modulefiles/
       $ module load python3/3.8.5
