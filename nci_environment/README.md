@@ -4,14 +4,14 @@
 
 These scripts are all about our deployment of code onto the NCI.
 
-We are going to have have three modules, with date-based version numbers:
+There are two modules, with date-based version numbers:
 
- 1. A *Python Environment* module
+ 1. The Python Environment module *dea-env*
 
-    * Contains third party dependencies of all of the GA code, installed via
+    * This contains third party dependencies of all of the GA code, installed via
       a `conda` environment.
 
- 2. A *DEA* module, which depends on the _environment module_:
+ 2. A *dea* module, which depends on the _environment module_:
 
     * [Open Data Cube Core](https://github.com/opendatacube/datacube-core/)
 
@@ -27,19 +27,6 @@ We are going to have have three modules, with date-based version numbers:
       loaded by a user.
 
     * A configuration file including environments for the available _Indexes_
-
-
- 3. An *LPGS* module for Landsat Level 1 Processing. It depends on the _DEA_ module, and contains:
-
-    * [IDL Functions](https://github.com/sixy6e/idl-functions/)
-
-    * [EO Tools](https://github.com/GeoscienceAustralia/eo-tools/)
-
-    * [GAIP/WAGL](https://github.com/GeoscienceAustralia/gaip/)
-
-    * [GQA](https://github.com/GeoscienceAustralia/gqa/)
-
-    * [GALPGS](https://github.com/jeremyh/galpgs/)
 
 
 # User instructions
@@ -72,7 +59,7 @@ It includes a config file, which it specifies by setting the
 Only run these scripts from Raijin. We've seen filesystem sync issues when
 run from VDI.
 
-    module load python3/3.6.2
+    module load python3/3.8.5
     pip3 install --user pyyaml jinja2
 
 ## Building a new _Environment Module_
@@ -80,7 +67,7 @@ run from VDI.
 It requires python 3.6+ and pyyaml. Run the following on raijin at the NCI:
 
       $ module use /g/data/v10/public/modules/modulefiles/
-      $ module load python3/3.6.2
+      $ module load python3/3.8.5
       $ ./build_environment_module.py dea-env/modulespec.yaml
 
 This will build a new environment module for today.
@@ -93,7 +80,7 @@ of all of our pip/conda dependencies on that date.
 A DEA module will specify one exact environment module.
 
     $ module use /g/data/v10/public/modules/modulefiles/
-    $ module load python3/3.6.2
+    $ module load python3/3.8.5
     $ ./build_environment_module.py dea/modulespec.yaml
 
 ## Updating the Default Version
