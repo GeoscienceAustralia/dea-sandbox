@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/GeoscienceAustralia/digitalearthau.svg?branch=develop)](https://travis-ci.org/GeoscienceAustralia/digitalearthau)
-
 # Introduction
 
 These scripts are all about our deployment of code onto the NCI.
