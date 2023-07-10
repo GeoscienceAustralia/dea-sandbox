@@ -1,12 +1,12 @@
 # Introduction
 
-These scripts are all about our deployment of code onto the NCI.
+These scripts are used to update and deploy DEA modules on NCI.
 
 There are two modules, with date-based version numbers:
 
  1. The Python Environment module *dea-env*
 
-    * This contains third party dependencies of all of the GA code, installed via
+    * This contains third party dependencies of all of the DEA code, installed via
       a `conda` environment.
 
  2. A *dea* module, which depends on the _environment module_:
