@@ -92,31 +92,3 @@ the `docker-compose.override.yml` file, which provides a postgres container.
 
 Any files in the `./notebooks` folder will be mounted in the user's home folder. That is to say that `./notebooks`
 will be mounted at `/home/jovyan`/
-
-
-## How to run the tests on nci/gadi
-
-## Setup
-
-    Copy the 3 lines below and modify the VERSION value
-    to the dea and dea-env module version you would
-    like the tests to be run on. Paste them in a brand
-    new shell session/terminal
-
-        VERSION="20230710"
-        module use /g/data/v10/public/modules/modulefiles
-        module load dea/$VERSION
-        module load dea-env/$VERSION
-
-## Execution
-On gadi, just run the tests with in this fashion:
-
-    python3 -m pytest <directory of tests>;
-
-Examples are:
-
-    python3 -m pytest --nbval-lax Beginners_guide/;
-
-    python3 -m pytest --nbval-lax DEA_products/;
-
-    python3 -m pytest --nbval-lax How_to_guides/ --ignore How_to_guides/Land_cover_pixel_drill.ipynb --ignore How_to_guides/External_data_ERA5_Climate.ipynb --ignore How_to_guides/Imagery_on_web_map.ipynb;
