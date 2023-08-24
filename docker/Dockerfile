@@ -1,8 +1,8 @@
-FROM mambaorg/micromamba:git-7545124-jammy as sandbox-conda
+FROM mambaorg/micromamba:jammy as sandbox-conda
 
 USER root
 COPY env.yaml /conf/
-RUN micromamba create  -y -p /env -f /conf/env.yaml && \
+RUN micromamba create  --yes --path /env --file /conf/env.yaml && \
     micromamba clean --all --yes && \
     micromamba env export -p /env --explicit
 
