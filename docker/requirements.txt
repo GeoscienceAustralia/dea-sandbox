@@ -9,10 +9,6 @@ jupyter-nbextensions-configurator
 # ODC/DEA: these are installed in builder stage
 otps
 eodatasets3
-# rsgislib was manually packaged as a binary wheel
-# rios required by rsgislib no PIPy publish
-https://github.com/ubarsc/rios/releases/download/rios-1.4.13/rios-1.4.13.tar.gz
-rsgislib==4.1.95
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
 s2cloudmask
