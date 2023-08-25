@@ -9,6 +9,7 @@ jupyter-nbextensions-configurator
 # ODC/DEA: these are installed in builder stage
 otps
 eodatasets3
+
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
 s2cloudmask
