@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:git-7545124-jammy as sandbox-conda
+FROM mambaorg/micromamba:git-e4f55ab-jammy as sandbox-conda
 
 USER root
 COPY env.yaml /conf/
@@ -16,7 +16,7 @@ ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt
 
-FROM ubuntu:jammy-20220815
+FROM ubuntu:jammy-20230816
 
 ARG nb_user=jovyan
 ARG nb_uid=1000
