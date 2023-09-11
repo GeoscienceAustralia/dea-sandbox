@@ -1,4 +1,5 @@
 cognitojwt
+nbval
 cgal
 line-profiler
 jupyterlab-logout
