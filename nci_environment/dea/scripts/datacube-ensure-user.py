@@ -120,8 +120,8 @@ def find_credentials(pgpass, dbcreds):
     """ Find the credential from ~/.pgpass file.
 
         If pgpass file does not exists or If pgpass exists and is empty, then raise 'credentials not found'
-        else if credentials match current production database format, do nothing
-        else raise an error that no valid credentials were found
+        else if credentials match the production database ip, return the production database credentials for migration
+        else if new credentials for migration is already appended to the pgpass file, do nothing
         """
     if not pgpass.exists() or os.path.getsize(pgpass) == 0:
         # New user, add new credentials to connect to any database
