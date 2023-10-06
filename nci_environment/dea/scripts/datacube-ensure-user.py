@@ -13,6 +13,7 @@ import string
 import sys
 from collections import namedtuple
 from textwrap import dedent
+from datetime import datetime
 
 import click
 import psycopg2
@@ -21,15 +22,12 @@ import pytest
 from boltons.fileutils import atomic_save
 from pathlib import Path
 
-OLD_DB_HOST = "130.56.244.105"
-CURRENT_DB_HOST = "dea-db.nci.org.au"
-PASSWORD_LENGTH = 32
 
 DBCreds = namedtuple("DBCreds", ["host", "port", "database", "username", "password"])
 
 CANNOT_CONNECT_MSG = """
 Unable to connect to the Data Cube database (host={}, port={}, db={}, username={})
-Please contact an administrator for help.
+Please contact earth.observation@ga.gov.au for help.
 """
 
 USER_ALREADY_EXISTS_MSG = """
@@ -39,6 +37,7 @@ Cube from raijin, and are now trying to access from VDI, or vice-versa.
 
 To fix this problem, please copy your ~/.pgpass file from the system you
 initially used to access the Data Cube, onto the current system.
+If the issue persists, please contact earth.observation@ga.gov.au for help.
 """
 
 _PWD = pwd.getpwuid(os.geteuid())
@@ -72,21 +71,17 @@ def main(hostname, port, dbusername):
     pgpass = Path(CURRENT_HOME_DIR) / ".pgpass"
 
     try:
-        new_creds = find_credentials(pgpass, OLD_DB_HOST, dbcreds)
+        find_credentials(pgpass, dbcreds)
     except CredentialsNotFound:
         print(
             "\nAttempting to create a database account for the db_user ({}).".format(
                 dbcreds.username
             )
         )
-        new_creds = create_db_account(dbcreds)
+        creds = create_db_account(dbcreds)
         print("Created new database account.")
-
-    # Append new credentials to ~/.pgpass file
-    if new_creds:
-        print("Migrating {} to the new database server.".format(dbcreds.username))
-        # Add new credentials to ~/.pgpass file
-        append_credentials(pgpass, new_creds._replace(host="*", port="*"))
+        # Append new credentials to ~/.pgpass file
+        append_credentials(pgpass, creds)
 
     if not can_connect(dbcreds):
         print_stderr(
@@ -121,30 +116,28 @@ def can_connect(dbcreds):
         return False
 
 
-def find_credentials(pgpass, host, dbcreds):
+def find_credentials(pgpass, dbcreds):
     """ Find the credential from ~/.pgpass file.
 
         If pgpass file does not exists or If pgpass exists and is empty, then raise 'credentials not found'
         else if credentials match the production database ip, return the production database credentials for migration
         else if new credentials for migration is already appended to the pgpass file, do nothing
         """
-    new_creds = None
     if not pgpass.exists() or os.path.getsize(pgpass) == 0:
         # New user, add new credentials to connect to any database
         raise CredentialsNotFound("New user: Add new credentials to .pgpass file")
 
+    found_creds = False
     with pgpass.open() as src:
         for line in src:
             # Ignore comments and empty lines
             if not line.strip().startswith("#") and line.strip():
                 creds = DBCreds(*line.strip().split(":"))
-                if creds.host == host and creds.username == dbcreds.username:
-                    # Production database credentials exists
-                    new_creds = creds._replace(host="*", port="*")
-                elif creds.host == "*" and creds.username == dbcreds.username:
-                    # Already migrated to new database format, do noting
-                    new_creds = None
-    return new_creds
+                if creds.host == "*" and creds.port == "*" and creds.username == dbcreds.username:
+                    found_creds = True
+    if not found_creds:
+        raise ValueError("No valid credentials found in .pgpass file. "
+                         "Please ensure that pgpass includes credentials in the format *:*:*:<dbusername>:<password>")
 
 
 def append_credentials(pgpass, dbcreds):
@@ -170,6 +163,7 @@ def append_credentials(pgpass, dbcreds):
 def create_db_account(dbcreds):
     """ Create AGDC user account on the requested """
     real_name = CURRENT_REAL_NAME if dbcreds.username == CURRENT_USER else ""
+    real_name = f"{real_name} (created: {datetime.now()})"
 
     dbcreds = dbcreds._replace(database="*", password=gen_password())
     try:
@@ -216,6 +210,7 @@ if __name__ == "__main__":
 # Tests #
 #########
 
+DB_HOST = "dea-db.nci.org.au"
 
 def test_no_pgpass(tmpdir):
     # Create a pgpass.txt file in temp folder
@@ -227,7 +222,7 @@ def test_no_pgpass(tmpdir):
 
     # No pgpass file exists
     with pytest.raises(CredentialsNotFound):
-        find_credentials(path, CURRENT_DB_HOST, new_creds)
+        find_credentials(path, new_creds)
 
     append_credentials(path, new_creds)
 
@@ -240,21 +235,19 @@ def test_no_pgpass(tmpdir):
 
 def test_db_host_doesnot_match_productiondb(tmpdir):
     # Production db credentials
-    existing_line = f"{CURRENT_DB_HOST}:5432:*:foo_user:asdf"
+    existing_line = f"{DB_HOST}:5432:*:foo_user:asdf"
     pgpass = tmpdir.join("pgpass.txt")
     pgpass.write(existing_line)
 
     path = Path(str(pgpass))
-    hostdbcreds = DBCreds(
-        CURRENT_DB_HOST, "1234", "datacube", "foo_user", "foo_password"
+    dbcreds = DBCreds(
+        DB_HOST, "1234", "datacube", "foo_user", "foo_password"
     )
-    creds = find_credentials(pgpass, CURRENT_DB_HOST, hostdbcreds)
-
-    assert creds is not None
-    assert creds.password == "asdf"
+    with pytest.raises(ValueError):
+        find_credentials(pgpass, dbcreds)
 
     # Use production db credentials with new host and port being glob star
-    append_credentials(path, creds._replace(host="*", port="*"))
+    append_credentials(path, dbcreds._replace(host="*", port="*"))
 
     with path.open() as src:
         contents = src.read()
@@ -262,7 +255,7 @@ def test_db_host_doesnot_match_productiondb(tmpdir):
     expected = (
         existing_line
         + "\n"
-        + existing_line.replace(f"{CURRENT_DB_HOST}:5432", "*:*")
+        + existing_line.replace(f"{DB_HOST}:5432", "*:*")
         + "\n"
     )
     assert contents == expected
@@ -280,7 +273,7 @@ def test_pgpass_empty(tmpdir):
 
     # pgpass file exists and is empty
     with pytest.raises(CredentialsNotFound):
-        find_credentials(pgpass, "*", new_creds)
+        find_credentials(pgpass, new_creds)
 
     append_credentials(path, new_creds)
 
@@ -290,27 +283,23 @@ def test_pgpass_empty(tmpdir):
 
 
 def test_db_host_matches_productiondb(tmpdir):
-    existing_line = f"{CURRENT_DB_HOST}:5432:*:foo_user:asdf"
+    existing_line = "*:*:*:foo_user:asdf"
     pgpass = tmpdir.join("pgpass.txt")
     pgpass.write(existing_line)
 
     path = Path(str(pgpass))
-    creds = DBCreds(CURRENT_DB_HOST, "1234", "*", "foo_user", "asdf")
+    creds = DBCreds("*", "*", "*", "foo_user", "asdf")
 
-    newcreds = find_credentials(pgpass, CURRENT_DB_HOST, creds)
+    newcreds = find_credentials(pgpass, creds)
 
     assert newcreds is not None
     assert newcreds.password == "asdf"
-
-    append_credentials(path, newcreds._replace(host="*", port="*"))
 
     with path.open() as src:
         contents = src.read()
 
     expected = (
         existing_line
-        + "\n"
-        + existing_line.replace(f"{CURRENT_DB_HOST}:5432", "*:*")
         + "\n"
     )
     assert contents == expected
@@ -320,65 +309,47 @@ def test_against_emptylines_in_pgpass(tmpdir):
     existing_pgpass = dedent(
         f"""
 
-            {CURRENT_DB_HOST}:5432:*:foo_user:asdf
+            {DB_HOST}:5432:*:foo_user:asdf
 
-            {CURRENT_DB_HOST}:*:*:foo_user:asdf
-            {CURRENT_DB_HOST}.nci.org.au:*:*:foo_user:asdf
-            {CURRENT_DB_HOST}.org.au:*:*:foo_user:asdf
+            *:*:*:foo_user:asdf
+            {DB_HOST}.nci.org.au:*:*:foo_user:asdf
+            {DB_HOST}.org.au:*:*:foo_user:asdf
 
             """
     )
     pgpass = tmpdir.join("pgpass.txt")
     pgpass.write(existing_pgpass)
 
-    path = Path(str(pgpass))
-    creds = DBCreds(CURRENT_DB_HOST, "1234", "*", "foo_user", "asdf")
+    creds = DBCreds("*", "*", "*", "foo_user", "asdf")
 
-    newcreds = find_credentials(pgpass, CURRENT_DB_HOST, creds)
+    newcreds = find_credentials(pgpass, creds)
 
     assert newcreds is not None
     assert newcreds.password == "asdf"
-
-    append_credentials(path, newcreds._replace(host="*", port="*"))
-
-    with path.open() as src:
-        contents = src.read()
-
-    expected = existing_pgpass + "*:*:*:foo_user:asdf\n"
-    assert contents == expected
 
 
 def test_against_comment_in_pgpass(tmpdir):
     existing_pgpass = dedent(
         f"""
             # test comment 1 #
-            {CURRENT_DB_HOST}:5432:*:foo_user:asdf
+            {DB_HOST}:5432:*:foo_user:asdf
 
             # test comments 2
-            {CURRENT_DB_HOST}:*:*:foo_user:asdf
+            *:*:*:foo_user:asdf
 
             # 'test comments 3'
-            {CURRENT_DB_HOST}.nci.org.au:*:*:foo_user:asdf
+            {DB_HOST}.nci.org.au:*:*:foo_user:asdf
 
-            {CURRENT_DB_HOST}.nci.org.au:*:*:foo_user:asdf
+            {DB_HOST}.nci.org.au:*:*:foo_user:asdf
 
             """
     )
     pgpass = tmpdir.join("pgpass.txt")
     pgpass.write(existing_pgpass)
 
-    path = Path(str(pgpass))
-    creds = DBCreds(CURRENT_DB_HOST, "1234", "*", "foo_user", "asdf")
+    creds = DBCreds("*", "*", "*", "foo_user", "asdf")
 
-    newcreds = find_credentials(pgpass, CURRENT_DB_HOST, creds)
+    newcreds = find_credentials(pgpass, DB_HOST, creds)
 
     assert newcreds is not None
     assert newcreds.password == "asdf"
-
-    append_credentials(path, newcreds._replace(host="*", port="*"))
-
-    with path.open() as src:
-        contents = src.read()
-
-    expected = existing_pgpass + "*:*:*:foo_user:asdf\n"
-    assert contents == expected
