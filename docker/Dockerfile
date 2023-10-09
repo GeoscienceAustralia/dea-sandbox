@@ -48,6 +48,15 @@ RUN echo "Enable server extensions" \
    && jupyter server extension list \
    && echo "...done"
 
+RUN echo "Install AWS CLI v2" \
+   && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
+   && unzip /tmp/awscliv2.zip -d /tmp \
+   && /tmp/aws/install -i /env/bin/aws-cli -b /env/bin \
+   && aws --version \
+   && rm -f /tmp/awscliv2.zip \
+   && rm -fr /tmp/aws \
+   && echo "...done"
+
 COPY assets/sync_repo assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json /env/share/jupyter/lab/settings/
 
