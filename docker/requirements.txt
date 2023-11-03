@@ -27,6 +27,7 @@ odc-stac
 odc-stats[ows]
 odc-ui
 odc-geo
+dea-tools
 
 thredds-crawler
 hdstats==0.1.8.post1
