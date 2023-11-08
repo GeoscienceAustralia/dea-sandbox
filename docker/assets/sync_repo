@@ -15,9 +15,5 @@ BRANCH="${2:-master}"
     rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,docker-compose.yml,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
     cp -Rv ${WORKDIR}/. ~/
     rm -rf "${WORKDIR}"
-    # Install Tools folder if available
-    if [ -e $HOME/Tools/setup.py ]; then
-        python -m pip install -e "$HOME/Tools" || true
-    fi
     rm -rf "$HOME/.git"
 }

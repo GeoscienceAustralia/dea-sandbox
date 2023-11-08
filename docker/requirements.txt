@@ -18,8 +18,7 @@ s2cloudmask
 opencv-python-headless
 opencv-contrib-python-headless
 
-jsonschema < 4.18
-datacube[performance,s3] == 1.8.15
+datacube[performance,s3] >= 1.8.17
 odc-algo
 odc-cloud[ASYNC]
 odc-dscache
