@@ -19,7 +19,7 @@ opencv-python-headless
 opencv-contrib-python-headless
 
 datacube[performance,s3] >= 1.8.17
-odc-algo
+odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-cloud[ASYNC]
 odc-dscache
 odc-io
