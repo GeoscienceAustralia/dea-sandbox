@@ -1,23 +1,25 @@
 variables:
   module_name: dea
   module_description: DEA tools for the NCI
-  modules_base: "/g/data/v10/public/modules"
+  modules_dir: "/g/data/v10/public/modules"
+  conda_path: "/g/data/v10/private/mambaforge/bin/mamba"
   dbhost: dea-db.nci.org.au
   dbport: 6432
-  python_version: 3.8
+  python_version: 3.9
 
 templated_variables:
-  module_path: "{modules_base}/{module_name}/{module_version}"
-  python_path: "{modules_base}/{module_name}/{module_version}/lib/python{python_version}/site-packages/"
+  module_path: "{modules_dir}/{module_name}/{module_version}"
+  python_path: "{modules_dir}/{module_name}/{module_version}/lib/python{python_version}/site-packages/"
   dea_module: "{module_name}/{module_version}"
 
-stable_module_deps:
-- dea-env
+install_conda_packages: ../../docker/env.yaml
 
 install_pip_packages:
-  pip_cmd: "module load {fixed_dea_env}; pip install --no-warn-script-location --prefix {module_path} --requirement requirements.txt; pip install --no-warn-script-location --prefix {module_path} --requirement requirements-private.txt"
+  pip_cmd: "module load python3/3.9.2; pip install --no-warn-script-location --prefix {module_path} --requirement requirements.txt; pip install --no-warn-script-location --prefix {module_path} --requirement requirements-private.txt"
 
 copy_files:
+- src: ../../docker/env.yaml
+  dest: "{modules_dir}/{module_name}/{module_version}/environment.yaml"
 - src: requirements.txt
   dest: "{module_path}/requirements.txt"
 - src: datacube.conf
@@ -39,4 +41,5 @@ wget_files:
 
 template_files:
 - src: modulefile.template
-  dest: "{modules_base}/modulefiles/{module_name}/{module_version}"
+  dest: "{modules_dir}/modulefiles/{module_name}/{module_version}"
+  chmod: 0o444

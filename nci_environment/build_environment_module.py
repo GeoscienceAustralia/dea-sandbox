@@ -9,11 +9,11 @@ It is configured by a YAML file, which specifies:
  - (opt) Conda environment to create
  - (opt) Pip style requirements.txt to install to a directory
 
-It requires python 3.8+ and pyyaml.
+It requires python 3.9+ and pyyaml.
 Use a qsub interactive copyq job on raijin with sufficient memory to run the following commands at the NCI:
 New DEA-Env Module
   $ module use /g/data/v10/public/modules/modulefiles/
-  $ module load python3/3.8.5
+  $ module load python3/3.9.2
   # if pyyaml is not installed in gadi
   $ pip install PyYAML --user
 
@@ -22,7 +22,7 @@ New DEA-Env Module
 
 New DEA Module
   $ module use /g/data/v10/public/modules/modulefiles/
-  $ module load python3/3.8.5
+  $ module load python3/3.9.2
 
   $ # Building a new DEA Module
   $ python3 build_environment_module.py dea/modulespec.yaml
@@ -262,8 +262,8 @@ def copy_and_fill_templates(template_tasks, variables):
 
         src = Path(task["src"])
         dest = Path(task["dest"])
-        LOG.info("Copy and fill dea-env modulefile %s in %s", src, dest)
-        # Write the module file template to modulefiles/dea-env directory
+        LOG.info("Copy and fill dea modulefile %s in %s", src, dest)
+        # Write the module file template to modulefiles/dea directory
         write_template(src, variables, dest)
 
         if "chmod" in task:
@@ -361,18 +361,18 @@ def run_final_commands_on_module(commands, module_path):
         run_command(cmd)
 
 
-def include_stable_module_dep_versions(config):
-    """
-    Include stable module dependency versions
+# def include_stable_module_dep_versions(config):
+#     """
+#     Include stable module dependency versions
 
-    :param config: Dictionary of configuration variables
-    :return: None
-    """
-    stable_module_deps = config.get("stable_module_deps", [])
-    for dep in stable_module_deps:
-        default_version = find_default_version(dep)
-        dep = dep.replace("-", "_")
-        config["variables"][f"fixed_{dep}"] = default_version
+#     :param config: Dictionary of configuration variables
+#     :return: None
+#     """
+#     stable_module_deps = config.get("stable_module_deps", [])
+#     for dep in stable_module_deps:
+#         default_version = find_default_version(dep)
+#         dep = dep.replace("-", "_")
+#         config["variables"][f"fixed_{dep}"] = default_version
 
 
 def main(config_path):
@@ -394,7 +394,7 @@ def main(config_path):
     if "module_version" not in variables:
         variables["module_version"] = date()
     include_templated_vars(config)
-    include_stable_module_dep_versions(config)
+    # include_stable_module_dep_versions(config)
 
     pre_check(config)
     prep(config_path)
