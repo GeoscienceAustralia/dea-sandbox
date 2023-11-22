@@ -73,14 +73,6 @@ Edit the `.version` file in the modulefiles directory.
 
 Eg. For `dea` this is: `/g/data/v10/public/modules/modulefiles/dea/.version`
 
-
-## Re-Building _dea-unstable_
-
-    module load python3/3.6.2
-    rm -rf /g/data/v10/public/modules/dea/unstable
-    python3 build_environment_module.py dea_unstable/modulespec.yaml
-
-
 ## Archiving an old module
 
 [TO DO]...
