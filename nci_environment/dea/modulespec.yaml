@@ -5,17 +5,19 @@ variables:
   conda_path: "/g/data/v10/private/mambaforge/bin/mamba"
   dbhost: dea-db.nci.org.au
   dbport: 6432
-  python_version: 3.9
+  python_version: '3.10'
 
 templated_variables:
   module_path: "{modules_dir}/{module_name}/{module_version}"
   python_path: "{modules_dir}/{module_name}/{module_version}/lib/python{python_version}/site-packages/"
   dea_module: "{module_name}/{module_version}"
+  pip_path: "{modules_dir}/{module_name}/{module_version}/bin/pip3"
 
 install_conda_packages: ../../docker/env.yaml
 
 install_pip_packages:
-  pip_cmd: "module load python3/3.9.2; pip install --no-warn-script-location --prefix {module_path} --requirement requirements.txt; pip install --no-warn-script-location --prefix {module_path} --requirement requirements-private.txt"
+  # need to specify which python/pip to use otherwise it defaults to the incorrect one
+  pip_cmd: "{pip_path} install --no-warn-script-location --prefix {module_path} --requirement requirements.txt; {pip_path} install --no-warn-script-location --prefix {module_path} --requirement requirements-private.txt"
 
 copy_files:
 - src: ../../docker/env.yaml

@@ -9,7 +9,6 @@ jupyter-nbextensions-configurator
 
 # ODC/DEA: these are installed in builder stage
 otps
-eodatasets3
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
@@ -19,10 +18,7 @@ opencv-python-headless
 opencv-contrib-python-headless
 
 datacube[performance,s3]
-odc-algo
 odc-cloud[ASYNC]
-odc-dscache
-odc-io
 odc-stac
 odc-stats[ows]
 odc-ui

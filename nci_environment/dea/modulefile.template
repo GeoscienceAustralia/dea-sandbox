@@ -39,6 +39,10 @@ prepend-path PYTHONPATH ${module_path}/share/qgis/python
 remove-path PATH ${module_path}/bin
 prepend-path PATH ${module_path}/bin
 
+# Remove duplicate entries for python path and prepend again
+remove-path PYTHONPATH ${python_path}
+prepend-path PYTHONPATH ${python_path}
+
 # To avoid user packages conflicting with Environment Module packages, point the PYTHONUSERBASE and PATH
 # variables to point to a directory based on the Environment Module version which is loaded so that extra
 # packages must be re-installed when a new dea module is released
@@ -55,8 +59,8 @@ if {[module-info mode load] && [is-loaded $$name/$$version]} {
 }
 
 # Remove duplicate entries for HOME dir and prepend at the top
-remove-path PYTHONPATH ~/.dea-sandbox/${module_name}/${module_version}/local/lib/python3.9/site-packages
-prepend-path PYTHONPATH ~/.dea-sandbox/${module_name}/${module_version}/local/lib/python3.9/site-packages
+remove-path PYTHONPATH ~/.dea-sandbox/${module_name}/${module_version}/local/lib/python3.10/site-packages
+prepend-path PYTHONPATH ~/.dea-sandbox/${module_name}/${module_version}/local/lib/python3.10/site-packages
 
 
 #############################################################
