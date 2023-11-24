@@ -32,7 +32,6 @@ datacube system check
 
 echo Testing notebooks
 cd ../..
-export DEA_TOOLS_TIDE_MODELS=/g/data/v10/tide_models
 if [[ ! -d dea-notebooks ]]; then
     git clone --depth 1 https://github.com/GeoscienceAustralia/dea-notebooks.git
 fi

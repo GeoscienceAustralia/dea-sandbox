@@ -54,6 +54,8 @@ setenv DATACUBE_CONFIG_PATH ${module_path}/datacube.conf
 setenv LC_ALL en_AU.utf8
 setenv LANG C.UTF-8
 
+setenv DEA_TOOLS_TIDE_MODELS /g/data/v10/tide_models
+
 if {[module-info mode load] && [is-loaded $$name/$$version]} {
         puts stderr "Warning: $$name/$$version exists in the python env ($$env(PYTHONPATH))"
 }
