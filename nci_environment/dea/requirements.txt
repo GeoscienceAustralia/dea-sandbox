@@ -1,4 +1,5 @@
 datacube
+pytest-odc
 odc-apps-dc-tools
 odc-geom
 odc-ui
