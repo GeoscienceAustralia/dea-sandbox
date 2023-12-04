@@ -2,7 +2,7 @@
 
 
 # Module to test
-if [[-z $1 ]]; then
+if [[ -z $1 ]]; then
     echo "ERROR: no module provided"
     exit 1
 fi
