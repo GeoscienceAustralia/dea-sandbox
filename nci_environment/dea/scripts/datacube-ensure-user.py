@@ -57,10 +57,6 @@ def main(hostname, port, dbusername):
     ~/.pgpass can have <hostname>:<port>:<database>:<username>:<password>
           e.g., *:*:*:<dbusername>:<password>
     """
-
-    if "PBS_JOBID" in os.environ:
-        return
-
     dbcreds = DBCreds(
         host=hostname,
         port=str(port),
