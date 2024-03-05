@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:git-e4f55ab-jammy as sandbox-conda
+FROM mambaorg/micromamba:git-df79b72-jammy as sandbox-conda
 
 USER root
 COPY env.yaml /conf/
@@ -16,7 +16,7 @@ ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt
 
-FROM ubuntu:jammy-20230816
+FROM ubuntu:jammy-20240212
 
 ARG nb_user=jovyan
 ARG nb_uid=1000
@@ -38,7 +38,7 @@ ENV LC_ALL=C.UTF-8 \
 USER $nb_user
 # NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
 RUN echo "Enable jupyter lab extensions" \
-  && jupyter labextension install jupyterlab-theme-toggle \
+  && jupyter labextension install jupyterlab-topbar-extension jupyterlab-theme-toggle \
   && jupyter labextension list \
   && echo "...done"
 
