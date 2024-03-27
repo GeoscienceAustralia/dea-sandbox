@@ -29,7 +29,7 @@ odc-io
 odc-stac
 odc-stats[ows]
 odc-ui
-odc-geo >= 0.4.2
+odc-geo
 dea-tools
 
 thredds-crawler
