@@ -6,6 +6,9 @@ jupyterlab-logout
 jupyter-contrib-core
 jupyter-contrib-nbextensions
 jupyter-nbextensions-configurator
+# pin for jupyterlab=3.x
+jupyterlab-topbar-text==0.6.2
+jupyterlab-logout==0.5.0
 
 # ODC/DEA: these are installed in builder stage
 otps
@@ -17,12 +20,14 @@ s2cloudmask
 opencv-python-headless
 opencv-contrib-python-headless
 
-datacube[performance,s3]
+datacube[performance,s3] >= 1.8.17
+odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-cloud[ASYNC]
 odc-stac
 odc-stats[ows]
 odc-ui
 odc-geo
+dea-tools
 
 thredds-crawler
 hdstats==0.1.8.post1
