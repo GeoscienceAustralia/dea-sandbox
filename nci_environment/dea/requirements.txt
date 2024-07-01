@@ -1,5 +1,6 @@
-datacube
+datacube >= 1.8.18
 pytest-odc
+odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-apps-dc-tools
 odc-geom
 odc-ui

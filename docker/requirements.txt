@@ -20,13 +20,11 @@ s2cloudmask
 opencv-python-headless
 opencv-contrib-python-headless
 
-datacube[performance,s3] >= 1.8.17
+datacube[performance,s3] >= 1.8.18
 odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-cloud[ASYNC]
-odc-stac
 odc-stats[ows]
 odc-ui
-odc-geo
 dea-tools
 
 thredds-crawler
