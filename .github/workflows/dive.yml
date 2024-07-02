@@ -81,7 +81,7 @@ jobs:
           sudo rm -rf ${GITHUB_WORKSPACE}/.git
 
       - name: Dive
-        uses: yuichielectric/dive-action@0.0.3
+        uses: MaxymVlasov/dive-action@1.0.1
         with:
           image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
           config-file: ${{ github.workspace }}/dive-ci.yml
