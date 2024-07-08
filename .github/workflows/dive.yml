@@ -17,6 +17,8 @@ on:
 env:
   ORG: dea
   IMAGE: dea-sandbox
+  DIVE: wagoodman/dive:v0.12.0
+  DOCKER_API: 1.37
 
 jobs:
   dive:
