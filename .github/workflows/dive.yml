@@ -83,11 +83,11 @@ jobs:
           sudo rm -rf ${GITHUB_WORKSPACE}/.git
 
       - name: Dive
-        run: |
-          docker pull ${DIVE}
-          docker run -e CI=true -e DOCKER_API_VERSION=${DOCKER_API} --rm -v /var/run/docker.sock:/var/run/docker.sock \
-          --mount type=bind,source=${{ github.workspace }}/dive-ci.yml,target=/.dive-ci \
-          ${DIVE}  --ci-config /.dive-ci ${ORG}/${IMAGE}:_build
+        uses: MaxymVlasov/dive-action@v1.0.1
+        with:
+          image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
+          config-file: ${{ github.workspace }}/dive-ci.yml
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker image size check
         uses: wemake-services/docker-image-size-limit@master

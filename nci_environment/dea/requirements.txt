@@ -1,8 +1,6 @@
-datacube
-eodatasets3
-odc-algo
+datacube >= 1.8.18
+pytest-odc
+odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-apps-dc-tools
-odc-dscache
 odc-geom
-odc-io
 odc-ui

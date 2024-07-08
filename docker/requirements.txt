@@ -12,7 +12,6 @@ jupyterlab-logout==0.5.0
 
 # ODC/DEA: these are installed in builder stage
 otps
-eodatasets3
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
@@ -24,12 +23,8 @@ opencv-contrib-python-headless
 datacube[performance,s3] >= 1.8.19
 odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-cloud[ASYNC]
-odc-dscache
-odc-io
-odc-stac
 odc-stats[ows]
 odc-ui
-odc-geo
 dea-tools
 
 thredds-crawler
