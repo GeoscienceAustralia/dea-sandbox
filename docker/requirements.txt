@@ -12,7 +12,7 @@ jupyterlab-logout==0.5.0
 
 # ODC/DEA: these are installed in builder stage
 otps
-eodatasets3
+eodatasets3 => 0.30.6  # required for ESRI/GDAL nodata fix
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
