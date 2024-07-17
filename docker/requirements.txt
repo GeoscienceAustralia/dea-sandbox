@@ -12,7 +12,7 @@ jupyterlab-logout==0.5.0
 
 # ODC/DEA: these are installed in builder stage
 otps
-eodatasets3 => 0.30.6  # required for ESRI/GDAL nodata fix
+eodatasets3 >= 0.30.6  # min version required for ESRI/GDAL nodata fix
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
@@ -21,7 +21,7 @@ s2cloudmask
 opencv-python-headless
 opencv-contrib-python-headless
 
-datacube[performance,s3] >= 1.8.19
+datacube[performance,s3] >= 1.8.19  # min version required for ESRI/GDAL nodata fix
 odc-algo @ git+https://github.com/opendatacube/odc-algo@b8dcfce
 odc-cloud[ASYNC]
 odc-dscache
@@ -29,7 +29,7 @@ odc-io
 odc-stac
 odc-stats[ows]
 odc-ui
-odc-geo
+odc-geo >= 0.4.8  # min version required for ESRI/GDAL nodata fix
 dea-tools
 
 thredds-crawler
