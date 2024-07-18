@@ -66,6 +66,13 @@ jobs:
         id: req
         run: echo "content=$(cat ./dea-sandbox/integration-testing/requirements.txt)" >> $GITHUB_OUTPUT
 
+      - name: Debug
+        run: |
+          echo "Content of requirements.txt:"
+          cat ./dea-sandbox/integration-testing/requirements.txt
+          echo "Content of GITHUB_OUTPUT:"
+          cat $GITHUB_OUTPUT
+
       # Post requirements as a comment on the PR
       - name: Post validation results as comment
         uses: mshick/add-pr-comment@v2
@@ -73,7 +80,9 @@ jobs:
         with:
           message: |
             Installed packages:
+            ```
             ${{ steps.req.outputs.content }}
+            ```
 
       - name: Set up Datacube and Test
         run: |
