@@ -22,6 +22,7 @@ on:
 permissions:
   id-token: write
   contents: read
+  pull-requests: write  # Required for validation results comment bot
 
 jobs:
   integration-test:
@@ -64,6 +65,15 @@ jobs:
       - name: Read requirements
         id: req
         run: echo "content=$(cat ./dea-sandbox/integration-testing/requirements.txt)" >> $GITHUB_OUTPUT
+
+      # Post requirements as a comment on the PR
+      - name: Post validation results as comment
+        uses: mshick/add-pr-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          message: |
+            Installed packages:
+            ${{ steps.req.outputs.content }}
 
       - name: Set up Datacube and Test
         run: |
