@@ -64,7 +64,12 @@ jobs:
 
       - name: Read requirements
         id: req
-        run: echo "content=$(cat ./dea-sandbox/integration-testing/requirements.txt)" >> $GITHUB_OUTPUT
+        run: |
+          {
+            echo 'content<<EOF'
+            cat ./dea-sandbox/integration-testing/requirements.txt
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Debug
         run: |
@@ -79,7 +84,7 @@ jobs:
         if: github.event_name == 'pull_request'
         with:
           message: |
-            Installed packages:
+            ### Installed packages:
             ```
             ${{ steps.req.outputs.content }}
             ```
