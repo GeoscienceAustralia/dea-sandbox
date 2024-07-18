@@ -78,8 +78,8 @@ jobs:
           echo "Content of GITHUB_OUTPUT:"
           cat $GITHUB_OUTPUT
 
-      # Post requirements as a comment on the PR
-      - name: Post validation results as comment
+      # Post package versions as a comment on the PR
+      - name: Post package versions as a comment
         uses: mshick/add-pr-comment@v2
         if: github.event_name == 'pull_request'
         with:
