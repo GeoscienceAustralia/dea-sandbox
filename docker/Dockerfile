@@ -51,7 +51,7 @@ RUN echo "Enable server extensions" \
 COPY assets/sync_repo assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json /env/share/jupyter/lab/settings/
 
-RUN pip list --format=freeze 
+RUN pip list --format=freeze > /tmp/requirements.txt
 
 WORKDIR "/home/$nb_user"
 ENTRYPOINT ["/env/bin/tini", "--"]
