@@ -22,7 +22,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  pull-requests: write  # Required for validation results comment bot
+  pull-requests: write  # Required for Sandbox image packages comment bot
 
 jobs:
   integration-test:
