@@ -36,9 +36,9 @@ ENV LC_ALL=C.UTF-8 \
     PATH=/env/bin:$PATH
 
 USER $nb_user
+
 # NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
 RUN echo "Enable jupyter lab extensions" \
-  && jupyter labextension install jupyterlab-topbar-extension jupyterlab-theme-toggle \
   && jupyter labextension list \
   && echo "...done"
 
@@ -46,11 +46,12 @@ RUN echo "Enable server extensions" \
    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
    && jupyter server extension list \
+   && jupyter lab build \
    && echo "...done"
 
 RUN echo "Install AWS CLI v2" \
    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
-   && unzip /tmp/awscliv2.zip -d /tmp \
+   && unzip /tmp/awscliv2.zip -d /tmp > /dev/null \
    && /tmp/aws/install -i /env/bin/aws-cli -b /env/bin \
    && aws --version \
    && rm -f /tmp/awscliv2.zip \

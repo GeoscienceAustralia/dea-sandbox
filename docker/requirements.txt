@@ -1,14 +1,14 @@
 cognitojwt
 nbval
-cgal
 line-profiler
 jupyterlab-logout
 jupyter-contrib-core
 jupyter-contrib-nbextensions
 jupyter-nbextensions-configurator
-# pin for jupyterlab=3.x
-jupyterlab-topbar-text==0.6.2
-jupyterlab-logout==0.5.0
+jupyterlab-code-snippets
+jupyterlab-topbar-text
+jupyterlab-logout
+jupyterlab-theme-toggler
 
 # ODC/DEA: these are installed in builder stage
 otps
