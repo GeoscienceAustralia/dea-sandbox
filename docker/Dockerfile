@@ -37,7 +37,8 @@ ENV LC_ALL=C.UTF-8 \
 
 USER $nb_user
 
-# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
+# NOTE - Install lab extension from pypi NOT here. 
+# Leave the layer here for potential disable/enable and non-working check
 RUN echo "Enable jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
@@ -49,6 +50,7 @@ RUN echo "Enable server extensions" \
    && jupyter lab build \
    && echo "...done"
 
+# Install from unzip instead of conda as conda version is not the tool but an "invoker" 
 RUN echo "Install AWS CLI v2" \
    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
    && unzip /tmp/awscliv2.zip -d /tmp > /dev/null \
