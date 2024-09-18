@@ -9,6 +9,7 @@ jupyterlab-code-snippets
 jupyterlab-topbar-text
 jupyterlab-logout
 jupyterlab-theme-toggler
+numexpr @ git+https://github.com/pydata/numexpr@a99412e
 
 # ODC/DEA: these are installed in builder stage
 otps
