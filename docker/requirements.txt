@@ -37,5 +37,6 @@ thredds-crawler
 hdstats==0.1.8.post1
 hdmedians
 datacube-stats
-fc>=1.3.10
+fractional_cover>=1.3.10
 --extra-index-url="https://packages.dea.ga.gov.au"
+--find-links="https://packages.dea.ga.gov.au/fc"
