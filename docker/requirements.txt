@@ -31,7 +31,7 @@ odc-stac
 odc-stats[ows]
 odc-ui
 odc-geo >= 0.4.8  # min version required for ESRI/GDAL nodata fix
-DEA-Tools >= 0.3.5
+dea-tools >= 0.3.5
 
 thredds-crawler
 hdstats==0.1.8.post1
