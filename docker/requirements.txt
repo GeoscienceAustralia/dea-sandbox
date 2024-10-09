@@ -37,5 +37,5 @@ thredds-crawler
 hdstats==0.1.8.post1
 hdmedians
 datacube-stats
-fc
+fc>=1.3.10
 --extra-index-url="https://packages.dea.ga.gov.au"
