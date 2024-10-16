@@ -12,6 +12,7 @@ COPY requirements.txt /conf/
 # required to build hdmedians
 # or any --no-binary
 ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
+    CXX=/env/bin/x86_64-conda_cos6-linux-gnu-g++ \
     LDSHARED="/env/bin/x86_64-conda_cos6-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt
@@ -36,9 +37,10 @@ ENV LC_ALL=C.UTF-8 \
     PATH=/env/bin:$PATH
 
 USER $nb_user
-# NOTE - JupyterLab extensions can now be distributed as prebuilt extensions and available to PyPI
+
+# NOTE - Install lab extension from pypi NOT here. 
+# Leave the layer here for potential disable/enable and non-working check
 RUN echo "Enable jupyter lab extensions" \
-  && jupyter labextension install jupyterlab-topbar-extension jupyterlab-theme-toggle \
   && jupyter labextension list \
   && echo "...done"
 
@@ -46,6 +48,17 @@ RUN echo "Enable server extensions" \
    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
    && jupyter server extension list \
+   && jupyter lab build \
+   && echo "...done"
+
+# Install from unzip instead of conda as conda version is not the tool but an "invoker" 
+RUN echo "Install AWS CLI v2" \
+   && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
+   && unzip /tmp/awscliv2.zip -d /tmp > /dev/null \
+   && /tmp/aws/install -i /env/bin/aws-cli -b /env/bin \
+   && aws --version \
+   && rm -f /tmp/awscliv2.zip \
+   && rm -fr /tmp/aws \
    && echo "...done"
 
 COPY assets/sync_repo assets/jupyterhub-singleuser /usr/local/bin/

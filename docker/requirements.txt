@@ -1,14 +1,15 @@
 cognitojwt
 nbval
-cgal
 line-profiler
 jupyterlab-logout
 jupyter-contrib-core
 jupyter-contrib-nbextensions
 jupyter-nbextensions-configurator
-# pin for jupyterlab=3.x
-jupyterlab-topbar-text==0.6.2
-jupyterlab-logout==0.5.0
+jupyterlab-code-snippets
+jupyterlab-topbar-text
+jupyterlab-logout
+jupyterlab-theme-toggler
+numexpr @ git+https://github.com/pydata/numexpr@a99412e
 
 # ODC/DEA: these are installed in builder stage
 otps
@@ -30,11 +31,12 @@ odc-stac
 odc-stats[ows]
 odc-ui
 odc-geo >= 0.4.8  # min version required for ESRI/GDAL nodata fix
-dea-tools
+dea-tools >= 0.3.5
 
 thredds-crawler
 hdstats==0.1.8.post1
 hdmedians
 datacube-stats
-fc
+fractional_cover>=1.3.10
 --extra-index-url="https://packages.dea.ga.gov.au"
+--find-links="https://packages.dea.ga.gov.au/fc"
