@@ -90,7 +90,7 @@ jobs:
           ${DIVE}  --ci-config /.dive-ci ${ORG}/${IMAGE}:_build
 
       - name: Docker image size check
-        uses: wemake-services/docker-image-size-limit@master
+        uses: wemake-services/docker-image-size-limit@2.0.0
         with:
           image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
           size: "8 GiB"
