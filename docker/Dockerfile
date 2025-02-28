@@ -23,11 +23,13 @@ ARG nb_user=jovyan
 ARG nb_uid=1000
 ARG nb_gid=100
 
-RUN if id -u $nb_uid >/dev/null 2>&1; then \
-        existing_user=$(getent passwd $nb_uid | cut -d: -f1); \
-        usermod -l $nb_user -d /home/$nb_user -m $existing_user; \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN if id -u "$nb_uid" >/dev/null 2>&1; then \
+        existing_user=$(getent passwd "$nb_uid" | cut -d: -f1); \
+        usermod -l "$nb_user" -d "/home/$nb_user" -m "$existing_user"; \
     else \
-        useradd -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user; \
+        useradd --no-log-init -m -s /bin/bash -N -g "$nb_gid" -u "$nb_uid" "$nb_user"; \
     fi
 
 COPY --chown=$nb_uid:$nb_gid --from=sandbox-conda /env /env
