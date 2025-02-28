@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:git-df79b72-jammy as sandbox-conda
+FROM mambaorg/micromamba:git-a19699f-cuda12.6.3-ubuntu24.04 AS sandbox-conda
 
 USER root
 COPY env.yaml /conf/
@@ -11,19 +11,24 @@ ARG UPDATE_VERSION=1
 COPY requirements.txt /conf/
 # required to build hdmedians
 # or any --no-binary
-ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
-    CXX=/env/bin/x86_64-conda_cos6-linux-gnu-g++ \
-    LDSHARED="/env/bin/x86_64-conda_cos6-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
+ENV CC=/env/bin/x86_64-conda-linux-gnu-gcc \
+    CXX=/env/bin/x86_64-conda-linux-gnu-g++ \
+    LDSHARED="/env/bin/x86_64-conda-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt
 
-FROM ubuntu:jammy-20240212
+FROM ubuntu:noble-20250127
 
 ARG nb_user=jovyan
 ARG nb_uid=1000
 ARG nb_gid=100
 
-RUN useradd -l -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
+RUN if id -u $nb_uid >/dev/null 2>&1; then \
+        existing_user=$(getent passwd $nb_uid | cut -d: -f1); \
+        usermod -l $nb_user -d /home/$nb_user -m $existing_user; \
+    else \
+        useradd -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user; \
+    fi
 
 COPY --chown=$nb_uid:$nb_gid --from=sandbox-conda /env /env
 
