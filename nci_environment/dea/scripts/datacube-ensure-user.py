@@ -25,6 +25,8 @@ from pathlib import Path
 
 DBCreds = namedtuple("DBCreds", ["host", "port", "database", "username", "password"])
 
+DB_HOST = "dea-db.nci.org.au"
+
 CANNOT_CONNECT_MSG = """
 Unable to connect to the Data Cube database (host={}, port={}, db={}, username={})
 Please contact earth.observation@ga.gov.au for help.
@@ -77,7 +79,7 @@ def main(hostname, port, dbusername):
         creds = create_db_account(dbcreds)
         print("Created new database account.")
         # Append new credentials to ~/.pgpass file
-        append_credentials(pgpass, creds)
+        append_credentials(pgpass, creds._replace(port="*"))
 
     if not can_connect(dbcreds):
         print_stderr(
@@ -129,11 +131,11 @@ def find_credentials(pgpass, dbcreds):
             # Ignore comments and empty lines
             if not line.strip().startswith("#") and line.strip():
                 creds = DBCreds(*line.strip().split(":"))
-                if creds.host == "*" and creds.port == "*" and creds.username == dbcreds.username:
+                if creds.host in ["*", DB_HOST] and creds.port in ["*", dbcreds.port] and creds.username == dbcreds.username:
                     found_creds = True
     if not found_creds:
         raise ValueError("No valid credentials found in .pgpass file. "
-                         "Please ensure that pgpass includes credentials in the format *:*:*:<dbusername>:<password>")
+                         "Please ensure that pgpass includes credentials in the format <dbhost>:*:*:<dbusername>:<password>")
 
 
 def append_credentials(pgpass, dbcreds):
@@ -205,8 +207,6 @@ if __name__ == "__main__":
 #########
 # Tests #
 #########
-
-DB_HOST = "dea-db.nci.org.au"
 
 def test_no_pgpass(tmpdir):
     # Create a pgpass.txt file in temp folder
@@ -345,7 +345,7 @@ def test_against_comment_in_pgpass(tmpdir):
 
     creds = DBCreds("*", "*", "*", "foo_user", "asdf")
 
-    newcreds = find_credentials(pgpass, DB_HOST, creds)
+    newcreds = find_credentials(pgpass, creds)
 
     assert newcreds is not None
     assert newcreds.password == "asdf"
