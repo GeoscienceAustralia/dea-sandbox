@@ -85,5 +85,4 @@ jobs:
       - name: Set up Datacube and Test
         run: |
           cd ./dea-sandbox/integration-testing
-          docker compose exec -T sandbox ./dea-notebooks/Tests/setup_test_datacube.sh
           docker compose exec -T sandbox ./dea-notebooks/Tests/test_notebooks.sh
