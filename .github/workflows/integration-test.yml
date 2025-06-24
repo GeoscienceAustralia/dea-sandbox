@@ -41,7 +41,7 @@ jobs:
           ref: stable
 
       - name: provision DB connection
-        uses: GeoscienceAustralia/dea-notebooks/.github/actions/test_setup@share_git_actions
+        uses: GeoscienceAustralia/dea-notebooks/.github/actions/test_setup@develop
         with:
           pull_image_optional: "false"
 
