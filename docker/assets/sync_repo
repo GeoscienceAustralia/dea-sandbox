@@ -12,7 +12,7 @@ BRANCH="${2:-master}"
     until $(git clone --depth 1 --branch "$BRANCH" "$REPO" "$WORKDIR") ||  [ $NEXT_WAIT_TIME -eq 4 ]; do
       sleep $(( NEXT_WAIT_TIME++ ))
     done
-    rm -rf "${WORKDIR}"/{.github,.gitignore,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,pyproject.toml,docker-compose.yml,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
+    rm -rf "${WORKDIR}"/{.github,.githooks,.gitignore,.pre-commit-config.yaml,LICENSE,README.md,README.rst,CITATION.cff,USAGE.rst,pyproject.toml,docker-compose.yml,DEAfrica_notebooks_template.ipynb,DEA_notebooks_template.ipynb,Scientific_workflows,Tests} || true
     cp -Rv ${WORKDIR}/. ~/
     rm -rf "${WORKDIR}"
     rm -rf "$HOME/.git"
