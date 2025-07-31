@@ -33,7 +33,7 @@ odc-stac>=0.4.0
 odc-cloud[ASYNC]>=0.2.5
 odc-stats[ows]>=1.9
 odc-ui
-dea-tools>=0.4.0
+dea-tools>=0.4.1
 
 --extra-index-url="https://packages.dea.ga.gov.au"
 thredds-crawler
