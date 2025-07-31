@@ -40,7 +40,7 @@ jobs:
           path: dea-notebooks
           ref: stable
 
-      - name: provision DB connection
+      - name: Provision database connection used in DEA Notebooks integration tests
         uses: GeoscienceAustralia/dea-notebooks/.github/actions/test_setup@develop
         with:
           pull_image_optional: "false"
