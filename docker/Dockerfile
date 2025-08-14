@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:git-df79b72-jammy as sandbox-conda
+FROM mambaorg/micromamba:git-df79b72-jammy AS sandbox-conda
 
 USER root
 COPY env.yaml /conf/

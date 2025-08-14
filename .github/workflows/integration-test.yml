@@ -40,16 +40,10 @@ jobs:
           path: dea-notebooks
           ref: stable
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Provision database connection used in DEA Notebooks integration tests
+        uses: GeoscienceAustralia/dea-notebooks/.github/actions/test_setup@develop
         with:
-          role-to-assume: arn:aws:iam::538673716275:role/github-actions-role-readonly
-          aws-region: ap-southeast-2
-
-      - name: Copy tide modelling files with the AWS CLI
-        run: |
-          aws s3 sync s3://dea-non-public-data/tide_models/tide_models/fes2014 tide_models/fes2014
-          aws s3 sync s3://dea-non-public-data/tide_models/tide_models/hamtide tide_models/hamtide
+          pull_image_optional: "false"
 
       - name: Start docker compose
         run: |
@@ -85,5 +79,4 @@ jobs:
       - name: Set up Datacube and Test
         run: |
           cd ./dea-sandbox/integration-testing
-          docker compose exec -T sandbox ./dea-notebooks/Tests/setup_test_datacube.sh
           docker compose exec -T sandbox ./dea-notebooks/Tests/test_notebooks.sh
