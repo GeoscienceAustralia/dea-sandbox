@@ -2,7 +2,7 @@
 
 ![Sandbox build and push latest](https://github.com/GeoscienceAustralia/dea-sandbox/workflows/Sandbox%20build%20and%20push%20latest/badge.svg)
 
-The DEA Sandbox is a hosted JupyterLab environment preloaded with the DEA Python environment and example notebooks. This repository contains the Docker build configuration used to create the environment for both internal testing and the public DEA Sandbox.
+The DEA Sandbox is a hosted JupyterLab environment preloaded with the DEA Python environment and example notebooks from [DEA Notebooks](https://github.com/GeoscienceAustralia/dea-notebooks/). This repository contains the Docker build configuration used to create the environment for both internal testing and the public DEA Sandbox.
 
 ## Automated builds
 
@@ -21,8 +21,8 @@ Two main server types use these images:
 7. Review or run the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) to check the full DEA Notebooks repository against the new image.
 8. Work with the DEA Notebooks Community of Practice to resolve any issues before promoting to stable.
 
-> [!IMPORTANT]  
-> The integration tests in this repository test only a small subset of DEA Notebooks, and are intended to identify major issues only. Please refer to the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) for the comprehensive test suite.
+> [!TIP]  
+> The integration tests in this repository test only a small subset of DEA Notebooks, and are intended to identify major issues only. Refer to the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) for the comprehensive test suite.
 
 ### Updating default Sandbox servers
 
