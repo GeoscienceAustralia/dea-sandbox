@@ -15,8 +15,8 @@ Two main server types use these images:
 ### Updating unstable Sandbox servers
 
 1. Create a branch and implement your changes, then submit a pull request.
-3. On PR creation, a Docker image is built and a simple integration test is run against a subset of DEA Notebooks (failures are expected, and can be resolved in DEA Notebooks once the image is available on unstable Sandbox servers).
-5. Once the PR is merged, a build will run and the resultant Docker image will be tagged with git `head` and `latest` and pushed to ECR.
+3. On PR creation, a Docker image is built and a simple integration test is run against a subset of DEA Notebooks. (Failures are expected if breaking changes occur upstream,  and resolution by updating DEA Notebooks can be deferred until the image is made available on unstable Sandbox servers.)
+5. Once the PR is merged, a build will run and the resultant Docker image will be pushed to ECR and tagged `latest`. (It is also tagged with a git reference.)
 6. The `latest` image is automatically deployed to the unstable Sandbox servers.
 7. Review or run the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) to check the full DEA Notebooks repository against the new image.
 8. Work with the DEA Notebooks Community of Practice to resolve any issues before promoting to stable.
@@ -28,8 +28,8 @@ Two main server types use these images:
 
 1. Confirm that all issues found in the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) for the `latest` image have been resolved or discussed with the DEA Notebooks Community of Practice.
 2. When ready for a stable release, [create a new release](https://github.com/GeoscienceAustralia/dea-sandbox/releases) using the format `major.minor.patch` (e.g., `2.0.1`).
-3. This triggers a build that tags the Docker image with `stable` and the version number (e.g. `2.0.1`), then pushes the image to ECR.
-4. The `stable` image is automatically deployed to the public-facing default Sandbox servers.
+3. The presence of this new git tag triggers pushing a build that will have an image tag exactly matching the git tag. (It will also be tagged `stable`.)
+4. JupyterHub deployments can be updated to pin the new version number (e.g. `2.0.1`) as their singleuser image tag. (Directly referencing `stable` is currently discouraged, for greater assurance of stability.)
 
 ## Packages' version maintenance and upgrade
 
