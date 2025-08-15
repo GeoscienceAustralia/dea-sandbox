@@ -1,32 +1,43 @@
 # DEA Sandbox
 
 ![Sandbox build and push latest](https://github.com/GeoscienceAustralia/dea-sandbox/workflows/Sandbox%20build%20and%20push%20latest/badge.svg)
-![Vulnerability Scan](https://github.com/GeoscienceAustralia/dea-sandbox/workflows/Vulnerability%20Scan/badge.svg)
 
-Digital Earth Australia Sandbox Docker build, configuration and planning.
-
-Please ensure all tasks have a description that includes a clear definition of when the task is complete.
-
-[Kanban](https://github.com/GeoscienceAustralia/dea-sandbox/projects/1)
-
-[Issues](https://github.com/GeoscienceAustralia/dea-sandbox/issues)
+The DEA Sandbox is a hosted JupyterLab environment preloaded with the DEA Python environment and example notebooks. This repository contains the Docker build configuration used to create the environment for both internal testing and the public DEA Sandbox.
 
 ## Automated builds
 
-Builds are run automatically out of this repository. Basic workflow is:
+Docker images are built automatically from this repository and pushed to the `dea-sandbox` AWS Elastic Container Registry (ECR) repository.
+Two main server types use these images:
 
-- Create a branch and implement your changes.
-- The Docker image is built on the branch and as part of the pull request.
-- The integration test will be run on PR, merge and release events.
-- Once the PR is merged, a build will run. The resultant image will be tagged with git `head` and `latest` and pushed to ECR.
-- When you'd like to release a new stable image, create a release with a version number in the format `major.minor.patch`, e.g., `2.0.1`. This will trigger a build and the resultant image will be tagged with `2.0.1` (in this example) and `stable`, and pushed to ECR.
+- **Unstable Sandbox servers**: used internally for testing changes and updating DEA Notebooks for upcoming environments.
+- **Default Sandbox servers**: public-facing stable servers for general use.
+
+### Updating unstable Sandbox servers
+
+1. Create a branch and implement your changes, then submit a pull request.
+3. On PR creation, a Docker image is built and a simple integration test is run against a subset of DEA Notebooks.
+5. Once the PR is merged, a build will run and the resultant Docker image will be tagged with git `head` and `latest` and pushed to ECR.
+6. The `latest` image is automatically deployed to the unstable Sandbox servers.
+7. Review or run the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) to check the full DEA Notebooks repository against the new image.
+8. Work with the DEA Notebooks Community of Practice to resolve any issues before promoting to stable.
+
+> [!IMPORTANT]  
+> The integration tests in this repository test only a small subset of DEA Notebooks, and are intended to identify major issues only. Please refer to the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) for the comprehensive test suite.
+
+### Updating default Sandbox servers
+
+1. Confirm that all issues found in the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) for the `latest` image have been resolved or discussed with the DEA Notebooks Community of Practice.
+2. When ready for a stable release, [create a new release](https://github.com/GeoscienceAustralia/dea-sandbox/releases) using the format `major.minor.patch` (e.g., `2.0.1`).
+3. This triggers a build that tags the Docker image with `stable` and the version number (e.g. `2.0.1`), then pushes the image to ECR.
+4. The `stable` image is automatically deployed to the public-facing default Sandbox servers.
 
 ## Packages' version maintenance and upgrade
 
-The base environment uses Conda, and the Docker image is built in two stages:
+The base environment uses Conda, and the Docker image is built in the following stages:
 
-1. Create conda env and install as many as possible packages from `conda-forge`. Then `pip install` the rest, e.g., most `odc-` packages.
-2. Copies the Conda env to a new Ubuntu image.
+1. Conda install: Create the Conda environment and install as many packages as possible from `conda-forge`.
+2. Pip install: Install remaining packages (e.g., most `odc-` packages) via pip.
+3. Copy the completed environment into a new Ubuntu base image.
 
 To speed up the build, the workflow pulls images from a cache stored on ECR. However, with every build the cache layers starting from `pip install` will be discarded, so that the newest versions of `odc-` packages will be installed. Thus, to perform version upgrades on these packages, creating a release is sufficient.
 
