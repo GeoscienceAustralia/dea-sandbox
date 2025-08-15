@@ -15,7 +15,7 @@ Two main server types use these images:
 ### Updating unstable Sandbox servers
 
 1. Create a branch and implement your changes, then submit a pull request.
-3. On PR creation, a Docker image is built and a simple integration test is run against a subset of DEA Notebooks.
+3. On PR creation, a Docker image is built and a simple integration test is run against a subset of DEA Notebooks (failures are expected, and can be resolved in DEA Notebooks once the image is available on unstable Sandbox servers).
 5. Once the PR is merged, a build will run and the resultant Docker image will be tagged with git `head` and `latest` and pushed to ECR.
 6. The `latest` image is automatically deployed to the unstable Sandbox servers.
 7. Review or run the [DEA Notebooks scheduled integration tests](https://github.com/GeoscienceAustralia/dea-notebooks/actions/workflows/test_notebooks_scheduled.yml) to check the full DEA Notebooks repository against the new image.
