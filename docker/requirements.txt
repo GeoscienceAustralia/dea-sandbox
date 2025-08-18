@@ -11,7 +11,7 @@ jupyterlab-logout
 jupyterlab-theme-toggler
 
 # ODC/DEA: these are installed in builder stage
-eo-tides>=0.8.0
+eo-tides>=0.8.2
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
