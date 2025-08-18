@@ -8,6 +8,7 @@ on:
       - completed
   release:
     types: [published]
+  workflow_dispatch:
     
 env:
   IMAGE_NAME: geoscienceaustralia/sandbox
