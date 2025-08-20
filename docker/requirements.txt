@@ -33,11 +33,14 @@ odc-stac>=0.4.0
 odc-cloud[ASYNC]>=0.2.5
 odc-stats[ows]>=1.9
 odc-ui
-dea-tools>=0.4.2
+dea-tools>=0.4.3
 
 --extra-index-url="https://packages.dea.ga.gov.au"
 thredds-crawler
 hdstats==0.1.8.post1
-# hdmedians
+
+# Temporarily required to prevent hdstats upgrading numpy and overruling env.yaml
+numpy<2.0
+
 # fractional_cover>=1.3.10
 # --find-links="https://packages.dea.ga.gov.au/fc"
