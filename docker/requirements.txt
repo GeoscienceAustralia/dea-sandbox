@@ -38,6 +38,6 @@ dea-tools>=0.4.2
 --extra-index-url="https://packages.dea.ga.gov.au"
 thredds-crawler
 hdstats==0.1.8.post1
-# hdmedians
+numpy<2.0
 # fractional_cover>=1.3.10
 # --find-links="https://packages.dea.ga.gov.au/fc"
