@@ -37,6 +37,7 @@ odc-ui
 dea-tools>=0.4.3
 
 --extra-index-url="https://packages.dea.ga.gov.au"
+tflite-runtime
 thredds-crawler
 
 # fractional_cover>=1.3.10
