@@ -8,11 +8,11 @@ on:
     paths:
       - '.github/workflows/dive.yml'
       - 'docker/**'
-
   push:
     paths:
       - '.github/workflows/dive.yml'
       - 'docker/**'
+  workflow_dispatch: ~
 
 env:
   ORG: dea
