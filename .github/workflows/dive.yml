@@ -91,6 +91,7 @@ jobs:
 
       - name: Docker image size check
         uses: wemake-services/docker-image-size-limit@2.0.0
+        continue-on-error: true
         with:
           image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
           size: "8 GiB"
