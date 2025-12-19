@@ -4,6 +4,9 @@
 
 The DEA Sandbox is a hosted JupyterLab environment preloaded with the DEA Python environment and example notebooks from [DEA Notebooks](https://github.com/GeoscienceAustralia/dea-notebooks/). This repository contains the Docker build configuration used to create the environment for both internal testing and the public DEA Sandbox.
 
+## Approving pull requests
+Anyone with 'maintain' role access to the dea-sandbox repository can approve 'pull requests'.
+
 ## Automated builds
 
 Docker images are built automatically from this repository and pushed to the `dea-sandbox` AWS Elastic Container Registry (ECR) repository.
