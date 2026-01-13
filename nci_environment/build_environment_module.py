@@ -68,7 +68,6 @@ def pre_check(config):
     :param config: Configuration parameters
     :return: None
     """
-    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'
     LOG.info("Performing pre-check before installing module")
     if "PYTHONPATH" in os.environ:
         raise Exception(
@@ -90,6 +89,7 @@ def prep(config_path):
     :param config_path: Configuration Path
     :return: None
     """
+    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'   
     fake_aws_secret = 'AKIAI234567890123456'
     LOG.info("Preparing environment variables")
     # Write files as group and world readable

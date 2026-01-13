@@ -3,8 +3,6 @@ on:
   pull_request:
   push:
   workflow_dispatch:
-  schedule:
-    - cron: "0 4 * * *" # run once a day at 4 AM
 jobs:
   scan:
     name: gitleaks
@@ -21,5 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-          GITLEAKS_SCAN_MODE: full
-          GITLEAKS_ARGS: "--verbose"
+          GITLEAKS_NOTIFY_USER_LIST: "@GA-XavierGonzalez"
