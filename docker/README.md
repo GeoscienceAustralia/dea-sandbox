@@ -26,3 +26,5 @@ to move packages listed in `Dockerfile` into `requirements.txt`.
 
 At the end of compiling solve any incompatibility output from `pip check` by adding the version
 in `constraints-odc.txt`.
+
+For additional info, reach out to DEA support.
