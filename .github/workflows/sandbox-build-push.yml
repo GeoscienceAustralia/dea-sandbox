@@ -7,8 +7,8 @@ on:
     types:
       - completed
   release:
+    branches: [develop]
     types: [published]
-  workflow_dispatch:
     
 env:
   IMAGE_NAME: geoscienceaustralia/sandbox
@@ -21,6 +21,7 @@ jobs:
   set_dev_tags:
     if: github.ref == 'refs/heads/develop'
       && github.event.workflow_run.conclusion == 'success'
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -37,6 +38,7 @@ jobs:
   set_release_tags:
     if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
