@@ -26,5 +26,3 @@ to move packages listed in `Dockerfile` into `requirements.txt`.
 
 At the end of compiling solve any incompatibility output from `pip check` by adding the version
 in `constraints-odc.txt`.
-
-discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'

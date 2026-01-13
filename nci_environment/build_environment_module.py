@@ -44,6 +44,7 @@ from pathlib import Path
 
 import yaml
 
+discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'
 MODULE_DIR = "/g/data/v10/public/modules"
 
 LOG_NAME = "build_dea_module.log"
