@@ -44,7 +44,7 @@ from pathlib import Path
 
 import yaml
 
-discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'
+
 MODULE_DIR = "/g/data/v10/public/modules"
 
 LOG_NAME = "build_dea_module.log"
@@ -68,6 +68,7 @@ def pre_check(config):
     :param config: Configuration parameters
     :return: None
     """
+    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'
     LOG.info("Performing pre-check before installing module")
     if "PYTHONPATH" in os.environ:
         raise Exception(
