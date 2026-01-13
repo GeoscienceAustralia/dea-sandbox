@@ -9,6 +9,10 @@ jobs:
   scan:
     name: gitleaks
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
