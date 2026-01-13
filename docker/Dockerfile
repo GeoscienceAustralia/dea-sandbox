@@ -51,6 +51,26 @@ RUN echo "Enable server extensions" \
    && jupyter lab build \
    && echo "...done"
 
+# Checks common jupyter lab cache dirs and cleans them up to reclaim space.
+SHELL ["/bin/bash", "-lc"]
+RUN set -euo pipefail; \
+  PY_PREFIX=$(python -c "import sys; print(sys.prefix)"); \
+  LABDIRS=""; \
+  for d in "$PY_PREFIX/share/jupyter/lab" \
+           "/opt/conda/share/jupyter/lab" \
+           "/usr/local/share/jupyter/lab" \
+           "/usr/share/jupyter/lab"; do \
+    [ -d "$d" ] && LABDIRS="$LABDIRS $d"; \
+  done; \
+  [ -z "$LABDIRS" ] && echo "No JupyterLab dirs found" && exit 0; \
+  BEFORE=$(du -sm $LABDIRS | awk '{s+=$1} END {print s}'); \
+  jupyter lab clean || true; \
+  command -v yarn >/dev/null 2>&1 && yarn cache clean --all || true; \
+  command -v npm  >/dev/null 2>&1 && npm  cache clean --force || true; \
+  rm -rf "${HOME}/.cache/yarn" "${HOME}/.npm" || true; \
+  AFTER=$(du -sm $LABDIRS | awk '{s+=$1} END {print s}'); \
+  echo "JupyterLab clean freed $((BEFORE - AFTER)) MB"
+
 # Install from unzip instead of conda as conda version is not the tool but an "invoker" 
 RUN echo "Install AWS CLI v2" \
    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
