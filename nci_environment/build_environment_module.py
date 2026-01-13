@@ -90,6 +90,7 @@ def prep(config_path):
     :param config_path: Configuration Path
     :return: None
     """
+    fake_aws_secret = 'AKIAI234567890123456'
     LOG.info("Preparing environment variables")
     # Write files as group and world readable
     os.umask(0o22)
