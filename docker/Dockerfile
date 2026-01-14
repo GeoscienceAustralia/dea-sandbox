@@ -48,7 +48,8 @@ RUN echo "Enable jupyter lab extensions" \
 # space in this layer. 
 # Ref: https://github.com/jupyterlab/jupyterlab/blob/main/docs/source/user/directories.md#staging-and-static
 SHELL ["/bin/bash", "-lc"]
-RUN echo "Enable server extensions" \
+RUN set -euo pipefail \
+    && echo "Enable server extensions" \
     && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
     && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
     && jupyter server extension list \
