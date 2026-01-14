@@ -63,16 +63,7 @@ RUN set -euo pipefail \
     && STAGING="${APPDIR}/staging" \
     && if [ -d "${STAGING}" ]; then \
         echo "Removing staging caches at ${STAGING}"; \
-        rm -rf "${STAGING:?}/node_modules" \
-                "${STAGING:?}/.yarn" \
-                "${STAGING:?}/.cache" \
-                "${STAGING:?}/build" \
-                "${STAGING:?}/lib" \
-                "${STAGING:?}/.pytest_cache" \
-                "${STAGING:?}/yarn.lock" \
-                "${STAGING:?}/package-lock.json" \
-                "${STAGING:?}/pnpm-lock.yaml" || true; \
-        find "${STAGING}" -type f -name '*.map' -delete || true; \
+        rm -rf "${STAGING:?}" || true; \
       else \
         echo "No staging dir at ${STAGING}; skipping staging cleanup"; \
       fi \
