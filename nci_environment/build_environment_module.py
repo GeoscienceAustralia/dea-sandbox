@@ -89,8 +89,6 @@ def prep(config_path):
     :param config_path: Configuration Path
     :return: None
     """
-    discord_client_secret = '8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ'   
-    fake_aws_secret = 'AKIAI234567890123456'
     LOG.info("Preparing environment variables")
     # Write files as group and world readable
     os.umask(0o22)
