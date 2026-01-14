@@ -47,7 +47,7 @@ RUN echo "Enable jupyter lab extensions" \
 # Enable server extensions and then clean up jupyter lab staging dir to reclaim
 # space in this layer. 
 # Ref: https://github.com/jupyterlab/jupyterlab/blob/main/docs/source/user/directories.md#staging-and-static
-SHELL ["/bin/bash", "-lc"]
+SHELL ["/bin/bash", "-euo", "pipefail", "-lc"]
 RUN set -euo pipefail \
     && echo "Enable server extensions" \
     && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
@@ -63,15 +63,15 @@ RUN set -euo pipefail \
     && STAGING="${APPDIR}/staging" \
     && if [ -d "${STAGING}" ]; then \
         echo "Removing staging caches at ${STAGING}"; \
-        rm -rf "${STAGING}/node_modules" \
-                "${STAGING}/.yarn" \
-                "${STAGING}/.cache" \
-                "${STAGING}/build" \
-                "${STAGING}/lib" \
-                "${STAGING}/.pytest_cache" \
-                "${STAGING}/yarn.lock" \
-                "${STAGING}/package-lock.json" \
-                "${STAGING}/pnpm-lock.yaml" || true; \
+        rm -rf "${STAGING:?}/node_modules" \
+                "${STAGING:?}/.yarn" \
+                "${STAGING:?}/.cache" \
+                "${STAGING:?}/build" \
+                "${STAGING:?}/lib" \
+                "${STAGING:?}/.pytest_cache" \
+                "${STAGING:?}/yarn.lock" \
+                "${STAGING:?}/package-lock.json" \
+                "${STAGING:?}/pnpm-lock.yaml" || true; \
         find "${STAGING}" -type f -name '*.map' -delete || true; \
       else \
         echo "No staging dir at ${STAGING}; skipping staging cleanup"; \
