@@ -44,32 +44,39 @@ RUN echo "Enable jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
 
-RUN echo "Enable server extensions" \
-   && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
-   && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
-   && jupyter server extension list \
-   && jupyter lab build \
-   && echo "...done"
-
-# Checks common jupyter lab cache dirs and cleans them up to reclaim space.
+# Enable server extensions and then clean up jupyter lab staging dir to reclaim
+# space in this layer. 
+# Ref: https://github.com/jupyterlab/jupyterlab/blob/main/docs/source/user/directories.md#staging-and-static
 SHELL ["/bin/bash", "-lc"]
-RUN set -euo pipefail; \
-  PY_PREFIX=$(python -c "import sys; print(sys.prefix)"); \
-  LABDIRS=""; \
-  for d in "$PY_PREFIX/share/jupyter/lab" \
-           "/opt/conda/share/jupyter/lab" \
-           "/usr/local/share/jupyter/lab" \
-           "/usr/share/jupyter/lab"; do \
-    [ -d "$d" ] && LABDIRS="$LABDIRS $d"; \
-  done; \
-  [ -z "$LABDIRS" ] && echo "No JupyterLab dirs found" && exit 0; \
-  BEFORE=$(du -sm $LABDIRS | awk '{s+=$1} END {print s}'); \
-  jupyter lab clean || true; \
-  command -v yarn >/dev/null 2>&1 && yarn cache clean --all || true; \
-  command -v npm  >/dev/null 2>&1 && npm  cache clean --force || true; \
-  rm -rf "${HOME}/.cache/yarn" "${HOME}/.npm" || true; \
-  AFTER=$(du -sm $LABDIRS | awk '{s+=$1} END {print s}'); \
-  echo "JupyterLab clean freed $((BEFORE - AFTER)) MB"
+RUN echo "Enable server extensions" \
+    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
+    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
+    && jupyter server extension list \
+    && jupyter lab build \
+    && echo "...done" \
+    && APPDIR="$(jupyter lab path | awk -F': ' '/Application directory/ {print $2}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')" \
+    && echo "JupyterLab APPDIR=${APPDIR}" \
+    && [ -n "${APPDIR}" ] || (echo "ERROR: APPDIR is empty"; exit 1) \
+    && mkdir -p "${APPDIR}" \
+    && BEFORE="$(du -sm "${APPDIR}" | awk '{print $1}')" \
+    && STAGING="${APPDIR}/staging" \
+    && if [ -d "${STAGING}" ]; then \
+        echo "Removing staging caches at ${STAGING}"; \
+        rm -rf "${STAGING}/node_modules" \
+                "${STAGING}/.yarn" \
+                "${STAGING}/.cache" \
+                "${STAGING}/build" \
+                "${STAGING}/lib" \
+                "${STAGING}/.pytest_cache" \
+                "${STAGING}/yarn.lock" \
+                "${STAGING}/package-lock.json" \
+                "${STAGING}/pnpm-lock.yaml" || true; \
+        find "${STAGING}" -type f -name '*.map' -delete || true; \
+      else \
+        echo "No staging dir at ${STAGING}; skipping staging cleanup"; \
+      fi \
+    && AFTER="$(du -sm "${APPDIR}" | awk '{print $1}')" \
+    && echo "Preserved production assets in ${APPDIR}. Size before: ${BEFORE} MB, after: ${AFTER} MB"
 
 # Install from unzip instead of conda as conda version is not the tool but an "invoker" 
 RUN echo "Install AWS CLI v2" \
