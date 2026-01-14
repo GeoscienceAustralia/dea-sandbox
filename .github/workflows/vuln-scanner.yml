@@ -4,8 +4,6 @@ on:
   push:
   workflow_dispatch:
   pull_request:
-  schedule:
-    - cron: 07 7 * * * 
 
 jobs:
   vuln-scan:
