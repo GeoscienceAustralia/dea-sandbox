@@ -54,7 +54,8 @@ RUN set -euo pipefail \
     && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
     && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
     && jupyter server extension list \
-    && jupyter lab build --debug --minimize=false\
+    # enable these flags to diagnose lab build issues --debug --minimize=false
+    && jupyter lab build \
     && echo "...done" \
     && APPDIR="$(jupyter lab path | awk -F': ' '/Application directory/ {print $2}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')" \
     && echo "JupyterLab APPDIR=${APPDIR}" \
