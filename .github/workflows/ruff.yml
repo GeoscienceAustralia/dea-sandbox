@@ -5,6 +5,7 @@ on:
 
 jobs:
   ruff:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
