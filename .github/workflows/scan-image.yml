@@ -1,5 +1,5 @@
 ---
-name: docker checker
+name: lint and scan docker
 
 on:
 #  pull_request:
@@ -34,6 +34,11 @@ jobs:
           target: docker/Dockerfile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Free disk space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
 
       - name: Build image
         run: |

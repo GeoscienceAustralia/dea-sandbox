@@ -106,3 +106,23 @@ the `docker-compose.override.yml` file, which provides a postgres container.
 
 Any files in the `./notebooks` folder will be mounted in the user's home folder. That is to say that `./notebooks`
 will be mounted at `/home/jovyan`/
+
+## CI and Security
+- Vulnerability scan on image build
+    - Trivy runs on push if there was any change to docker
+    - Critical vulnerabilities will block merge
+    - Fix it or reach out to DaS
+- Leaks on Commit
+    - GitLeaks license in repo secrets
+    - GitLeaks will alert you if your commit diff contains secrets
+    - Secrets in commit will block merge
+- Static Leak Alerts
+    - GitHub native secret scanning enabled
+- Python security suggestions
+    - Bandit running on pull request
+    - These alerts can be found in the Code Scanning tab
+        - Please have a look and consider any suggestions made
+- Linting
+    - Python Lint
+        - Ruff runs on push
+    - Docker Lint
