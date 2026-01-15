@@ -50,6 +50,7 @@ RUN echo "Enable jupyter lab extensions" \
 SHELL ["/bin/bash", "-euo", "pipefail", "-lc"]
 RUN set -euo pipefail \
     && echo "Enable server extensions" \
+    && df -h; \
     && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
     && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
     && jupyter server extension list \
