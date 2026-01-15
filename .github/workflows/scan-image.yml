@@ -39,6 +39,16 @@ jobs:
         run: |
           docker build -t ${ORG}/${IMAGE}:_build ./docker/
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
       - name: Free disk space
         run: |
           sudo rm -rf /swapfile /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
@@ -81,16 +91,6 @@ jobs:
           sudo apt-get autoremove -y >/dev/null 2>&1 || true
           sudo apt-get autoclean -y >/dev/null 2>&1 || true
           sudo rm -rf ${GITHUB_WORKSPACE}/.git
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
 #      - name: Dive
 #        run: |
 #          docker pull ${DIVE}
