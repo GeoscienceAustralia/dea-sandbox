@@ -1,7 +1,6 @@
 name: Bandit
 on:
     workflow_dispatch:
-    push:
     pull_request:
 
 jobs:
