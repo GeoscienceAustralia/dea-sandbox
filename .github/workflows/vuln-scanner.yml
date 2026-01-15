@@ -1,34 +1,24 @@
 name: Vulnerability Scan
 
 on:
-  push:
-  workflow_dispatch:
-  pull_request:
-
-permissions:
-  actions: read
-  security-events: write
-  id-token: write
-  contents: read
+  schedule:
+    - cron: 07 7 * * * 
 
 jobs:
   vuln-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v5.1.1
-        with:
-          role-to-assume: arn:aws:iam::538673716275:role/github-actions-role
-          aws-region: ap-southeast-2
-
       - name: Run vulnerability scanner
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.0.8
         continue-on-error: true
         with:
-          #TODO: Variable out below. Probably run this step after build and pass it in"
-          image-ref: '538673716275.dkr.ecr.ap-southeast-2.amazonaws.com/geoscienceaustralia/sandbox:latest'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          image-ref: "geoscienceaustralia/sandbox:latest"
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
