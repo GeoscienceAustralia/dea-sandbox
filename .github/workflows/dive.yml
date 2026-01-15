@@ -39,19 +39,10 @@ jobs:
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: true
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
-      - name: Build image and cache layers using buildx (deafaults not to push)
-        uses: docker/build-push-action@v6
-        with:
-          context: ./docker
-          file: docker/Dockerfile
-          tags: ${{ env.ORG }}/${{ env.IMAGE }}:_build
-          load: true  # makes the built image available to 'docker' for later steps
-          cache-from: type=gha,scope=${{ env.IMAGE }}
-          cache-to: type=gha,scope=${{ env.IMAGE }},mode=max
+      - name: Build image
+        run: |
+          docker build -t ${ORG}/${IMAGE}:_build ./docker/
 
       - name: Free disk space
         run: |
