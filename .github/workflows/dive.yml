@@ -40,9 +40,22 @@ jobs:
         with:
           tool-cache: true
 
-      - name: Build image
+      - name: Restore BuildKit cache (local dir)
+        uses: actions/cache@v4
+        with:
+          path: /tmp/buildkit-cache
+          key: buildkit-${{ runner.os }}-${{ hashFiles('docker/Dockerfile', 'docker/**') }}
+          restore-keys: |
+            buildkit-${{ runner.os }}-
+
+      - name: Build image and cache layers locally
+        env:
+          DOCKER_BUILDKIT: '1'
         run: |
-          docker build -t ${ORG}/${IMAGE}:_build ./docker/
+          docker build \
+            --cache-from type=local,src=/tmp/buildkit-cache \
+            --cache-to   type=local,dest=/tmp/buildkit-cache,mode=max \
+            -t "${ORG}/${IMAGE}:_build" ./docker
 
       - name: Free disk space
         run: |
