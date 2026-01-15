@@ -48,7 +48,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
-          format: 'table'
+          format: 'github'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
