@@ -8,6 +8,8 @@ on:
 permissions:
   actions: read
   security-events: write
+  id_token: write
+  contents: read
 
 jobs:
   vuln-scan:
