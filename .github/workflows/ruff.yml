@@ -2,6 +2,7 @@ name: ruff
 on:
   pull_request:
   workflow_dispatch:
+  push:
 
 jobs:
   ruff:
