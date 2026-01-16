@@ -1,6 +1,7 @@
 ---
 name: scan docker image
 
+if: github.event.pull_request.draft == false
 on:
   pull_request:
     branches:
