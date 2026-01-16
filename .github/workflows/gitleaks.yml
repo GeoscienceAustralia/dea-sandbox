@@ -2,6 +2,8 @@ name: gitleaks
 on:
   pull_request:
   workflow_dispatch:
+  push:
+
 jobs:
   scan:
     name: gitleaks
