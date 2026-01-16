@@ -1,0 +1,7 @@
+[allowlist]
+description = "Allow fake secrets used for testing"
+
+regexes = [
+  "8dyfuiRyq=vVc3RRr_edRk-fK__JItpZ",
+  "AKIAI234567890123456",
+]

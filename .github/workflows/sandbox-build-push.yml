@@ -2,7 +2,7 @@ name: Sandbox build and push latest
 
 on:
   workflow_run:
-    workflows: ["docker checker"]
+    workflows: ["scan docker image"]
     branches: [develop]
     types:
       - completed

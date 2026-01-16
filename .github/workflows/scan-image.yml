@@ -1,17 +1,16 @@
 ---
-name: docker checker
+name: scan docker image
 
 on:
   pull_request:
     branches:
       - develop
     paths:
-      - '.github/workflows/dive.yml'
+      - '.github/workflows/scan-image.yml'
       - 'docker/**'
-
   push:
     paths:
-      - '.github/workflows/dive.yml'
+      - '.github/workflows/scan-image.yml'
       - 'docker/**'
 
 env:
@@ -23,7 +22,7 @@ env:
 jobs:
   dive:
     runs-on: ubuntu-latest
-    name: Analyze image efficiency
+    name: Build and Scan image
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,6 +42,25 @@ jobs:
       - name: Build image
         run: |
           docker build -t ${ORG}/${IMAGE}:_build ./docker/
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        continue-on-error: true
+        with:
+          image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
+          format: 'sarif'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL'
+          scanners: 'vuln'
+          timeout: '15m0s'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'trivy-results.sarif'
 
       - name: Free disk space
         run: |
