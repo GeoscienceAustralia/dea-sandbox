@@ -1,4 +1,4 @@
-name: ruff
+name: python lint
 on:
   pull_request:
   workflow_dispatch:
@@ -13,3 +13,10 @@ jobs:
           python-version: "3.11"
       - run: pip install ruff
       - run: ruff check --output-format=github .
+
+    bandit:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Perform Bandit Analysis
+              uses: PyCQA/bandit-action@v1
+    

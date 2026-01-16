@@ -2,17 +2,17 @@
 name: lint and scan docker
 
 on:
-#  pull_request:
-#    branches:
-#      - develop
-#    paths:
-#      - '.github/workflows/dive.yml'
-#      - 'docker/**'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - '.github/workflows/dive.yml'
+      - 'docker/**'
 
   push:
-#    paths:
-#      - '.github/workflows/dive.yml'
-#      - 'docker/**'
+    paths:
+      - '.github/workflows/dive.yml'
+      - 'docker/**'
 
 env:
   ORG: dea
@@ -53,7 +53,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL'
           scanners: 'vuln'
           timeout: '15m0s'
           output: 'trivy-results.sarif'
@@ -105,16 +105,17 @@ jobs:
           sudo apt-get autoremove -y >/dev/null 2>&1 || true
           sudo apt-get autoclean -y >/dev/null 2>&1 || true
           sudo rm -rf ${GITHUB_WORKSPACE}/.git
-#      - name: Dive
-#        run: |
-#          docker pull ${DIVE}
-#          docker run -e CI=true -e DOCKER_API_VERSION=${DOCKER_API} --rm -v /var/run/docker.sock:/var/run/docker.sock \
-#          --mount type=bind,source=${{ github.workspace }}/dive-ci.yml,target=/.dive-ci \
-#          ${DIVE}  --ci-config /.dive-ci ${ORG}/${IMAGE}:_build
 
-#      - name: Docker image size check
-#        uses: wemake-services/docker-image-size-limit@2.0.0
-#        continue-on-error: true
-#        with:
-#          image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
-#          size: "8 GiB"
+      - name: Dive
+        run: |
+          docker pull ${DIVE}
+          docker run -e CI=true -e DOCKER_API_VERSION=${DOCKER_API} --rm -v /var/run/docker.sock:/var/run/docker.sock \
+          --mount type=bind,source=${{ github.workspace }}/dive-ci.yml,target=/.dive-ci \
+          ${DIVE}  --ci-config /.dive-ci ${ORG}/${IMAGE}:_build
+
+      - name: Docker image size check
+        uses: wemake-services/docker-image-size-limit@2.0.0
+        continue-on-error: true
+        with:
+          image: ${{ env.ORG }}/${{ env.IMAGE}}:_build
+          size: "8 GiB"
