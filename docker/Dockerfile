@@ -44,12 +44,32 @@ RUN echo "Enable jupyter lab extensions" \
   && jupyter labextension list \
   && echo "...done"
 
-RUN echo "Enable server extensions" \
-   && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
-   && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
-   && jupyter server extension list \
-   && jupyter lab build \
-   && echo "...done"
+# Enable server extensions and then clean up jupyter lab staging dir to reclaim
+# space in this layer. 
+# Ref: https://github.com/jupyterlab/jupyterlab/blob/main/docs/source/user/directories.md#staging-and-static
+SHELL ["/bin/bash", "-euo", "pipefail", "-lc"]
+RUN set -euo pipefail \
+    && echo "Enable server extensions" \
+    && jupyter server extension enable  --py jupyterlab_iframe --sys-prefix \
+    && jupyter server extension enable  --py jupyter_resource_usage --sys-prefix \
+    && jupyter server extension list \
+    # enable these flags to diagnose lab build issues --debug --minimize=false
+    && jupyter lab build \
+    && echo "...done" \
+    && APPDIR="$(jupyter lab path | awk -F': ' '/Application directory/ {print $2}' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')" \
+    && echo "JupyterLab APPDIR=${APPDIR}" \
+    && [ -n "${APPDIR}" ] || (echo "ERROR: APPDIR is empty"; exit 1) \
+    && mkdir -p "${APPDIR}" \
+    && BEFORE="$(du -sm "${APPDIR}" | awk '{print $1}')" \
+    && STAGING="${APPDIR}/staging" \
+    && if [ -d "${STAGING}" ]; then \
+        echo "Removing staging caches at ${STAGING}"; \
+        rm -rf "${STAGING:?}" || true; \
+      else \
+        echo "No staging dir at ${STAGING}; skipping staging cleanup"; \
+      fi \
+    && AFTER="$(du -sm "${APPDIR}" | awk '{print $1}')" \
+    && echo "Preserved production assets in ${APPDIR}. Size before: ${BEFORE} MB, after: ${AFTER} MB"
 
 # Install from unzip instead of conda as conda version is not the tool but an "invoker" 
 RUN echo "Install AWS CLI v2" \

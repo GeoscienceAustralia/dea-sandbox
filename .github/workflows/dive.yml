@@ -35,6 +35,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Free disk space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+
       - name: Build image
         run: |
           docker build -t ${ORG}/${IMAGE}:_build ./docker/
