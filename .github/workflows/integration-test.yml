@@ -28,6 +28,11 @@ jobs:
   integration-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Free disk space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+
       - name: git checkout dea-sandbox
         uses: actions/checkout@v3
         with:
