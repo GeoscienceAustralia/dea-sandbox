@@ -44,7 +44,6 @@ from pathlib import Path
 
 import yaml
 
-
 MODULE_DIR = "/g/data/v10/public/modules"
 
 LOG_NAME = "build_dea_module.log"
