@@ -6,11 +6,11 @@ on:
     branches:
       - develop
     paths:
-      - '.github/workflows/dive.yml'
+      - '.github/workflows/scan-image.yml'
       - 'docker/**'
   push:
     paths:
-      - '.github/workflows/dive.yml'
+      - '.github/workflows/scan-image.yml'
       - 'docker/**'
 
 env:
