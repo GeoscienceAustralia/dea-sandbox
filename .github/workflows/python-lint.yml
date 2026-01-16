@@ -14,9 +14,9 @@ jobs:
       - run: pip install ruff
       - run: ruff check --output-format=github .
 
-    bandit:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Perform Bandit Analysis
-              uses: PyCQA/bandit-action@v1
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Perform Bandit Analysis
+          uses: PyCQA/bandit-action@v1
     
