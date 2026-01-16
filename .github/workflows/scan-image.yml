@@ -23,7 +23,10 @@ env:
 jobs:
   dive:
     runs-on: ubuntu-latest
-    name: Analyze image efficiency
+    name: Build and Scan image
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -48,13 +51,19 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
-          format: 'github'
+          format: 'sarif'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           scanners: 'vuln'
           timeout: '15m0s'
+          output: 'trivy-results.sarif'
+      
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'trivy-results.sarif'
 
       - name: Free disk space
         run: |
