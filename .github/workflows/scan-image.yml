@@ -44,7 +44,7 @@ jobs:
           docker build -t ${ORG}/${IMAGE}:_build ./docker/
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@0.35.0
         continue-on-error: true
         with:
           image-ref: '${{ env.ORG }}/${{ env.IMAGE }}:_build'
