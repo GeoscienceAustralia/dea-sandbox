@@ -87,7 +87,6 @@ RUN echo "Install AWS CLI v2" \
 COPY assets/sync_repo assets/jupyterhub-singleuser /usr/local/bin/
 COPY assets/overrides.json /env/share/jupyter/lab/settings/
 
-RUN micromamba env export -p /env --explicit > conda-linux-64.lock
 RUN pip list --format=freeze > /tmp/requirements.txt
 
 WORKDIR "/home/$nb_user"
