@@ -11,7 +11,7 @@ jupyterlab-logout
 jupyterlab-theme-toggler
 
 # ODC/DEA: these are installed in builder stage
-eo-tides>=0.8.3
+eo-tides>=0.8.2
 
 # Dale's s2cloudmask
 #  https://github.com/daleroberts/s2cloudmask
@@ -22,9 +22,8 @@ opencv-contrib-python-headless
 datacube-ows>=1.9
 datacube[performance,s3]>=1.9.5
 eodatasets3>1.9
-geomad>=1.0.0
 numexpr>=2.11
-odc-algo>=1.1.1
+odc-algo>=1.0.1
 odc-apps-cloud>=0.2.2
 odc-apps-dc-tools>=0.2.12
 odc-dscache>=1.9
@@ -34,11 +33,14 @@ odc-stac>=0.4.0
 odc-cloud[ASYNC]>=0.2.5
 odc-stats[ows]>=1.9
 odc-ui
-dea-tools>=0.4.3
+dea-tools>=0.4.2
 
 --extra-index-url="https://packages.dea.ga.gov.au"
 thredds-crawler
 hdstats==0.1.8.post1
+
+# Temporarily required to prevent hdstats upgrading numpy and overruling env.yaml
+numpy<2.0
 
 # fractional_cover>=1.3.10
 # --find-links="https://packages.dea.ga.gov.au/fc"
