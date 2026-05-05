@@ -23,8 +23,8 @@ datacube-ows>=1.9
 datacube[performance,s3]>=1.9.5
 eodatasets3>1.9
 numexpr>=2.11
-odc-algo>=1.0.1
-odc-apps-cloud>=0.2.2
+odc-algo>=1.1.1
+odc-apps-cloud>=0.2
 odc-apps-dc-tools>=0.2.12
 odc-dscache>=1.9
 odc-geo>=0.5.0rc1
