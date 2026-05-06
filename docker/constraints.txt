@@ -199,7 +199,7 @@ jupyter-events==0.12.0
 jupyter-highlight-selected-word==0.2.0
 jupyter-leaflet==0.20.0
 jupyter-lsp==2.3.0
-jupyter_nbextensions_configurator 0.6.4
+jupyter_nbextensions_configurator==0.6.4
 jupyter-resource-usage==1.2.0
 jupyter_server==2.17.0
 jupyter_server_mathjax==0.2.6
