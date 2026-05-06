@@ -20,7 +20,7 @@ s2cloudmask
 opencv-python-headless
 opencv-contrib-python-headless
 datacube-ows>=1.9
-datacube[performance,s3]>=1.9.10
+datacube[performance,s3]>=1.9.5
 eodatasets3>1.9
 geomad>=1.0.0
 numexpr>=2.11
