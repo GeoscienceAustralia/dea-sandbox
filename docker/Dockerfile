@@ -1,7 +1,7 @@
 FROM mambaorg/micromamba:git-df79b72-jammy AS sandbox-conda
 
 USER root
-COPY conda-linux-64.lock /conf/
+COPY locks/conda-linux-64.lock /conf/
 RUN micromamba create  -y -p /env -f /conf/conda-linux-64.lock && \
     micromamba clean --all --yes && \
     micromamba env export -p /env --explicit > /conf/conda-linux-64.lock.out
@@ -9,7 +9,7 @@ RUN micromamba create  -y -p /env -f /conf/conda-linux-64.lock && \
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ARG UPDATE_VERSION=1
 COPY requirements.txt /conf/
-COPY constraints.txt /conf/
+COPY locks/constraints.txt /conf/
 # required to build hdmedians
 # or any --no-binary
 ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
