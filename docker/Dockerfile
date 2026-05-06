@@ -1,21 +1,22 @@
 FROM mambaorg/micromamba:git-df79b72-jammy AS sandbox-conda
 
 USER root
-COPY env.yaml /conf/
-RUN micromamba create  -y -p /env -f /conf/env.yaml && \
+COPY locks/conda-linux-64.lock /conf/
+RUN micromamba create  -y -p /env -f /conf/conda-linux-64.lock && \
     micromamba clean --all --yes && \
-    micromamba env export -p /env --explicit
+    micromamba env export -p /env --explicit > /conf/conda-linux-64.lock.out
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ARG UPDATE_VERSION=1
 COPY requirements.txt /conf/
+COPY locks/pip-constraints.txt /conf/
 # required to build hdmedians
 # or any --no-binary
 ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
     CXX=/env/bin/x86_64-conda_cos6-linux-gnu-g++ \
     LDSHARED="/env/bin/x86_64-conda_cos6-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
 RUN micromamba run -p /env pip install --no-cache-dir \
-    --no-build-isolation -r /conf/requirements.txt
+    --no-build-isolation -r /conf/requirements.txt -c /conf/pip-constraints.txt
 
 FROM ubuntu:jammy-20240212
 
@@ -26,6 +27,8 @@ ARG nb_gid=100
 RUN useradd -l -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 
 COPY --chown=$nb_uid:$nb_gid --from=sandbox-conda /env /env
+# copies the generated conda lock from the build stage for use in github actions workflows post sandbox runtime stage
+COPY --from=sandbox-conda /conf/conda-linux-64.lock.out /tmp/conf/conda-linux-64.lock
 
 ENV LC_ALL=C.UTF-8 \
     SHELL=bash \
