@@ -16,7 +16,7 @@ ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
     CXX=/env/bin/x86_64-conda_cos6-linux-gnu-g++ \
     LDSHARED="/env/bin/x86_64-conda_cos6-linux-gnu-gcc -pthread -shared -B /env/compiler_compat -L/env/lib -Wl,-rpath=/env/lib -Wl,--no-as-needed"
 RUN micromamba run -p /env pip install --no-cache-dir \
-    --no-build-isolation -r /conf/requirements.txt -c /conf/constraints.txt
+    --no-build-isolation -r /conf/requirements.txt -c /conf/pip-constraints.txt
 
 FROM ubuntu:jammy-20240212
 
