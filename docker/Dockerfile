@@ -28,6 +28,7 @@ ARG nb_gid=100
 # Each line is <package>=<version>. Comments and blank lines are ignored.
 # To add a new CVE mitigation: edit docker/apt-security.txt and rebuild.
 COPY apt-security.txt /conf/apt-security.txt
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update \
     && grep -v '^\s*#' /conf/apt-security.txt | grep -v '^\s*$' | \
        xargs apt-get install -y --no-install-recommends \
