@@ -83,7 +83,7 @@ datacube==1.9.10
 datacube_ows==1.9.5
 datadog==0.52.1
 datashader==0.18.2
-dea-tools==0.4.7
+dea-tools==0.4.9
 debugpy==1.8.17
 decorator==5.2.1
 deepdiff==8.6.1
@@ -390,7 +390,7 @@ PyYAML==6.0.2
 pyzmq==27.1.0
 quantecon==0.10.1
 RapidFuzz==3.14.1
-rasterio==1.4.3
+rasterio==1.4.9
 rasterstats==0.20.0
 referencing==0.36.2
 regex==2025.9.18
