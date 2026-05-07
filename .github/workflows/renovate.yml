@@ -30,6 +30,9 @@ jobs:
         uses: renovatebot/github-action@v46.1.13
         env:
           LOG_LEVEL: info
+          # Required when using GITHUB_TOKEN — tells Renovate which repo to scan
+          # (GITHUB_TOKEN cannot autodiscover repos unlike a PAT).
+          RENOVATE_REPOSITORIES: GeoscienceAustralia/dea-sandbox
           # Dry-run mode: if triggered manually with dry_run=true, log only.
           # full = discover and log all updates but do not write anything to GitHub.
           RENOVATE_DRY_RUN: ${{ inputs.dry_run == true && 'full' || '' }}
