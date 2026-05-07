@@ -17,6 +17,12 @@
   "prHourlyLimit": 0,
   "rebaseWhen": "conflicted",
 
+  "ignoreDeps": ["fractional_cover", "python"],
+
+  "vulnerabilityAlerts": {
+    "enabled": false
+  },
+
   "packageRules": [
     {
       "description": "Group all conda/pip dependency updates into a single PR to reduce noise",
