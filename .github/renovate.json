@@ -43,12 +43,6 @@
       "groupSlug": "docker-base"
     },
     {
-      "description": "Allow only minor/patch auto-merge for GitHub Actions — major requires review",
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": false
-    },
-    {
       "description": "Exclude auto-generated lock files from direct Renovate management",
       "matchFileNames": [
         "docker/locks/pip-constraints.txt",
