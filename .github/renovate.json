@@ -99,9 +99,5 @@
     "docker/locks/**",
     "integration-testing/**",
     "nci_environment/**"
-  ],
-
-  "vulnerabilityAlerts": {
-    "enabled": false
-  }
+  ]
 }
