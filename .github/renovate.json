@@ -96,7 +96,6 @@
   ],
 
   "vulnerabilityAlerts": {
-    "enabled": true,
-    "labels": ["security", "dependencies"]
+    "enabled": false
   }
 }
