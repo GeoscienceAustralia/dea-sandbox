@@ -69,14 +69,14 @@
       "datasourceTemplate": "pypi"
     },
     {
-      "description": "conda env.yaml — scans conda-forge packages",
+      "description": "conda env.yaml — scans conda-forge packages via Anaconda API",
       "customType": "regex",
       "managerFilePatterns": ["/^docker/env\\.yaml$/"],
       "matchStrings": [
         "- (?<depName>[a-zA-Z0-9_.-]+)(?:(?:=|>=|<=|~=)(?<currentValue>[^\\s#\\n]+))?"
       ],
       "datasourceTemplate": "conda",
-      "registryUrlTemplate": "https://conda.anaconda.org/conda-forge"
+      "packageNameTemplate": "conda-forge/{{depName}}"
     }
   ],
 
