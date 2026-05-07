@@ -18,11 +18,21 @@ ENV CC=/env/bin/x86_64-conda_cos6-linux-gnu-gcc \
 RUN micromamba run -p /env pip install --no-cache-dir \
     --no-build-isolation -r /conf/requirements.txt -c /conf/pip-constraints.txt
 
-FROM ubuntu:jammy-20240212
+FROM ubuntu:jammy-20250415
 
 ARG nb_user=jovyan
 ARG nb_uid=1000
 ARG nb_gid=100
+
+# Apply OS-level security patches declared in apt-security.txt.
+# Each line is <package>=<version>. Comments and blank lines are ignored.
+# To add a new CVE mitigation: edit docker/apt-security.txt and rebuild.
+COPY apt-security.txt /conf/apt-security.txt
+RUN apt-get update \
+    && grep -v '^\s*#' /conf/apt-security.txt | grep -v '^\s*$' | \
+       xargs apt-get install -y --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -l -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 

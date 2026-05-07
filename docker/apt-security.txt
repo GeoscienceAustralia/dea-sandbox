@@ -1,0 +1,16 @@
+# OS-level security patches applied at image build time.
+# Format: <package>=<version>  (exact apt version string)
+# To find the available version: apt-cache policy <package>
+#
+# When a new CVE mitigation is needed:
+#   1. Add or update the package=version line below
+#   2. Rebuild the image via the normal build and release workflow
+#   3. Document the CVE in the comment above the line
+#
+# When a CVE is resolved in a newer base image (ubuntu:jammy-*), the line
+# can be removed here once the base image tag is bumped past the fix.
+
+# CVE-2026-31431 (Copy Fail) — local privilege escalation via algif_aead kernel module.
+# Fixed in kmod >= 29-1ubuntu1.1. Host kernel must also be patched separately.
+# Ref: https://ubuntu.com/blog/copy-fail-vulnerability-fixes-available
+kmod=29-1ubuntu1.1
