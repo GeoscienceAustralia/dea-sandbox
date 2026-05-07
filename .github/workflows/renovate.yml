@@ -1,0 +1,42 @@
+name: Renovate
+
+on:
+  schedule:
+    # 08:00 AEST Monday (22:00 UTC Sunday) — weekly
+    - cron: '0 22 * * 0'
+
+  # Allow manual trigger for testing or an immediate run
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (log updates but do not open PRs)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Renovate
+        uses: renovatebot/github-action@v46.1.13
+        env:
+          LOG_LEVEL: info
+        with:
+          # Path to the Renovate config relative to repo root
+          configurationFile: .github/renovate.json
+          # Uses the built-in GITHUB_TOKEN — no PAT or external credentials needed.
+          # Note: PRs opened by Renovate will not automatically trigger other workflows
+          # To trigger CI, close and reopen the PR, or push an empty commit to its branch.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Dry-run mode: if triggered manually with dry_run=true, log only
+          renovate-flags: >-
+            ${{ inputs.dry_run == 'true' && '--dry-run=full' || '' }}
