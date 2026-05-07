@@ -30,13 +30,12 @@ jobs:
         uses: renovatebot/github-action@v46.1.13
         env:
           LOG_LEVEL: info
+          # Dry-run mode: if triggered manually with dry_run=true, log only.
+          # full = discover and log all updates but do not write anything to GitHub.
+          RENOVATE_DRY_RUN: ${{ inputs.dry_run == true && 'full' || '' }}
         with:
-          # Path to the Renovate config relative to repo root
           configurationFile: .github/renovate.json
           # Uses the built-in GITHUB_TOKEN — no PAT or external credentials needed.
-          # Note: PRs opened by Renovate will not automatically trigger other workflows
+          # Note: PRs opened by Renovate will not automatically trigger other workflows.
           # To trigger CI, close and reopen the PR, or push an empty commit to its branch.
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Dry-run mode: if triggered manually with dry_run=true, log only
-          renovate-flags: >-
-            ${{ inputs.dry_run == 'true' && '--dry-run=full' || '' }}
