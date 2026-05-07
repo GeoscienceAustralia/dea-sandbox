@@ -9,7 +9,7 @@
     "group:recommended"
   ],
 
-  "schedule": ["0 22 * * 0"],
+  "schedule": ["* 22 * * 0"],
   "timezone": "Australia/Sydney",
   "assignees": [],
   "reviewers": [],
