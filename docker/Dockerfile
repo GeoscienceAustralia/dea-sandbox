@@ -24,6 +24,16 @@ ARG nb_user=jovyan
 ARG nb_uid=1000
 ARG nb_gid=100
 
+# Apply OS-level security patches declared in apt-security.txt.
+# Each line is <package>=<version>. Comments and blank lines are ignored.
+# To add a new CVE mitigation: edit docker/apt-security.txt and rebuild.
+COPY apt-security.txt /conf/apt-security.txt
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN packages=$(grep -v '^\s*#' /conf/apt-security.txt | grep -v '^\s*$' | tr '\n' ' ') \
+    && apt-get update && apt-get install -y --no-install-recommends $packages \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN useradd -l -m -s /bin/bash -N -g $nb_gid -u $nb_uid $nb_user
 
 COPY --chown=$nb_uid:$nb_gid --from=sandbox-conda /env /env
