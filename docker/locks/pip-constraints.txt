@@ -114,7 +114,7 @@ flask-babel==4.0.0
 flatbuffers==25.2.10
 flox==0.10.4
 folium==0.20.0
-fonttools==4.60.0
+fonttools==4.60.2
 fqdn==1.5.1
 frozenlist==1.7.0
 fsspec==2025.9.0
