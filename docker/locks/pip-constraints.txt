@@ -4,7 +4,7 @@ affine==2.4.0
 ai-edge-litert==2.0.3
 aiobotocore==2.24.2
 aiohappyeyeballs==2.6.1
-aiohttp==3.12.15
+aiohttp==3.13.4
 aioitertools==0.12.0
 aiosignal==1.4.0
 alabaster==1.0.0
@@ -114,7 +114,7 @@ flask-babel==4.0.0
 flatbuffers==25.2.10
 flox==0.10.4
 folium==0.20.0
-fonttools==4.60.0
+fonttools==4.60.2
 fqdn==1.5.1
 frozenlist==1.7.0
 fsspec==2025.9.0
@@ -224,7 +224,7 @@ jupyterlab_theme_toggler==1.1.0
 jupyterlab_topbar_text==1.1.0
 jupyterlab_widgets==3.0.15
 jupytext==1.17.3
-keras==3.11.2
+keras==3.11.3
 keyring==25.6.0
 kiwisolver==1.4.9
 lark==1.2.2
@@ -359,7 +359,7 @@ pyerfa==2.0.1.5
 Pygments==2.19.2
 PyJWT==2.10.1
 pyogrio==0.10.0
-pyOpenSSL==25.1.0
+pyOpenSSL==26.0.0
 pyows==0.3.1
 pyparsing==2.4.7
 pyproj==3.7.1
