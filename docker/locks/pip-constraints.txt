@@ -121,7 +121,7 @@ fsspec==2025.9.0
 future==1.0.0
 gast==0.6.0
 gcsfs==2025.9.0
-GDAL==3.10.0
+GDAL==3.13.0
 GeoAlchemy2==0.18.0
 geographiclib==2.1
 geohash2==1.1
