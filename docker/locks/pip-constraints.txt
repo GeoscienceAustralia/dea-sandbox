@@ -475,7 +475,7 @@ toml==0.10.2
 tomli==2.2.1
 tomlkit==0.13.3
 toolz==1.0.0
-tornado==6.5.2
+tornado==6.5.7
 tornado_proxy_handlers==0.0.6
 tqdm==4.67.1
 traitlets==5.14.3
