@@ -212,7 +212,7 @@ jupyterlab==4.4.7
 jupyterlab_code_formatter==2.2.1
 jupyterlab-code-snippets==2.2.1
 jupyterlab_geojson==3.4.0
-jupyterlab_git==0.51.2
+jupyterlab_git==0.54.0a1
 jupyterlab_github==4.0.0
 jupyterlab_iframe==0.5.0
 jupyterlab-language-pack-fr-FR==4.4.post1
