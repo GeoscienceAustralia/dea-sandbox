@@ -321,7 +321,7 @@ pexpect==4.9.0
 pickleshare==0.7.5
 pillow==11.3.0
 PIMS==0.7
-pip==25.2
+pip==26.1.2
 pkginfo==1.12.1.2
 planetary-computer==1.0.0
 platformdirs==4.4.0
