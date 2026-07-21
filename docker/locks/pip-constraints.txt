@@ -319,7 +319,7 @@ patsy==1.0.1
 pbs-installer==2025.9.18
 pexpect==4.9.0
 pickleshare==0.7.5
-pillow==11.3.0
+pillow==12.3.0
 PIMS==0.7
 pip==25.2
 pkginfo==1.12.1.2
