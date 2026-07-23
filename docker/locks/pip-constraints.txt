@@ -208,7 +208,7 @@ jupyter_server_terminals==0.5.3
 jupyter-telemetry==0.1.0
 jupyter-ui-poll==1.0.0
 jupyterhub==4.1.5
-jupyterlab==4.4.7
+jupyterlab==4.5.10
 jupyterlab_code_formatter==2.2.1
 jupyterlab-code-snippets==2.2.1
 jupyterlab_geojson==3.4.0
