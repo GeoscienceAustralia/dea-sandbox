@@ -357,7 +357,7 @@ pydash==8.0.5
 pydotplus==2.0.2
 pyerfa==2.0.1.5
 Pygments==2.19.2
-PyJWT==2.10.1
+PyJWT==2.13.0
 pyogrio==0.10.0
 pyOpenSSL==26.0.0
 pyows==0.3.1
