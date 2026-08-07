@@ -146,7 +146,7 @@ googleapis-common-protos==1.70.0
 greenlet==3.2.4
 grpcio==1.67.1
 h11==0.16.0
-h2==4.3.0
+h2==4.4.1
 h3==4.3.0
 h5py==3.13.0
 hdstats==0.1.8.post1
