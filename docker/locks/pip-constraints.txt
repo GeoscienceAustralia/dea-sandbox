@@ -224,7 +224,7 @@ jupyterlab_theme_toggler==1.1.0
 jupyterlab_topbar_text==1.1.0
 jupyterlab_widgets==3.0.15
 jupytext==1.17.3
-keras==3.11.3
+keras==3.15.0
 keyring==25.6.0
 kiwisolver==1.4.9
 lark==1.2.2
