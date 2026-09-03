@@ -32,13 +32,13 @@ odc-geo>=0.5.0rc1
 odc-stac>=0.4.0
 
 odc-cloud[ASYNC]>=0.2.5
-odc-stats[ows]>=1.9
+odc-stats[ows]>=1.9.13
 odc-ui
 dea-tools>=0.4.10
 
 --extra-index-url="https://packages.dea.ga.gov.au"
 thredds-crawler
-hdstats==0.1.8.post1
+hdstats==0.2.1
 
 # fractional_cover>=1.3.10
 # --find-links="https://packages.dea.ga.gov.au/fc"
