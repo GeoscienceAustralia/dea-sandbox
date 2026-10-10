@@ -2,7 +2,9 @@ FROM mambaorg/micromamba:git-df79b72-jammy AS sandbox-conda
 
 USER root
 COPY locks/conda-linux-64.lock /conf/
+COPY env.yaml /conf/
 RUN micromamba create  -y -p /env -f /conf/conda-linux-64.lock && \
+    micromamba install -y -p /env -f /conf/env.yaml --no-deps && \
     micromamba clean --all --yes && \
     micromamba env export -p /env --explicit > /conf/conda-linux-64.lock.out
 
