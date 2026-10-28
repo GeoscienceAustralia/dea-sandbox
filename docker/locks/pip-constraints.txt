@@ -45,7 +45,7 @@ cached-property==1.5.2
 cachetools==5.5.2
 Cartopy==0.25.0
 cattrs==25.2.0
-certifi==2025.8.3
+certifi==2026.10.19
 certipy==0.2.2
 cffi==1.17.1
 cftime==1.6.4
@@ -320,7 +320,7 @@ pexpect==4.9.0
 pickleshare==0.7.5
 pillow==11.3.0
 PIMS==0.7
-pip==25.2
+pip==26.2.2
 pkginfo==1.12.1.2
 planetary-computer==1.0.0
 platformdirs==4.4.0
