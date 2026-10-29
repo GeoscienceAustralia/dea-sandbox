@@ -14,3 +14,10 @@
 # Fixed in kmod >= 29-1ubuntu1.1. Host kernel must also be patched separately.
 # Ref: https://ubuntu.com/blog/copy-fail-vulnerability-fixes-available
 kmod=29-1ubuntu1.1
+
+# eMudhra/emSign CA compromise — compromised eMudhra intermediate/root CAs (weak EC private keys).
+# Removes the emSign roots from the OS trust store (/etc/ssl/certs), which Go tools such as s5cmd also use.
+# Fixed in ca-certificates >= 20260816ubuntu0.22.04.1 (jammy).
+# Ref: https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available
+ca-certificates=20260816ubuntu0.22.04.1
+

@@ -45,7 +45,7 @@ cached-property==1.5.2
 cachetools==5.5.2
 Cartopy==0.25.0
 cattrs==25.2.0
-certifi==2025.8.3
+certifi==2026.10.19
 certipy==0.2.2
 cffi==1.17.1
 cftime==1.6.4
@@ -53,7 +53,7 @@ charset-normalizer==3.4.3
 checksumdir==1.2.0
 ciso8601==2.3.3
 cleo==2.1.0
-click==8.2.1
+click>=8.1,<8.2
 click-plugins==1.1.1.2
 cligj==0.7.2
 cloudpickle==3.1.1
@@ -320,7 +320,7 @@ pexpect==4.9.0
 pickleshare==0.7.5
 pillow==11.3.0
 PIMS==0.7
-pip==25.2
+pip==26.2.2
 pkginfo==1.12.1.2
 planetary-computer==1.0.0
 platformdirs==4.4.0
@@ -389,7 +389,7 @@ PyYAML==6.0.2
 pyzmq==27.1.0
 quantecon==0.10.1
 RapidFuzz==3.14.1
-rasterio==1.4.3
+rasterio==1.5.0
 rasterstats==0.20.0
 referencing==0.36.2
 regex==2025.9.18
